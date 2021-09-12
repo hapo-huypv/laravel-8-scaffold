@@ -1,0 +1,140 @@
+.feedback {
+  margin-bottom: 8vw;
+
+  .feedback-intro {
+    width: 705px;
+    font-family: $font_UTM_BryantLG;
+    color: $color-dark;
+    font-size: 25px;
+    line-height: 31px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .slick-slider {
+    overflow: visible;
+  }
+
+  .slide-arrow {
+    position: absolute;
+    top: 45%;
+    margin-top: -15px;
+    cursor: pointer;
+    color: $color-gray-arrow;
+  }
+  
+  .next-arrow {
+    z-index: 2;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: $color-white;
+    border: 0.5px solid $color-circle-gray;
+    box-sizing: border-box;
+    border-radius: 50%;
+  }
+  
+  .prev-arrow {
+    z-index: 2;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    background: $color-white;
+    border: 0.5px solid $color-circle-gray;
+    box-sizing: border-box;
+    border-radius: 50%;
+  }
+  
+  .feedback-border-text {
+    border: 0.5px solid $color-border-text;
+    box-sizing: border-box;
+    border-radius: 10px;
+    width: 100%;
+  }
+
+  .feedback-border-text:before,
+  .feedback-border-text:after {
+    z-index: 1;
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    bottom: 76px;
+    left: 50px;
+    border: 1px solid $color-border-text;
+    background-color: $color-white;
+    transform: rotate( 45deg);
+    border-top: transparent;
+    border-left: transparent;
+  }
+
+  .feedback-border-text:after {
+    z-index: -1;
+    bottom: 75px;
+    left: 50px;
+
+  }
+
+  .feedback-text {
+    text-align: start;
+    font-family: $font_UTM_BryantLG;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -0.05em;
+    color: $color-text-feedback;
+    border-left: 5px solid $color-border-gray;
+    margin: 20px;
+    padding: 20px;
+    padding-right: 0px;
+  }
+
+  .user-info {
+    margin-left: 20px;
+    margin-top: 25px;
+
+    .user-name {
+      font-size: 20px;
+      line-height: 25px;
+      color: $color-black;
+    }
+
+    .user-role {
+      font-size: 16px;
+      line-height: 20px;
+      color: $color-dark;
+    }
+
+    img {
+      width: 60px;
+    }
+
+    .user-rating {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 16px;
+      color: $color-yellow-ratingstar;
+    }
+  }
+}
+ 
+@media screen and (max-width: 1140px) and (min-width: 575px) {
+  .feedback {
+    .feedback-intro {
+      width: 100%;
+      font-size: 18px;
+      line-height: 22px;
+    }
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .feedback {
+    .feedback-intro {
+      font-size: 16px;
+      line-height: 20px;
+      width: 100%;
+    }
+  }  
+}
