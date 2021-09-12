@@ -30,3 +30,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+import 'jquery/dist/jquery.min.js';
+
+import 'slick-carousel/slick/slick.js';
+
+require('./index.js');
