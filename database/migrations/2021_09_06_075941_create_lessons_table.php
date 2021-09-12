@@ -21,7 +21,7 @@ class CreateLessonsTable extends Migration
             $table->string('description', 255)->nullable();
             $table->string('requirement', 255)->nullable();
             $table->string('video', 255)->nullable();
-            $table->softDelete();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

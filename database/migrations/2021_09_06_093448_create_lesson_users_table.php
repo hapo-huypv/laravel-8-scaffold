@@ -17,7 +17,7 @@ class CreateLessonUsersTable extends Migration
             $table->increments('id');
             $table->integer('lesson_id')->nullable();
             $table->integer('user_id')->nullable();
-            $table->softDelete();
+            $table->softDeletes();
             $table->timestamps();
             $table->integer('status')->nullable();
         });
