@@ -1,0 +1,198 @@
+.modal.show .modal-dialog {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.modal-header {
+  .btn-logreg {
+    color: $color-lightgreen;   
+    background-color: $color-white;
+    font-family: $font_UTM_BryantLG;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 31px;
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+
+  .nav-pills .nav-link.active {
+    color: $color-white;
+    background-color: $color-lightgreen;
+}
+
+  .close {
+    height: 42px;
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 42px;
+    border: 1px solid $color-lightgreen;
+    border-radius: 50%;
+    background-color: $color-lightgreen;
+    opacity: 1;
+
+    .fa-times:before {
+      left: 12px;
+      content: "\f00d";
+      position: absolute;
+      color: white;
+      top: 8px;
+    }
+  }
+
+  .close:not(:disabled):hover  {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  width: 430px;
+  font-family: $font_UTM_BryantLG;
+}
+
+.social-login {
+  margin: 0 auto;
+  margin-bottom: 14px;
+}
+
+.social-btn {
+  font-weight: 100;
+  color: $color-white;
+  width: 100%;
+  height: 55px;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.login-text {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 25px;
+  letter-spacing: -0.02em;
+  color: $color-dark;
+  margin-top: 30px;
+}
+
+.form-control-label {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -0.02em;
+  color: $color-dark;
+  cursor: pointer;
+}
+
+.custom-checkbox
+ .custom-control-input:checked~
+  .custom-control-label::before {
+    background-color: $color-lightgreen;
+  }
+
+.form-text-forgotpass {
+  color: $color-lightgreen;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -0.02em;
+  text-decoration-line: underline;
+  text-align: end;
+}
+
+.form-text-forgotpass:hover {
+  color: $color-lightgreen;
+}
+
+.modal-body {
+  .form-login-and-register {
+    width: 100%;
+    max-width: 410px;
+    padding: 15px;
+  }
+
+  .form-control {
+    height: 60px;
+    padding: 10px;
+    font-size: 16px;
+    background: $color-gray-background;
+    border: 1px solid $color-border-input;
+  }
+
+  .form-control:focus { 
+    z-index: 2; 
+  }
+}
+
+.custom-btn-login {
+  width: 200px;
+  background: $color-lightgreen;
+  box-shadow: inset 0px 1.5px 2px $color-btn-boxshadow-green;
+  border-radius: 22px;
+  margin-top: 45px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.custom-btn-login:hover {
+  background-color: $color-lightgreen;
+}
+
+.title-social-login {
+  position: relative;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 25px;
+  letter-spacing: -0.02em;
+  color: $color-dark;
+  background-color: $color-white;
+  z-index: 1;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.title-social-login:before {
+  content: "";
+  position: absolute;
+  width: calc(100% + 60px);
+  top: 15px;
+  z-index: -2;
+  border-top: 1px solid $color-gray-line;
+}
+
+.title-social-login::after {
+  content: "";
+  position: absolute;
+  width: 96px;
+  height: 20px;
+  top: 0px;
+  z-index: -1;
+  background-color: $color-white;
+}
+
+.fa-google-plus-g:before {
+  content: "\f0d5";
+  font-size: 25px;
+}
+
+.fa-facebook-f:before {
+  content: "\f39e";
+  font-size: 25px;
+}
+
+.facebook-btn { 
+  background-color: $color-blue-facebook; 
+}
+
+.google-btn { 
+  background-color: $color-red-google; 
+}
+
+@media screen and (max-width:500px){  
+  .modal-content {
+    width: 80%;
+  }
+}
