@@ -1,0 +1,162 @@
+ .header {
+  border-bottom: 5px solid $color-gray;
+  background-color: $color-white;
+
+  .navbar {
+    height: 100px;
+    padding: 0px;
+
+    .custom-header {
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+  }
+
+  .navbar-light {
+    .navbar-nav {
+      .nav-link {
+        color: $color-dark;
+      }
+    }
+  }
+ 
+  .nav-item {
+    margin-left: 2vw;
+  }
+ 
+  .nav-link {
+    border: none;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19.07px;
+    border-radius: 17px;
+    padding: 8px 15px !important;
+  }
+
+  .nav-link:hover {
+    background-color: $color-lightgreen;
+    color: $color-lightwhite !important;
+  }
+
+  .nav-link-active {
+    background-color: $color-lightgreen;
+    color: $color-lightwhite !important;
+  }
+
+  .navbar-toggler {
+    border: none;
+  }
+
+  .navbar-toggler-icon {
+    cursor: pointer;
+    outline: none;
+    border: none;
+  }
+
+  .navbar-close {
+    border: 10px solid transparent;
+    background-color: white;
+    background-image: url(../assets/img/x-lg.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+@media (max-width: 1140px) and (min-width: 768px) {
+  .header {
+    .navbar
+      .custom-header {
+        flex-direction: column ;
+      }
+
+    .navbar-branch {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .navbar-branch img {
+      width: 300px;
+      height: 61.74px;
+    }
+  }
+}
+
+@media (max-width: 768px) and (min-width: 575px) {
+  .header {
+    .custom-header {
+      justify-content: center;
+    }
+
+    .navbar-nav .nav-link {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .header {
+    border: none;
+    
+    .navbar {
+      height: 62px;
+
+      .custom-header {
+        margin-left: 21px ;
+        margin-right: 39px;
+        justify-content: flex-start;
+      }
+    }
+
+    .nav-link {
+      margin-top: 20px;
+    }
+
+    .nav-link:hover {
+      background-color: $color-white;
+      color: $color-lightgreen !important;
+    }
+
+    .nav-link:focus {
+      background-color: $color-white;
+      color: $color-lightgreen !important;
+    }
+
+    .nav-link-active {
+      background-color: $color-white;
+      color: $color-lightgreen !important;
+    }
+
+    .navbar-toggler {
+      border: none;
+      padding: 0px;
+    }
+
+    .navbar-toggler-icon {
+      width: 18px;
+      height: 24px;
+    }
+
+    .navbar-branch {
+      padding: 0px;
+      justify-content: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .navbar-branch img {
+      width: 150px;
+      height: 26.75px;
+    }
+  }
+
+  .header-mobile {
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1000%;
+  }
+}
