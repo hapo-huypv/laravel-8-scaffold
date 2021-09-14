@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'HapoLearn') }}</title>
+    <title> @yield('title')</title>
     <link rel="shortcut icon" href="./assets/img/hapo_logo.png" type="image/png" />
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -13,11 +13,15 @@
 <body>
     <div id="app">
         <!-- Header -->
-        @include('layouts.header')
+        @include('partials/header')
         <!-- Content -->
         @yield('content')
         <!-- Footer -->
-        @include('layouts.footer')
+        @include('partials/footer')
+        <!-- Login-Register -->
+        @include('components/authentication')
+        <!-- messenger -->
+        @include('partials/messenger')
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

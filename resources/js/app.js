@@ -32,7 +32,5 @@ const app = new Vue({
 });
 
 import 'jquery/dist/jquery.min.js';
-
 import 'slick-carousel/slick/slick.js';
-
 require('./index.js');
