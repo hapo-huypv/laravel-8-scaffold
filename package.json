@@ -23,10 +23,5 @@
         "vue": "^2.6.12",
         "vue-loader": "^15.9.8",
         "vue-template-compiler": "^2.6.12"
-    },
-    "dependencies": {
-        "@fortawesome/fontawesome-free": "^5.15.4",
-        "font-awesome": "^4.7.0",
-        "slick-carousel": "^1.8.1"
     }
 }
