@@ -1,0 +1,51 @@
+.statistic {
+  font-family: $font_UTM_BryantLG;
+  height: auto;
+  margin-bottom: 5%;
+
+  &-parameter-title {
+    font-weight: bold;
+    font-size: 60px;
+    line-height: 74px;
+    letter-spacing: -0.05em;
+    color: $color-dark;
+    margin-top: 30px;
+  }
+
+  &-parameter-number {
+    font-weight: bold;
+    font-size: 60px;
+    line-height: 74px;
+    letter-spacing: -0.05em;
+    color: $color-lightgreen;
+  }
+}
+
+@media (min-width: 1200px) {
+  .statistic {
+      max-width: 1920px;
+  }
+}
+
+@media screen and (max-width: 1140px) {
+  .statistic {
+    &-parameter-title {
+      font-size: 40px;
+      line-height: 49px;
+    }
+
+    &-parameter-number {
+      font-size: 40px;
+      line-height: 49px;
+    }
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .statistic {
+    &-parameter {
+      flex-direction: column !important;
+      align-items: center;
+    }
+  }
+}
