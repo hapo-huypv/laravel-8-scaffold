@@ -1,0 +1,70 @@
+.banner-encourage {
+  width: 100%;
+  height: 500px;
+  background-image: url(../assets/img/become_a_member.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: $font_UTM_BryantLG;
+  
+  &-text {
+    font-weight: bold;
+    font-size: 60px;
+    line-height: 74px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: $color-white;
+    -webkit-text-stroke-color: 1px solid $color-white;
+    width: 705px;
+  }
+
+  .btn-primary {
+    background-color: $color-white;
+    box-shadow: 0px 4px 4px 0px $color-btn-boxshadow-black inset;
+    border-radius: 35px;
+    color: $color-green;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 37px;
+    letter-spacing: -0.05em;
+    border: 0.3px solid $color-white;
+    padding: 14px 67px;
+    margin-top: 30px;
+  }
+}
+
+@media screen and (max-width: 1140px) and (min-width: 575px) {
+  .banner-encourage {
+    height: 266px;
+    
+    &-text {
+      font-size: 35px;
+      line-height: 43px;
+      width: 402px;
+    }
+
+    .btn-primary {
+      font-size: 20px;
+      line-height: 25px;
+      padding: 10px 45px;
+    }
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .banner-encourage {
+    height: 182px;
+
+    &-text {
+      font-size: 23px;
+      line-height: 28px;
+      width: 291px;
+    }
+
+    .btn-primary {
+      font-size: 18px;
+      line-height: 22px;
+      padding: 2px 30px;
+    }
+  }
+}
