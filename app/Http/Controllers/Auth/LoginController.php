@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
+use App\Providers\RouteServiceProvider;
 
 class LoginController extends Controller
 {
@@ -26,6 +31,7 @@ class LoginController extends Controller
      *
      * @var string
      */
+
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
@@ -36,5 +42,19 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(LoginRequest $request)
+    {
+        if (Auth::attempt(['email' => $request['username'], 'password' => $request['password']])) {
+            $alert = 'Đăng nhập thành công!';
+            return redirect('home')->with('alert', $alert);
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect('home');
     }
 }

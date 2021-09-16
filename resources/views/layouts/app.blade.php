@@ -11,7 +11,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div id="app" >
         <!-- Header -->
         @include('partials/header')
         <!-- Content -->
@@ -19,11 +19,11 @@
         <!-- Footer -->
         @include('partials/footer')
         <!-- Login-Register -->
-        @include('components/authentication')
+        @yield('login-register')
         <!-- messenger -->
         @include('partials/messenger')
     </div>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

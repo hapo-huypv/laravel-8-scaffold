@@ -24,6 +24,10 @@
     cursor: pointer;
     color: $color-gray-arrow;
   }
+
+  .slick-slide {
+    height: auto;
+  }
   
   .next-arrow {
     z-index: 2;
