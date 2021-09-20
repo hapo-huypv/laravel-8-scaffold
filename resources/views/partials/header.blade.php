@@ -1,4 +1,4 @@
-<header id="header" class="header">   
+<header id="header" class="header">
     <nav class="navbar navbar-expand-md navbar-light sticky-top justify-content-center">
         <div class="container-fluid custom-header">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
