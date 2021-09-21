@@ -46,15 +46,17 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request)
     {
-        if (Auth::attempt(['email' => $request['username'], 'password' => $request['password']])) {
-            $alert = 'Đăng nhập thành công!';
-            return redirect('home')->with('alert', $alert);
+        $remember = $request['remember'] ? true : false;
+
+        if (Auth::attempt(['email' => $request['username'], 'password' => $request['password']], $remember)) {
+            return redirect('home')->with('success', 'Logged in successfully!');
         }
     }
 
     public function logout(Request $request)
     {
         Auth::logout();
+
         return redirect('home');
     }
 }

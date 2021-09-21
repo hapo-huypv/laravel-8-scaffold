@@ -34,13 +34,13 @@
                         @enderror
                         <div class="d-flex mt-2">
                             <div class="custom-control custom-checkbox col-6">
-                                <input type="checkbox" class="custom-control-input" id="customControlInline">
-                                <label name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} class="custom-control-label form-control-label" for="customControlInline">Remember me</label>
+                                <input  name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}  type="checkbox" class="custom-control-input" id="customControlInline">
+                                <label class="custom-control-label form-control-label" for="customControlInline">Remember me</label>
                             </div>
                             <a href="#" id="forgot_pswd" class="col-6 pr-0 form-text-forgotpass">Forgot password</a>
                         </div>
                         <div class=" d-flex justify-content-center">
-                            <button id="btnLogin" class="btn btn-success btn-block custom-btn-login" type="submit">LOGIN</button>
+                            <button class="btn btn-success btn-block custom-btn-login" type="submit">LOGIN</button>
                         </div>
                         <div class="d-flex justify-content-center p-0 title-social-login">Login with</div>
                         <div class="d-flex flex-column social-login">

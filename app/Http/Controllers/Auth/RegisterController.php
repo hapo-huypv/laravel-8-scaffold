@@ -67,8 +67,7 @@ class RegisterController extends Controller
         $data = $this->create($request);
 
         Auth::login($data);
-
-        $alert = 'Đăng ký thành công!';
-        return redirect('home')->with('alert', $alert);
+        
+        return redirect('home')->with('success', 'Registered successfully!');
     }
 }

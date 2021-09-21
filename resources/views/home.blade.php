@@ -2,8 +2,8 @@
 
 @section('title', 'Home')
 
-@if(session('alert'))
-    <section id="alertHome" class='alert alert-success'>{{session('alert')}}</section>
+@if(session('success'))
+    <section id="alertHome" class='alert alert-success'>{{session('success')}}</section>
 @endif  
 
 <!-- @section('loadPage', '') -->
