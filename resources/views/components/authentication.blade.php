@@ -34,7 +34,7 @@
                         @enderror
                         <div class="d-flex mt-2">
                             <div class="custom-control custom-checkbox col-6">
-                                <input  name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}  type="checkbox" class="custom-control-input" id="customControlInline">
+                                <input  name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} type="checkbox" class="custom-control-input" id="customControlInline">
                                 <label class="custom-control-label form-control-label" for="customControlInline">Remember me</label>
                             </div>
                             <a href="#" id="forgot_pswd" class="col-6 pr-0 form-text-forgotpass">Forgot password</a>

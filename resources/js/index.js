@@ -82,3 +82,11 @@ if($('#pills-register input').hasClass('is-invalid')){
     $('#pills-register-tab').tab('show');;
   })
 };
+
+$('#btnFilter').click(function() {
+  if($('.course-lookup').hasClass('d-none')){
+    $('.course-lookup').removeClass('d-none').addClass('d-flex');
+  } else {
+    $('.course-lookup').addClass('d-none').removeClass('d-flex');
+  }
+});
