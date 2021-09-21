@@ -51,22 +51,21 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     
-    protected function create(RegisterRequest $data)
+    protected function create(Request $data)
     {
-        $input = $data->all();
         return User::create([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'password' => Hash::make($input['password']),
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
             'role' => User::ROLE_STUDENT,
         ]);
     }
     
     public function register(RegisterRequest $request)
     {
-        $data = $this->create($request);
+        $registerRequest = $this->create($request);
 
-        Auth::login($data);
+        Auth::login($registerRequest);
         
         return redirect('home')->with('success', 'Registered successfully!');
     }

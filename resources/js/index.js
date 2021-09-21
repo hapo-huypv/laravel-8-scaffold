@@ -51,16 +51,16 @@ $('.header-nav').click(function() {
   $(this).addClass('nav-link-active');
 });
 
-var c = 0;
+var statusHeader = 0;
 $('.navbar-toggler').click(function() { 
-  if (c == 0) {
+  if (statusHeader == 0) {
     $('.navbar-toggler-icon').removeClass('navbar-toggler-icon').addClass('navbar-close');
-    c = 1;
+    statusHeader = 1;
     $('.header').addClass('header-mobile');
   } 
   else {
     $('.navbar-close').removeClass('navbar-close').addClass('navbar-toggler-icon');
-    c = 0;
+    statusHeader = 0;
     $('.header').removeClass('header-mobile');
   }
 });
@@ -69,16 +69,13 @@ $('#alertHome').click(function(){
   $("#alertHome").addClass('d-none');
 });
 
-if($('#pills-home input').hasClass('is-invalid')){
-  $(window).on ("load", function() {
+if($('#pillsLogin input').hasClass('is-invalid')){
     $('#loginRegisterModal').modal('show');
-    $('#pills-login-tab').tab('show');;
-  })
+    $('#pillsLoginTab').tab('show');
 };
 
-if($('#pills-register input').hasClass('is-invalid')){
-  $(window).on ("load", function() {
-    $('#loginRegisterModal').modal('show');
-    $('#pills-register-tab').tab('show');;
-  })
+if($('#pillsRegister input').hasClass('is-invalid')){
+  $('#loginRegisterModal').modal('show');
+  $('#pillsRegisterTab').tab('show');
 };
+

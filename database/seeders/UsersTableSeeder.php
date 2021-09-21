@@ -3,9 +3,10 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Faker\Factory as Faker;
+use App\Models\User;
+use database\factories\UserFactory;
 
 class UsersTableSeeder extends Seeder
 {
@@ -16,16 +17,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create();
-
-        $limit = 10;
-
-        for ($i = 0; $i < $limit; $i++) {
-            DB::table('users')->insert([
-                'name' => $faker->name,
-                'email' => $faker->unique()->email,
-                'password' => bcrypt($faker->password),
-            ]);
-        }
+        User::factory()->count(3)->create();
     }
 }
