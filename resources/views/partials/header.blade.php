@@ -10,7 +10,7 @@
             <div class="collapse navbar-collapse align-items-center justify-content-end" id="navbarResponsive">
                 <ul class="navbar-nav align-items-center">
                     <li class="nav-item"><a class="nav-link header-nav nav-link-active" href="#">HOME</a></li>
-                    <li class="nav-item"><a class="nav-link header-nav" href="#">ALL COURSES</a></li>
+                    <li class="nav-item"><a class="nav-link header-nav" href="{{ route('courses') }}">ALL COURSES</a></li>
                    
                     @guest
                         @if (Route::has('login') || Route::has('register'))

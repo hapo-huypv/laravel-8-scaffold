@@ -6,8 +6,6 @@
     <section id="alertHome" class='alert alert-success'>{{session('success')}}</section>
 @endif  
 
-<!-- @section('loadPage', '') -->
-
 @section('content')
     <!-- Content -->
     <div class="container-fluid position-relative body p-0">
