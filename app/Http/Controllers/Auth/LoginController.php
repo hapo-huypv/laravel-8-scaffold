@@ -57,7 +57,7 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             return redirect('home')->with('success', 'Logged in successfully!');
         } else {
-            return back()->with('success', 'Incorrect username or password');
+            return back()->with('error', 'Incorrect username or password');
         }
     }
 

@@ -63,17 +63,17 @@ $('.navbar-toggler').click(function() {
   }
 });
 
-$('#alertHome').click(function(){
-  $("#alertHome").addClass('d-none');
+$('#alertSuccess').click(function(){
+  $("#alertSuccess").addClass('d-none');
 });
 
-$('#txtLogin').click(function(){
-  $('#pillsLogin input').addClass('show-login');
+$('#alertError').click(function(){
+  $("#alertError").addClass('d-none');
 });
 
 if($('#pillsLogin input').hasClass('is-invalid')){
-    $('#modalLoginRegister').modal('show');
-    $('#pillsLoginTab').tab('show');
+  $('#modalLoginRegister').modal('show');
+  $('#pillsLoginTab').tab('show');
 };
 
 if($('#pillsRegister input').hasClass('is-invalid')){
