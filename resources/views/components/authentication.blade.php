@@ -1,4 +1,4 @@
-<div class="modal fade p-0" id="loginRegisterModal" tabindex="-1" role="dialog" aria-labelledby="loginRegisterModalLabel" aria-hidden="false">
+<div class="modal fade p-0" id="modalLoginRegister" tabindex="-1" role="dialog" aria-labelledby="modalLoginRegisterLabel" aria-hidden="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header p-0">
@@ -40,7 +40,7 @@
                             <a href="#" id="forgot_pswd" class="col-6 pr-0 form-text-forgotpass">Forgot password</a>
                         </div>
                         <div class=" d-flex justify-content-center">
-                            <button id="txtLogin" class="btn btn-success btn-block custom-btn-login" type="submit">LOGIN</button>
+                            <button class="btn btn-success btn-block custom-btn-login" type="submit">LOGIN</button>
                         </div>
                         <div class="d-flex justify-content-center p-0 title-social-login">Login with</div>
                         <div class="d-flex flex-column social-login">
@@ -83,7 +83,7 @@
                             </span>
                         @enderror
                         <div class=" d-flex justify-content-center">
-                            <button id="txtRegister" class="btn btn-success btn-block custom-btn-login" type="submit">Register</button>
+                            <button class="btn btn-success btn-block custom-btn-login" type="submit">Register</button>
                         </div>
                     </form>
                 </div>

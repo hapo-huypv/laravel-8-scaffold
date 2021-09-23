@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-md navbar-light sticky-top justify-content-center">
         <div class="container-fluid custom-header">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-                <span class="navbar-toggler-icon"></span>
+                <span id="navbarResponsiveClose" class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-branch" href="#">
                 <img src="./assets/img/hapolearn.png" alt="HapoLearn">        
@@ -14,7 +14,7 @@
                    
                     @guest
                         @if (Route::has('login') || Route::has('register'))
-                        <li class="nav-item"><a class="nav-link header-nav"  href="{{ route('login') }}" data-toggle="modal" data-target="#loginRegisterModal">LOGIN/REGISTER</a></li>
+                        <li class="nav-item"><a class="nav-link header-nav"  href="{{ route('login') }}" data-toggle="modal" data-target="#modalLoginRegister">LOGIN/REGISTER</a></li>
                         @endif
                     @else
                         <li class="nav-item dropdown">
