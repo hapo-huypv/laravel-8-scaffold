@@ -14,7 +14,7 @@ class Course extends Model
 
     protected $fillable = [
         'title',
-        'logo-path',
+        'logo_path',
         'description',
         'intro',
         'learn_time',
@@ -24,16 +24,16 @@ class Course extends Model
 
     public function lessons()
     {
-        return $this->hasMany(Lessons::class);
+        return $this->hasMany(Lesson::class);
     }
 
     public function tags()
     {
-        return $this->belongsToMany(Tags::class);
+        return $this->belongsToMany(Tag::class);
     }
 
     public function users()
     {
-        return $this->belongsToMany(Users::class);
+        return $this->belongsToMany(User::class);
     }
 }

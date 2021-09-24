@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Courses;
+
+use App\Models\Course;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -27,5 +28,13 @@ class CourseController extends Controller
         $courses = $courses->get();
 
         return view('all_courses', ['courses' => $courses]);
+    }
+
+    public function coursesSearch(Request $request)
+    {
+        $keyword = $request['keyword'];
+        $courses = Course::where('title', 'like', "%$keyword%")->take(10)->paginate(10);
+
+        return view('all_courses', ['courses' => $courses, 'keyword' => $keyword]);
     }
 }

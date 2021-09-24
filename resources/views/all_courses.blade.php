@@ -2,16 +2,20 @@
 
 @section('content')
 <div class="container all-course">
-    <div id="btnFilter" class="d-flex mb-3">
-        <div class="course-filter">
-        <!-- <i class="fas fa-sliders-h">Filter</i> -->
+    <div class="d-flex mb-3">
+        <div id="btnFilter" class="course-filter">
             <p class="course-filter-text">Filter</p>
         </div>
-        <div class="position-relative">
-            <input class="course-search" type="text" placeholder="Search...">
-            <i class="fas fa-search"></i>
+        <div>    
+            <form method="POST" action="{{route('search')}}" class="d-flex flex-row">
+                @csrf <!-- {{ csrf_token() }} -->
+                <div class="position-relative">
+                    <input class="course-search" name="keyword" type="text" placeholder="Search...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <button class="btn btn-success btn-block btn-course-search" type="submit">TimKiem</button>
+            </form>
         </div>
-        <a href="#" class="btn btn-primary btn-course-search">Tìm kiếm</a>
     </div>
     <div class="course-lookup d-none">
         <div class="course-lookup-text">Lọc theo</div>
@@ -98,7 +102,7 @@
                         <div class="d-flex">
                             <img class="course-list-img" src="{{$course->logo_path}}" alt="ellipse_html">
                             <div class="">
-                                <p class="course-list-title">{{$key}}</p>
+                                <p class="course-list-title">{{$course->title}}</p>
                                 <p class="course-list-intro">{{$course->intro}}</p>
                             </div>
                         </div>
