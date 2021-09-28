@@ -55,7 +55,7 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         if ($this->attemptLogin($request)) {
-            return redirect('home')->with('success', 'Logged in successfully!');
+            return redirect('/home')->with('success', 'Logged in successfully!');
         } else {
             return back()->with('error', 'Incorrect username or password');
         }
@@ -67,6 +67,6 @@ class LoginController extends Controller
         
         Auth::logout();
 
-        return redirect('home')->with('success', 'You are logged out of '. $name);
+        return redirect('/home')->with('success', 'You are logged out of '. $name);
     }
 }
