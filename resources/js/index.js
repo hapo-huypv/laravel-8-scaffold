@@ -26,41 +26,55 @@
   ]
 });
 
-$(".footer-iconandlink").mouseover(function() {
-  $( "#imgContact", this ).removeClass("txt-hidden").addClass( "readmore");
+$('.footer-iconandlink').mouseover(function() {
+  $('#imgContact', this).removeClass('txt-hidden').addClass( 'readmore');
 });
 
-$(".footer-iconandlink").mouseout(function() {
-  $( "#imgContact", this ).removeClass("readmore").addClass("txt-hidden");    
+$('.footer-iconandlink').mouseout(function() {
+  $( '#imgContact', this ).removeClass('readmore').addClass('txt-hidden');    
 });
 
-$(".close-button").click(function() {
-  $( "#messenger", this ).removeClass("chatbox");
+$('.close-button').click(function() {
+  $('#messenger', this).removeClass('chatbox');
 });
 
-$( ".close-button" ).click(function() {
-  $( "#messenger" ).slideUp();
+$('.close-button').click(function() {
+  $('#messenger').slideUp();
 });
 
-$( ".logo-messenger" ).click(function() {
-  $( "#messenger" ).slideDown();
+$('.logo-messenger').click(function() {
+  $('#messenger').slideDown();
 });
 
-$( ".header-nav" ).click(function() {
-  $ (".header-nav").removeClass("nav-link-active");
-  $(  this ).addClass("nav-link-active");
+$('.header-nav').click(function() {
+  $ ('.header-nav').removeClass('nav-link-active');
+  $(this).addClass('nav-link-active');
 });
 
-var c = 0;
-$( ".navbar-toggler" ).click(function() { 
-  if (c == 0) {
-    $(  ".navbar-toggler-icon" ).removeClass("navbar-toggler-icon").addClass("navbar-close");
-    c = 1;
-    $( ".header" ).addClass("header-mobile");
-  } 
-  else {
-    $( ".navbar-close" ).removeClass("navbar-close").addClass("navbar-toggler-icon");
-    c = 0;
-    $( ".header" ).removeClass("header-mobile");
+$('.navbar-toggler').click(function() { 
+  if ($('#navbarResponsiveClose').hasClass('navbar-toggler-icon')){
+    $('.navbar-toggler-icon').removeClass('navbar-toggler-icon').addClass('navbar-close');
+    $('.header').addClass('header-mobile');
+   } else {
+    $('.navbar-close').removeClass('navbar-close').addClass('navbar-toggler-icon');
+    $('.header').removeClass('header-mobile');
   }
 });
+
+$('#alertSuccess').click(function(){
+  $("#alertSuccess").addClass('d-none');
+});
+
+$('#alertError').click(function(){
+  $("#alertError").addClass('d-none');
+});
+
+if($('#pillsLogin input').hasClass('is-invalid')){
+  $('#modalLoginRegister').modal('show');
+  $('#pillsLoginTab').tab('show');
+};
+
+if($('#pillsRegister input').hasClass('is-invalid')){
+  $('#modalLoginRegister').modal('show');
+  $('#pillsRegisterTab').tab('show');
+};
