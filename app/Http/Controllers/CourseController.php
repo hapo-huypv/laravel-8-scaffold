@@ -24,7 +24,7 @@ class CourseController extends Controller
         ]);
     }
     
-    public function index(Request $request)
+    public function courses(Request $request)
     {
         $tags = Tag::all();
 

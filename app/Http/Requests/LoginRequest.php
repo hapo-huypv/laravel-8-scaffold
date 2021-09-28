@@ -24,18 +24,16 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => ['required', 'string', 'max:255', 'exists:users,email'],
-            'password' => ['required', 'string', 'min:8'],
+            'username' => ['required', 'exists:users,email'],
+            'password' => ['required'],
         ];
     }
 
     public function messages()
     {
         return [
-            'username.string' => 'this username must be string',
-            'username.max' => 'this username must be shorter than 255 characters',
-            'username.unique:users' => 'this email has already been token',
-            'password.min' => 'this password must be more than 8 characters',
+            'username:exist:users' => 'this username does not match',
+            'password.required' => 'this password is required',
         ];
     }
 }
