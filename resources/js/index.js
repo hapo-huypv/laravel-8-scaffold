@@ -54,11 +54,9 @@ $('.header-nav').click(function() {
 $('.navbar-toggler').click(function() { 
   if ($('#navbarResponsiveClose').hasClass('navbar-toggler-icon')){
     $('.navbar-toggler-icon').removeClass('navbar-toggler-icon').addClass('navbar-close');
-    statusHeader = 1;
     $('.header').addClass('header-mobile');
    } else {
     $('.navbar-close').removeClass('navbar-close').addClass('navbar-toggler-icon');
-    statusHeader = 0;
     $('.header').removeClass('header-mobile');
   }
 });
