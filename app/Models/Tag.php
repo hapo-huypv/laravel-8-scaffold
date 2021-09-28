@@ -12,12 +12,12 @@ class Tag extends Model
 
     protected $table = 'tags';
 
-    public function courses()
-    {
-        return $this->belongsToMany(Course::class);
-    }
-
     protected $fillable = [
         'name',
     ];
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_tags');
+    }
 }

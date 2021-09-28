@@ -1,0 +1,46 @@
+.pagination {
+  .arrow-border {
+    border: 1px solid $color-lightgreen;
+    box-sizing: border-box;
+    border-radius: 3px;
+    height: 40px;
+    width: 60px;
+  }
+  
+  .active {
+    background-color: $color-lightgreen;
+    color: $color-white !important;
+  }
+
+  .fa-ellipsis-h {
+    color: $color-lightgreen;
+    height: 40px;
+    margin-right: 5px;
+  }
+
+  .fa-arrow-right {
+    color: $color-lightgreen;
+    height: 40px;
+  }
+
+  .fa-arrow-left {
+    color: $color-lightgreen;
+    margin-right: 5px;
+  }
+
+  .page {
+    border: 1px solid $color-lightgreen;
+    box-sizing: border-box;
+    border-radius: 3px;
+    font-family: $font_Open_Sans;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: -0.05em;
+    color: $color-lightgreen;
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+  }
+} 
+  

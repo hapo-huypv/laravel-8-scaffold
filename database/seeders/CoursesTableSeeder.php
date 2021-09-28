@@ -23,6 +23,6 @@ class CoursesTableSeeder extends Seeder
             ->has(Lesson::factory()->count(3)->state(function (array $attributes, Course $course) {
                 return ['course_id' => $course->id];
             }))
-            ->count(3)->create();
+            ->count(30)->create();
     }
 }

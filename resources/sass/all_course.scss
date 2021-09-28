@@ -1,4 +1,19 @@
 .all-course {
+  background: $color-gray-background;
+  
+  .nav-filter {
+    height: 40px;
+
+    .select2-selection--multiple {
+      height: 42px;
+    }
+
+    .select2-search__field {
+      padding: 3px 0px;
+      height: 40px;
+    }
+  }
+
   .course-search {
     width: 355px;
     height: 42px;
@@ -101,6 +116,7 @@
 
     .course-lookup-dropdown-toggle {
       width: 180px;
+      height: 34px;
       background: $color-white;
       border: 1px solid $color-gray-btn-border;
       box-sizing: border-box;
@@ -113,7 +129,7 @@
       text-align: left;
     }
 
-    .dropdown-item {
+    .select-option {
       font-family: $font_Open_Sans;
       font-size: 14px;
       line-height: 19px;

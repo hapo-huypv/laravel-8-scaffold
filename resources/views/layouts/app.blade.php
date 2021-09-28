@@ -25,5 +25,31 @@
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#courses').select2({
+                placeholder: "Search..."
+            });
+        });
+        // $(document).ready(function() {
+        //     $('#teachers').on('change', function() {
+        //         console.log('huy');
+
+        //         var teachers = $(this).val();
+        //        console.log(teachers);
+        //         $.ajax({
+        //            type: 'get',
+        //            url: './course',
+        //            data: {},
+        //            success:function(data) {
+        //                alert(data);
+        //                console.log(data);
+        //            },
+        //            error: function(){
+        //            }
+        //         });
+        //     });
+        // });
+        </script>
 </body>
 </html>

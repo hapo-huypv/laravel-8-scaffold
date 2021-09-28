@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\CourseUser;
 
 class User extends Authenticatable
 {
@@ -57,11 +58,23 @@ class User extends Authenticatable
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Course::class, 'course_users')->using(CourseUser::class);
     }
     
     public function lessons()
     {
         return $this->belongsToMany(Lesson::class);
+    }
+
+    public function reviews()
+    {
+        return $this->belongsToMany(Review::class);
+    }
+
+    public function getTeachers()
+    {
+        $teachers = User::where('role', '=', User::ROLE_TEACHER)->get();
+
+        return $teachers;
     }
 }

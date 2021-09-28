@@ -33,26 +33,4 @@ class CourseFactory extends Factory
             'price' => $this->faker->randomDigit(),
         ];
     }
-
-    // public function configure()
-    // {
-    //     return $this->afterMaking(function (User $user) {
-    //         //
-    //     })->afterCreating(function (User $user) {
-    //         //
-    //     });
-    // }
-
-    // $factory->define(App\Models\Course::class, function (Faker $faker)
-    // {
-    //     return [
-    //         'title' => $this->faker->title(),
-    //         'logo_path' => './assets/img/ellipse_html.png',
-    //         'description' => $this->faker->description(),
-    //         'intro' => $this->faker->intro(),
-    //         'learn_time' => $this->faker->learn_time(),
-    //         'quizzes' => $this->faker->quizzes(),
-    //         'price' => $this->faker->price(),
-    //     ];
-    // });
 }

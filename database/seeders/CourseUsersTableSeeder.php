@@ -6,9 +6,12 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Faker\Factory as Faker;
-use App\Models\Lesson;
+use App\Models\Course;
+use App\Models\User;
+use App\Models\CourseUser;
+use database\factories\CourseUsersFactory;
 
-class LessonsTableSeeder extends Seeder
+class CourseUsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,6 +20,8 @@ class LessonsTableSeeder extends Seeder
      */
     public function run()
     {
-        Lesson::factory()->count(3)->create();
+        User::factory()
+                ->hasAttached(Course::factory()->count(1))
+            ->create();
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -21,20 +23,16 @@ class CourseController extends Controller
             'price' => $data['price'],
         ]);
     }
-
-    public function course()
+    
+    public function index(Request $request)
     {
-        $courses = DB::table('courses')->select('*');
-        $courses = $courses->get();
+        $tags = Tag::all();
 
-        return view('all_courses', ['courses' => $courses]);
-    }
+        $teachers = new User();
+        $teachers = $teachers->getTeachers();
 
-    public function coursesSearch(Request $request)
-    {
-        $keyword = $request['keyword'];
-        $courses = Course::where('title', 'like', "%$keyword%")->take(10)->paginate(10);
-
-        return view('all_courses', ['courses' => $courses, 'keyword' => $keyword]);
+        $courses = Course::filter($request)->paginate(20);
+        
+        return view('all_courses', compact('courses', 'tags', 'teachers'));
     }
 }
