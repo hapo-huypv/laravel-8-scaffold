@@ -9,9 +9,8 @@
             </a>
             <div class="collapse navbar-collapse align-items-center justify-content-end" id="navbarResponsive">
                 <ul class="navbar-nav align-items-center">
-                @csrf <!-- {{ csrf_token() }} -->
-                    <li class="nav-item"><a class="nav-link header-nav {{ Request::is('home' || '/') ? 'nav-link-active' : ''}}" href="{{ url('home') }}">HOME</a></li>
-                    <li class="nav-item"><a class="nav-link header-nav {{ Request::is('course') ? 'nav-link-active' : ''}}" href="{{ url('course') }}">ALL COURSES</a></li>
+                    <li class="nav-item"><a class="nav-link header-nav {{ Route::currentRouteName() == 'home' ? 'nav-link-active' : ''}}" href="{{ route('home') }}">HOME</a></li>
+                    <li class="nav-item"><a class="nav-link header-nav {{ Route::currentRouteName() == 'courses' ? 'nav-link-active' : ''}}" href="{{ route('courses') }}">ALL COURSES</a></li>
                    
                     @guest
                         @if (Route::has('login') || Route::has('register'))

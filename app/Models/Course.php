@@ -59,83 +59,62 @@ class Course extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function courses()
+    public function scopeFilter($query, $dataRequest)
     {
-        $courses = Course::select('*')->paginate(1000);
-
-        return $courses;
-    }
-
-    public function scopeFilter($query, $request)
-    {
-        if ($request['keyword'] != null) {
-            $keyword = $request['keyword'];
-            $query = $query->where('title', 'like', "%$keyword%");
+        if (isset($dataRequest['keyword'])) {
+            $keyword = $dataRequest['keyword'];
+            $query = $query->where('title', 'like', "%$keyword%")->orWhere('intro', 'like', "%$keyword%");
         }
 
-        if ($request->query('filterByTeachers') != null) {
-            $teachers = $request->query('filterByTeachers');
+        if (isset($dataRequest['teachers'])) {
+            $teachers = $dataRequest['teachers'];
             $query = $query->whereHas('users', function ($subquery) use ($teachers) {
                 $subquery->where('user_id', $teachers);
             });
         }
 
-        if ($request->query('filterByLearners') == config('course.ascending')) {
+        if (isset($dataRequest['number_learners'])) {
             $query = $query->withCount([
                 'users as users_count' => function ($subquery) {
                     $subquery->groupBy('course_id');
                 }
-            ])->orderBy('users_count', 'ASC');
-        } elseif ($request->query('filterByLearners') == config('course.descending')) {
-            $query = $query->withCount([
-                'users as users_count' => function ($subquery) {
-                    $subquery->groupBy('course_id');
-                }
-            ])->orderBy('users_count', 'DESC');
+            ])->orderBy('users_count', $dataRequest['number_learners']);
         }
 
-        if ($request->query('filterByLessons') == config('course.ascending')) {
+        if (isset($dataRequest['number_lessons'])) {
             $query = $query->withCount([
                 'lessons as lessons_count' => function ($subquery) {
                     $subquery->groupBy('course_id');
                 }
-                    ])->orderBy('lessons_count', 'ASC');
-        } elseif ($request->query('filterByLessons') == config('course.descending')) {
-            $query = $query->withCount([
-                'lessons as lessons_count' => function ($subquery) {
-                    $subquery->groupBy('course_id');
-                }
-                    ])->orderBy('lessons_count', 'DESC');
+            ])->orderBy('lessons_count', $dataRequest['number_lessons']);
         }
-
-        if ($request->query('filterByTime') == config('course.ascending')) {
+        
+        if (isset($dataRequest['study_time'])) {
             $query = $query->withSum('lessons', 'learn_time', function ($subquery) {
                 $subquery->groupBy('course_id');
-            })->orderBy('lessons_sum_learn_time', 'ASC');
-        } elseif ($request->query('filterByTime') == config('course.descending')) {
-            $query = $query->withSum('lessons', 'learn_time', function ($subquery) {
-                $subquery->groupBy('course_id');
-            })->orderBy('lessons_sum_learn_time', 'DESC');
+            })->orderBy('lessons_sum_learn_time', $dataRequest['study_time']);
         }
 
-        if ($request->query('filterByTags') != null) {
-            $tags = $request->query('filterByTags');
+        if (isset($dataRequest['tags'])) {
+            $tags = $dataRequest['tags'];
             $query = $query->whereHas('tags', function ($subquery) use ($tags) {
                 $subquery->where('tag_id', $tags);
             });
         }
 
-        if ($request->query('filterByReviews') == config('course.ascending')) {
-            $query = $query->orderBy('created_at', 'ASC');
-        } elseif ($request->query('filterByReviews') == config('course.descending')) {
-            $query = $query->orderBy('created_at', 'DESC');
+        if (isset($dataRequest['reviews'])) {
+            $query = $query->whereHas('reviews', function ($subquery) {
+                $subquery->where('type', Review::TYPE_COURSE);
+            })->withAvg('reviews', 'rate', function ($subquery) {
+                $subquery->groupBy('target_id');
+            })->orderBy('reviews_avg_rate', $dataRequest['reviews']);
         }
 
-        if ($request->query('status') != null) {
-            if ($request->query('status') == 'newest') {
-                $query = $query->orderBy('id', 'ASC');
-            } elseif ($request->query('status') == 'oldest') {
-                $query = $query->orderBy('id', 'DESC');
+        if (isset($dataRequest['status'])) {
+            if ($dataRequest['status'] == config('course.newest')) {
+                $query = $query->orderBy('id', config('course.ascending', 'asc'));
+            } elseif ($dataRequest['status'] == config('course.oldest')) {
+                $query = $query->orderBy('id', config('cousre.descending', 'desc'));
             }
         }
         

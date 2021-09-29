@@ -86,3 +86,16 @@ $('#btnFilter').click(function() {
     $('.course-lookup').addClass('d-none').removeClass('d-flex');
   }
 });
+
+$('.newest').click(function() {
+  $('.newest').removeClass('course-lookup-btn-status').addClass('course-lookup-btn-status-active');
+  $('.oldest').addClass('course-lookup-btn-status');
+});
+
+$('.oldest').click(function() {
+  $('.oldest').removeClass('course-lookup-btn-status').addClass('course-lookup-btn-status-active');
+  $('.newest').addClass('course-lookup-btn-status');
+});
+
+$('.add-select2').select2({
+});

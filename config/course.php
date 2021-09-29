@@ -1,11 +1,13 @@
 <?php
 
 return [
-    'numberPaginations' => '20',
+    
+    'number_paginations' => '20',
 
     'ascending' => 'asc',
     'descending' => 'desc',
 
-    'sortByNewest' => 'newest',
-    'sortByOldest' => 'oldest',
+    'newest' => 'newest',
+    'oldest' => 'oldest',
+
 ];
