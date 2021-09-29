@@ -22,9 +22,9 @@
             <div class="course-lookup d-none">
                 <div class="course-lookup-text">Lọc theo</div>
                 <div class="row">
-                    <input hidden type="radio" name="status" value="newest" id="newest" checked>
+                    <input hidden type="radio" name="status" value={{config('course.sortByNewest')}} id="newest" checked>
                     <label class="btn btn-primary mr-2 mb-3 course-lookup-btn-newest" for="newest">Mới Nhất</label>
-                    <input hidden type="radio" name="status" value="oldest" id="oldest" {{ request('status') == 'oldest' ? 'checked' : ''}}>
+                    <input hidden type="radio" name="status" value={{config('course.sortByOldest')}} id="oldest" {{ request('status') == config('course.sortByOldest') ? 'checked' : ''}}>
                     <label class="btn btn-primary mr-2 mb-3 course-lookup-btn-newest" for="oldest">Cũ Nhất</label>
                     <div class="mr-2 course-lookup-dropdown">
                         <select id="filterByTeachers" class="teachers course-lookup-dropdown-toggle" name="filterByTeachers">
@@ -37,20 +37,20 @@
                     <div class="mr-2 course-lookup-dropdown">
                         <select id="filterBtLearners" class="course-lookup-dropdown-toggle" name="filterByLearners">
                             <option class="select-option" value="">Số người học</option>
-                            <option class="select-option" value="asc" {{ request('filterByLearners') == 'asc' ? 'selected' : ''}}>Ascending</option>
-                            <option class="select-option" value="desc" {{ request('filterByLearners') == 'desc' ? 'selected' : ''}}>Descending</option>
+                            <option class="select-option" value="asc" {{ request('filterByLearners') == config('course.ascending') ? 'selected' : ''}}>Ascending</option>
+                            <option class="select-option" value="desc" {{ request('filterByLearners') == config('course.descending') ? 'selected' : ''}}>Descending</option>
                         </select>
                     </div><div class="mr-2 course-lookup-dropdown">
                         <select id="filterByTime" class="course-lookup-dropdown-toggle" name="filterByTime">
                             <option class="select-option" value="">Thời gian học</option>
-                            <option class="select-option" value="asc" {{ request('filterByTime') == 'asc' ? 'selected' : ''}}>Ascending</option>
-                            <option class="select-option" value="desc" {{ request('filterByTime') == 'desc' ? 'selected' : ''}}>Descending</option>
+                            <option class="select-option" value="asc" {{ request('filterByTime') == config('course.ascending') ? 'selected' : ''}}>Ascending</option>
+                            <option class="select-option" value="desc" {{ request('filterByTime') == config('course.descending') ? 'selected' : ''}}>Descending</option>
                         </select>
                     </div><div class="mr-2 course-lookup-dropdown">
                         <select id="filterByLessons" class="course-lookup-dropdown-toggle" name="filterByLessons">
                             <option class="select-option" value="">Số bài học</option>
-                            <option class="select-option" value="asc" {{ request('filterByLessons') == 'asc' ? 'selected' : ''}}>Ascending</option>
-                            <option class="select-option" value="desc" {{ request('filterByLessons') == 'desc' ? 'selected' : ''}}>Descending</option>
+                            <option class="select-option" value="asc" {{ request('filterByLessons') == config('course.ascending') ? 'selected' : ''}}>Ascending</option>
+                            <option class="select-option" value="desc" {{ request('filterByLessons') == config('course.descending') ? 'selected' : ''}}>Descending</option>
                         </select>
                     </div><div class="mr-2 course-lookup-dropdown">
                         <select id=filterByTags class="course-lookup-dropdown-toggle" name="filterByTags">
@@ -62,52 +62,14 @@
                     </div><div class="mr-2 course-lookup-dropdown">
                         <select id="filterByReviews" class="course-lookup-dropdown-toggle" name="filterByReviews">
                             <option class="select-option" value="">Review</option>
-                            <option class="select-option" value="asc" {{ request('filterByReviews') == 'asc' ? 'selected' : ''}}>Ascending</option>
-                            <option class="select-option" value="desc" {{ request('filterByReviews') == 'desc' ? 'selected' : ''}}>Descending</option>
+                            <option class="select-option" value="asc" {{ request('filterByReviews') == config('course.ascending') ? 'selected' : ''}}>Ascending</option>
+                            <option class="select-option" value="desc" {{ request('filterByReviews') == config('course.descending') ? 'selected' : ''}}>Descending</option>
                         </select>
                     </div>
                 </div>
             </div>
         </form>
-        <div class="course-list">  
-            <div class="row">
-            @foreach($courses as $course)
-                <div class="col-sm-6">
-                    <div class="card mb-5">
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <img class="course-list-img" src="{{$course->logo_path}}" alt="ellipse_html">
-                                <div class="">
-                                    <p class="course-list-title">{{$course->title}}</p>
-                                    <p class="course-list-intro">{{$course->intro}}</p>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <a href="#" class="btn btn-primary course-list-btn">More</a>
-                            </div>
-                            <div class="d-flex flex-row justify-content-center course-list-statistic">
-                                <div class="col-4 p-0 d-flex flex-column align-items-start">
-                                    <div class="course-list-statistic-title">Learners</div>
-                                    <div class="course-list-statistic-number">{{$course->number_user}}</div>
-                                </div>
-                                <div class="col-4 p-0 d-flex flex-column align-items-center">
-                                    <div class="course-list-statistic-title">Lessons</div>
-                                    <div class="course-list-statistic-number">{{$course->number_lesson}}</div>
-                                </div>
-                                <div class="col-4 p-0 d-flex flex-column align-items-end">
-                                    <div class="mr-3 course-list-statistic-title">Times</div>
-                                    <div class="course-list-statistic-number">{{$course->learn_time}} (h)</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-            </div>
-            <div class="paginationWrap">
-                {!! $courses->onEachSide(2)->links('components.pagination') !!}
-            </div>
-        </div>
+        @include('courses.show_courses')
     </div>
 </div>
 @endsection

@@ -29,10 +29,10 @@ class CourseController extends Controller
         $tags = Tag::all();
 
         $teachers = new User();
-        $teachers = $teachers->getTeachers();
+        $teachers = User::teachers();
 
-        $courses = Course::filter($request)->paginate(20);
+        $courses = Course::filter($request)->paginate(config('course.numberPaginations'));
         
-        return view('all_courses', compact('courses', 'tags', 'teachers'));
+        return view('courses.all_courses', compact('courses', 'tags', 'teachers'));
     }
 }

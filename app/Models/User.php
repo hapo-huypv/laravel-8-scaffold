@@ -71,7 +71,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Review::class);
     }
 
-    public function getTeachers()
+    public function scopeTeachers()
     {
         $teachers = User::where('role', '=', User::ROLE_TEACHER)->get();
 

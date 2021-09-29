@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-4 p-0 d-flex flex-column align-items-end">
                             <div class="mr-3 course-list-statistic-title">Times</div>
-                            <div class="course-list-statistic-number">{{$course->learn_time}} (h)</div>
+                            <div class="course-list-statistic-number">{{$course->total_time}} (h)</div>
                         </div>
                     </div>
                 </div>

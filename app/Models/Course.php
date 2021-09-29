@@ -66,21 +66,12 @@ class Course extends Model
         return $courses;
     }
 
-    public function searchCourses($request)
-    {
-        $keyword = $request['keyword'];
-        $courses = Course::where('title', 'like', "%$keyword%")->take(10)->paginate(10);
-
-        return $courses;
-    }
-
     public function scopeFilter($query, $request)
     {
         if ($request['keyword'] != null) {
             $keyword = $request['keyword'];
-            
             $query = $query->where('title', 'like', "%$keyword%");
-        } 
+        }
 
         if ($request->query('filterByTeachers') != null) {
             $teachers = $request->query('filterByTeachers');
@@ -89,13 +80,13 @@ class Course extends Model
             });
         }
 
-        if ($request->query('filterByLearners') == 'asc') {
+        if ($request->query('filterByLearners') == config('course.ascending')) {
             $query = $query->withCount([
                 'users as users_count' => function ($subquery) {
                     $subquery->groupBy('course_id');
                 }
             ])->orderBy('users_count', 'ASC');
-        } elseif ($request->query('filterByLearners') == 'desc') {
+        } elseif ($request->query('filterByLearners') == config('course.descending')) {
             $query = $query->withCount([
                 'users as users_count' => function ($subquery) {
                     $subquery->groupBy('course_id');
@@ -103,13 +94,13 @@ class Course extends Model
             ])->orderBy('users_count', 'DESC');
         }
 
-        if ($request->query('filterByLessons') == 'asc') {
+        if ($request->query('filterByLessons') == config('course.ascending')) {
             $query = $query->withCount([
                 'lessons as lessons_count' => function ($subquery) {
                     $subquery->groupBy('course_id');
                 }
                     ])->orderBy('lessons_count', 'ASC');
-        } elseif ($request->query('filterByLessons') == 'desc') {
+        } elseif ($request->query('filterByLessons') == config('course.descending')) {
             $query = $query->withCount([
                 'lessons as lessons_count' => function ($subquery) {
                     $subquery->groupBy('course_id');
@@ -117,10 +108,14 @@ class Course extends Model
                     ])->orderBy('lessons_count', 'DESC');
         }
 
-        if ($request->query('filterByTime') == 'asc') {
-            $query = $query->orderBy('learn_time', 'ASC');
-        } elseif ($request->query('filterByTime') == 'desc') {
-            $query = $query->orderBy('learn_time', 'DESC');
+        if ($request->query('filterByTime') == config('course.ascending')) {
+            $query = $query->withSum('lessons', 'learn_time', function ($subquery) {
+                $subquery->groupBy('course_id');
+            })->orderBy('lessons_sum_learn_time', 'ASC');
+        } elseif ($request->query('filterByTime') == config('course.descending')) {
+            $query = $query->withSum('lessons', 'learn_time', function ($subquery) {
+                $subquery->groupBy('course_id');
+            })->orderBy('lessons_sum_learn_time', 'DESC');
         }
 
         if ($request->query('filterByTags') != null) {
@@ -130,9 +125,9 @@ class Course extends Model
             });
         }
 
-        if ($request->query('filterByReviews') == 'asc') {
+        if ($request->query('filterByReviews') == config('course.ascending')) {
             $query = $query->orderBy('created_at', 'ASC');
-        } elseif ($request->query('filterByReviews') == 'desc') {
+        } elseif ($request->query('filterByReviews') == config('course.descending')) {
             $query = $query->orderBy('created_at', 'DESC');
         }
 
