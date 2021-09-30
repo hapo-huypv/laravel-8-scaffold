@@ -94,7 +94,7 @@
       padding-top: 5px;
     }
 
-    &-btn-newest {
+    &-btn-status-active {
       background: $color-lightgreen;
       border-radius: 2px;
       font-family: $font_Open_Sans;
@@ -104,8 +104,8 @@
       color: $color-white;
     }
 
-    &-btn-oldest {
-      background: $color-lightgreen;
+    &-btn-status {
+      background: $color-gray-btn-border;
       border-radius: 2px;
       font-family: $font_Open_Sans;
       font-weight: 600;
@@ -114,7 +114,8 @@
       color: $color-white;
     }
 
-    .course-lookup-dropdown-toggle {
+    .course-lookup-dropdown-toggle, 
+    .select2-selection--single {
       width: 180px;
       height: 34px;
       background: $color-white;
@@ -127,6 +128,24 @@
       line-height: 19px;
       color: $color-dark;
       text-align: left;
+    }
+
+    .select2-selection__rendered {
+      display: flex;
+      align-items: center;
+      height: 34px;
+    }
+
+    .select2-selection__placeholder {
+      font-family:  $font_Open_Sans;
+      font-size: 14px;
+      line-height: 19px;
+      color: $color-dark;
+      padding-left: 10px;
+      display: flex;
+      align-items: center;
+      height: 34px;
+      padding: 0px;
     }
 
     .select-option {

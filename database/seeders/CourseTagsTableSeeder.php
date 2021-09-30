@@ -21,7 +21,7 @@ class CourseTagsTableSeeder extends Seeder
     public function run()
     {
         Tag::factory()
-                ->hasAttached(Course::factory()->count(3))
+            ->hasAttached(Course::factory()->count(3))
             ->count(10)->create();
     }
 }

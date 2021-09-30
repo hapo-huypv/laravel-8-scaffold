@@ -10,29 +10,15 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    //
-    public function create($data)
-    {
-        return Course::create([
-            'title' => $data['title'],
-            'logo_path' => $data['logo_path'],
-            'description' => $data['description'],
-            'intro' => $data['intro'],
-            'learn_time' => $data['learn_time'],
-            'quizzes' => $data['quizzes'],
-            'price' => $data['price'],
-        ]);
-    }
-    
     public function index(Request $request)
     {
         $tags = Tag::all();
 
-        $teachers = new User();
-        $teachers = $teachers->getTeachers();
+        $teachers = User::teachers()->get();
 
-        $courses = Course::filter($request)->paginate(20);
+        $dataRequest = $request->input();
+        $courses = Course::filter($dataRequest)->paginate(config('course.number_paginations'));
         
-        return view('all_courses', compact('courses', 'tags', 'teachers'));
+        return view('courses.index', compact('courses', 'tags', 'teachers'));
     }
 }

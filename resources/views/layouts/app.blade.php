@@ -11,17 +11,17 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app" >
+    <div id="app">
         <!-- Header -->
-        @include('partials/header')
+        @include('partials.header')
         <!-- Content -->
         @yield('content')
         <!-- Footer -->
-        @include('partials/footer')
+        @include('partials.footer')
         <!-- Login-Register -->
-        @yield('login-register')
+        @include('components.authentication')
         <!-- messenger -->
-        @include('partials/messenger')
+        @include('partials.messenger')
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

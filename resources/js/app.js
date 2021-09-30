@@ -34,5 +34,8 @@ const app = new Vue({
 import 'jquery/dist/jquery.min.js';
 import 'slick-carousel/slick/slick.js';
 import 'select2/dist/js/select2.min.js';
+<<<<<<< HEAD
 import 'ajax/lib/ajax.js';
+=======
+>>>>>>> 141aabf730ee3994a5099882dc1906fde1596e1e
 require('./index.js');

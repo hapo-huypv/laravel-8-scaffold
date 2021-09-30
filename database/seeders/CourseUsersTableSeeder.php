@@ -21,7 +21,7 @@ class CourseUsersTableSeeder extends Seeder
     public function run()
     {
         User::factory()
-                ->hasAttached(Course::factory()->count(1))
+            ->hasAttached(Course::factory()->count(1))
             ->create();
     }
 }
