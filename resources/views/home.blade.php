@@ -2,11 +2,7 @@
 
 @section('title', 'Home')
 
-@if(session('success'))
-    <section id="alertHome" class='alert alert-success'>{{session('success')}}</section>
-@endif  
-
-<!-- @section('loadPage', '') -->
+@include('partials.message')
 
 @section('content')
     <!-- Content -->
@@ -246,8 +242,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('login-register')
-    @include('components/authentication')
 @endsection

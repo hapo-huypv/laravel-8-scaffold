@@ -18,16 +18,16 @@ class Lesson extends Model
         'learn_time',
         'description',
         'video',
-        'requirements',
+        'requirement',
     ];
 
     public function course()
     {
-        return $this->belongsTo(Courses::class, 'course_id');
+        return $this->belongsTo(Course::class, 'course_id');
     }
 
     public function users()
     {
-        return $this->belongsToMany(Users::class);
+        return $this->belongsToMany(User::class);
     }
 }

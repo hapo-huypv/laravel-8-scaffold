@@ -11,19 +11,45 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app" >
+    <div id="app">
         <!-- Header -->
-        @include('partials/header')
+        @include('partials.header')
         <!-- Content -->
         @yield('content')
         <!-- Footer -->
-        @include('partials/footer')
+        @include('partials.footer')
         <!-- Login-Register -->
-        @yield('login-register')
+        @include('components.authentication')
         <!-- messenger -->
-        @include('partials/messenger')
+        @include('partials.messenger')
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#courses').select2({
+                placeholder: "Search..."
+            });
+        });
+        // $(document).ready(function() {
+        //     $('#teachers').on('change', function() {
+        //         console.log('huy');
+
+        //         var teachers = $(this).val();
+        //        console.log(teachers);
+        //         $.ajax({
+        //            type: 'get',
+        //            url: './course',
+        //            data: {},
+        //            success:function(data) {
+        //                alert(data);
+        //                console.log(data);
+        //            },
+        //            error: function(){
+        //            }
+        //         });
+        //     });
+        // });
+        </script>
 </body>
 </html>

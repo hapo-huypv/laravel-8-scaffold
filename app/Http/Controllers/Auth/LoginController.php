@@ -44,19 +44,29 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function login(LoginRequest $request)
+    public function attemptLogin($request)
     {
         $remember = $request['remember'] ? true : false;
+        $loginRequest = ['email' => $request['username'], 'password' => $request['password']];
 
-        if (Auth::attempt(['email' => $request['username'], 'password' => $request['password']], $remember)) {
-            return redirect('home')->with('success', 'Logged in successfully!');
+        return Auth::attempt($loginRequest, $remember);
+    }
+
+    public function login(LoginRequest $request)
+    {
+        if ($this->attemptLogin($request)) {
+            return redirect('/home')->with('success', 'Logged in successfully!');
+        } else {
+            return back()->with('error', 'Incorrect username or password');
         }
     }
 
     public function logout(Request $request)
     {
+        $name = Auth::user()->name;
+        
         Auth::logout();
 
-        return redirect('home');
+        return redirect('/home')->with('success', 'You are logged out of '. $name);
     }
 }
