@@ -78,3 +78,24 @@ if($('#pillsRegister input').hasClass('is-invalid')){
   $('#modalLoginRegister').modal('show');
   $('#pillsRegisterTab').tab('show');
 };
+
+$('#btnFilter').click(function() {
+  if($('.course-lookup').hasClass('d-none')){
+    $('.course-lookup').removeClass('d-none').addClass('d-flex');
+  } else {
+    $('.course-lookup').addClass('d-none').removeClass('d-flex');
+  }
+});
+
+$('.newest').click(function() {
+  $('.newest').removeClass('course-lookup-btn-status').addClass('course-lookup-btn-status-active');
+  $('.oldest').addClass('course-lookup-btn-status');
+});
+
+$('.oldest').click(function() {
+  $('.oldest').removeClass('course-lookup-btn-status').addClass('course-lookup-btn-status-active');
+  $('.newest').addClass('course-lookup-btn-status');
+});
+
+$('.add-select2').select2({
+});

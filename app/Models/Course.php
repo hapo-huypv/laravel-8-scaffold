@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
+use App\Models\CourseUser;
 
 class Course extends Model
 {
@@ -14,7 +16,7 @@ class Course extends Model
 
     protected $fillable = [
         'title',
-        'logo-path',
+        'logo_path',
         'description',
         'intro',
         'learn_time',
@@ -24,16 +26,98 @@ class Course extends Model
 
     public function lessons()
     {
-        return $this->hasMany(Lessons::class);
+        return $this->hasMany(Lesson::class);
+    }
+
+    public function getNumberLessonAttribute()
+    {
+        return $this->lessons()->count();
+    }
+
+    public function getTotalTimeAttribute($id)
+    {
+        return $this->lessons()->sum('learn_time');
     }
 
     public function tags()
     {
-        return $this->belongsToMany(Tags::class);
+        return $this->belongsToMany(Tag::class, 'course_tags')->using(CourseTag::class);
     }
 
     public function users()
     {
-        return $this->belongsToMany(Users::class);
+        return $this->belongsToMany(User::class, 'course_users')->using(CourseUser::class);
+    }
+
+    public function getNumberUserAttribute()
+    {
+        return $this->users()->count();
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function scopeFilter($query, $dataRequest)
+    {
+        if (isset($dataRequest['keyword'])) {
+            $keyword = $dataRequest['keyword'];
+            $query = $query->where('title', 'like', "%$keyword%")->orWhere('intro', 'like', "%$keyword%");
+        }
+
+        if (isset($dataRequest['teachers'])) {
+            $teachers = $dataRequest['teachers'];
+            $query = $query->whereHas('users', function ($subquery) use ($teachers) {
+                $subquery->where('user_id', $teachers);
+            });
+        }
+
+        if (isset($dataRequest['number_learners'])) {
+            $query = $query->withCount([
+                'users as users_count' => function ($subquery) {
+                    $subquery->groupBy('course_id');
+                }
+            ])->orderBy('users_count', $dataRequest['number_learners']);
+        }
+
+        if (isset($dataRequest['number_lessons'])) {
+            $query = $query->withCount([
+                'lessons as lessons_count' => function ($subquery) {
+                    $subquery->groupBy('course_id');
+                }
+            ])->orderBy('lessons_count', $dataRequest['number_lessons']);
+        }
+        
+        if (isset($dataRequest['study_time'])) {
+            $query = $query->withSum('lessons', 'learn_time', function ($subquery) {
+                $subquery->groupBy('course_id');
+            })->orderBy('lessons_sum_learn_time', $dataRequest['study_time']);
+        }
+
+        if (isset($dataRequest['tags'])) {
+            $tags = $dataRequest['tags'];
+            $query = $query->whereHas('tags', function ($subquery) use ($tags) {
+                $subquery->where('tag_id', $tags);
+            });
+        }
+
+        if (isset($dataRequest['reviews'])) {
+            $query = $query->whereHas('reviews', function ($subquery) {
+                $subquery->where('type', Review::TYPE_COURSE);
+            })->withAvg('reviews', 'rate', function ($subquery) {
+                $subquery->groupBy('target_id');
+            })->orderBy('reviews_avg_rate', $dataRequest['reviews']);
+        }
+
+        if (isset($dataRequest['status'])) {
+            if ($dataRequest['status'] == config('course.newest')) {
+                $query = $query->orderBy('id', config('course.ascending', 'asc'));
+            } elseif ($dataRequest['status'] == config('course.oldest')) {
+                $query = $query->orderBy('id', config('cousre.descending', 'desc'));
+            }
+        }
+        
+        return $query;
     }
 }
