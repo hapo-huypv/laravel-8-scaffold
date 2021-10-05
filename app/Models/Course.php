@@ -46,7 +46,7 @@ class Course extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'course_users')->using(CourseUser::class);
+        return $this->belongsToMany(User::class, 'course_users', 'course_id', 'user_id')->using(CourseUser::class);
     }
 
     public function getNumberUserAttribute()
@@ -118,6 +118,15 @@ class Course extends Model
             }
         }
         
+        return $query;
+    }
+
+    public function scopeDetailCourse($query, $course_id)
+    {
+        if (isset($course_id)) {
+            $query = $query->where('id', $course_id);
+        }
+
         return $query;
     }
 }

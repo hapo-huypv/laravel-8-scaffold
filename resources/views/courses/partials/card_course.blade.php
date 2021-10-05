@@ -9,7 +9,13 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end">
-                <a href="#" class="btn btn-primary course-list-btn">More</a>
+            <form method="get" action="{{ route('detail_course') }}">
+                <input type="hidden" name="course_id" value="{{ $course->id }}" />
+                @if (isset(Auth::user()->id))
+                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}"/>
+                @endif
+                <button class="btn btn-success course-list-btn" type="submit">More</button>
+            </form>
             </div>
             <div class="d-flex flex-row justify-content-center course-list-statistic">
                 <div class="col-4 p-0 d-flex flex-column align-items-start">

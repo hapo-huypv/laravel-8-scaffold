@@ -15,3 +15,57 @@ button:focus {
 .btn-primary:active {
   background-color: aqua !important;
 }
+
+.btn-course-search {
+  background: $color-lightgreen;
+  border: 1px solid $color-lightgreen;
+  border-radius: 5px;
+  font-family: $font-Open-Sans;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 20px;
+  color: $color-white;
+  width: 100px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.btn-course-join {
+  background: $color-lightgreen;
+  border: 1px solid $color-lightgreen;
+  border-radius: 5px;
+  font-family: $font-Open-Sans;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 20px;
+  color: $color-white;
+  width: 200px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  box-shadow: 0px 1.5px 2px 0px $color-btn-boxshadow-green inset;
+  border-radius: 22px;
+  margin-left: 150px;
+}
+
+.btn-course-join-lesson {
+  background: $color-lightgreen;
+  border: 1px solid $color-lightgreen;
+  border-radius: 5px;
+  font-family: $font-Open-Sans;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 20px;
+  color: $color-white;
+  width: 80px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  box-shadow: 0px 1.5px 2px 0px $color-btn-boxshadow-green inset;
+  border-radius: 22px;
+  flex: 1 0 10.666667%;
+}

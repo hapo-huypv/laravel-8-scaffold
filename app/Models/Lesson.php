@@ -30,4 +30,18 @@ class Lesson extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function scopeLessons($query, $input)
+    {
+        if (isset($input['course_id'])) {
+            $query = $query->where('course_id', $input['course_id']);
+        }
+        
+        if(isset($input['keyword'])) {
+            $keyword = $input['keyword'];
+            $query = $query->where('title', 'like', "%$keyword%");
+        }
+
+        return $query;
+    }
 }

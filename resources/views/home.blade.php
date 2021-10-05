@@ -27,7 +27,7 @@
                 <div class="col-sm-4">
                     <div class="card course-border">
                         <div class="d-flex align-items-center justify-content-center card-img-top bg-color-htmlcssjs">
-                            <img class="" src="./assets/img/rectangle_7.png" alt="HTML/CSS/js Tutorial">
+                            <img class="" src="./assets/img/html_js_css.png" alt="HTML/CSS/js Tutorial">
                         </div>                          
                         <div class="card-body">
                             <h5 class="card-title">HTML/CSS/js Tutorial</h5>

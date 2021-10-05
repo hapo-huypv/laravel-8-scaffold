@@ -99,3 +99,30 @@ $('.oldest').click(function() {
 
 $('.add-select2').select2({
 });
+
+$('#pills-lessons-tab').click(function() {
+  $(this).addClass('active');
+  $('#pills-teacher-tab').removeClass('active');
+  $('#pills-reviews-tab').removeClass('active');
+  $('#pills-lessons').tab('show');
+  $('#pills-teacher').removeClass('show active');
+  $('#pills-reviews').removeClass('show active');
+});
+
+$('#pills-teacher-tab').click(function() {
+  $(this).addClass('active');
+  $('#pills-lessons-tab').removeClass('active');
+  $('#pills-reviews-tab').removeClass('active');
+  $('#pills-teacher').tab('show');
+  $('#pills-lessons').removeClass('show active');
+  $('#pills-reviews').removeClass('show active');
+});
+
+$('#pills-reviews-tab').click(function() {
+  $(this).addClass('active');
+  $('#pills-teacher-tab').removeClass('active');
+  $('#pills-lessons-tab').removeClass('active');
+  $('#pills-reviews').tab('show');
+  $('#pills-teacher').removeClass('show active');
+  $('#pills-lessons').removeClass('show active');
+});
