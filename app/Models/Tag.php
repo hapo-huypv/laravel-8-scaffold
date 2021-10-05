@@ -21,10 +21,10 @@ class Tag extends Model
         return $this->belongsToMany(Course::class, 'course_tags');
     }
 
-    public function scopeTags($query, $course_id)
+    public function scopeTags($query, $courseId)
     {
-        $query = $query->whereHas('courses', function ($subquery) use ($course_id) {
-            $subquery->where('course_id', $course_id);
+        $query = $query->whereHas('courses', function ($subquery) use ($courseId) {
+            $subquery->where('course_id', $courseId);
         });
     }
 }

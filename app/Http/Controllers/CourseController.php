@@ -36,15 +36,16 @@ class CourseController extends Controller
 
         $lessons = Lesson::lessons($request->input())->paginate(config('lesson.number_paginations'));
 
-        $course_user = new CourseUser();
-        $course_user = $course_user->joinCourse($request->input());
+        $courseUser = new CourseUser();
+        $courseUser = $courseUser->joinCourse($request->input());
 
         if (isset($request['leave'])) {
-            $leave_course = new CourseUser();
-            $leave_course = $leave_course->leaveCourse($request->input());
-            $course_user = config('lesson.joinin');
+            $leaveCourse = new CourseUser();
+            $leaveCourse = $leaveCourse->leaveCourse($request->input());
+            
+            $courseUser = config('lesson.joinin');
         }
 
-        return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'course_user'));
+        return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'courseUser'));
     }
 }

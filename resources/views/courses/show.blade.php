@@ -55,11 +55,11 @@
                                             @endif
                                         @else
                                             <form method="get" action="{{ route('detail_course') }}">
-                                                @if ($course_user == config('lesson.joinin'))
+                                                @if ($courseUser == config('lesson.joinin'))
                                                     <input type="hidden" name="course_id" value="{{ $course->id }}"/>
                                                     <input type="hidden" name="joined" value={{ config('lesson.joinedin') }}/>
                                                     <button id="btnJoinCourse" class="btn btn-success btn-course-join" type="submit">Join in the course</button>
-                                                @elseif ($course_user == config('lesson.joinedin'))
+                                                @elseif ($courseUser == config('lesson.joinedin'))
                                                     <div id="btnJoinedCourse" class="btn-course-join w-50">Joined</div>
                                                 @endif
                                             </form>
@@ -76,7 +76,7 @@
                                             <span class="mr-3">{{ $key + 1 + (request('page')-1)*config('lesson.number_paginations') }}.</span> 
                                         @endif
                                             <span class="col-10">{{ $lesson->title }}</span>
-                                        @if ($course_user == config('lesson.joinedin'))
+                                        @if ($courseUser == config('lesson.joinedin'))
                                             <button id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson" type="submit">Learn</button>
                                         @endif
                                     </div>
@@ -87,7 +87,7 @@
                                     {!! $lessons->appends($_GET)->onEachSide(2)->links('components.pagination') !!}
                                 </div>
                                 <hr>
-                                @if ($course_user == config('lesson.joinedin'))
+                                @if ($courseUser == config('lesson.joinedin'))
                                     <div class="d-flex align-items-center justify-content-end">
                                         <form method="get" action="{{ route('detail_course') }}">
                                             <input type="hidden" name="course_id" value="{{ $course->id }}"/>

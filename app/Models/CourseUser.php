@@ -22,17 +22,17 @@ class CourseUser extends Model
 
     public function scopeRecord($query, $input)
     {
-        if(isset(Auth::user()->id)) {   
-            $user_id = Auth::user()->id;
+        if (isset(Auth::user()->id)) {
+            $userId = Auth::user()->id;
         } else {
-            $user_id = null;
+            $userId = null;
         }
 
-        $course_id = $input['course_id'];
+        $courseId = $input['course_id'];
 
         $query->where([
-            ['course_id', $course_id],
-            ['user_id', $user_id],
+            ['course_id', $courseId],
+            ['user_id', $userId],
         ]);
         
         return $query;
@@ -67,7 +67,7 @@ class CourseUser extends Model
         }
 
         if (isset($input['leave']) && $input['leave'] == "leave") {
-            $course_user = CourseUser::withTrashed()->where('id', $record)->forceDelete();
+            CourseUser::withTrashed()->where('id', $record)->forceDelete();
             return config('lesson.joinin');
         }
     }

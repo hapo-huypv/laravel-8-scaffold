@@ -121,10 +121,10 @@ class Course extends Model
         return $query;
     }
 
-    public function scopeDetailCourse($query, $course_id)
+    public function scopeDetailCourse($query, $courseId)
     {
-        if (isset($course_id)) {
-            $query = $query->where('id', $course_id);
+        if (isset($courseId)) {
+            $query = $query->where('id', $courseId);
         }
 
         return $query;

@@ -37,7 +37,7 @@ class Lesson extends Model
             $query = $query->where('course_id', $input['course_id']);
         }
         
-        if(isset($input['keyword'])) {
+        if (isset($input['keyword'])) {
             $keyword = $input['keyword'];
             $query = $query->where('title', 'like', "%$keyword%");
         }
