@@ -47,17 +47,12 @@ class Course extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'course_users', 'course_id', 'user_id')->using(CourseUser::class);
+        return $this->belongsToMany(User::class, 'course_users', 'course_id', 'user_id');
     }
 
     public function getNumberUserAttribute()
     {
         return $this->users()->where('role', User::ROLE_STUDENT)->count();
-    }
-
-    public function getTeachersAttribute()
-    {
-        return $this->users()->where('role', 0)->count();
     }
 
     public function reviews()
@@ -127,11 +122,9 @@ class Course extends Model
         return $query;
     }
 
-    public function scopeDetailCourse($query, $courseId)
+    public function scopeSuggestions($query)
     {
-        if (isset($courseId)) {
-            $query = $query->where('id', $courseId);
-        }
+        $query = $query->inRandomOrder()->limit(5);
 
         return $query;
     }

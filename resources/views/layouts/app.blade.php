@@ -6,7 +6,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title> @yield('title')</title>
-    <link rel="shortcut icon" href="./assets/img/hapo_logo.png" type="image/png" />
+    <link rel="shortcut icon" href="{{ asset('assets/img/hapo_logo.png') }}" type="image/png" />
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>

@@ -1,25 +1,17 @@
 @extends('layouts.app')
 
+@section('title')
+    Detail Course
+@endsection
+
 @section('content')
     <div class="detail-course">
         <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="nav-crumb-link">
-                        <a class="nav-crumb-link-text" href="{{ route('home') }}">Home</a>
-                        <i class="fas fa-angle-right mr-1"></i>
-                    </li>
-                    <li class="nav-crumb-link">
-                        <a class="nav-crumb-link-text" href="{{ route('courses') }}">All courses</a>
-                        <i class="fas fa-angle-right mr-1"></i>
-                    </li>
-                    <li class="nav-crumb-link" aria-current="page">Course detail</li>
-                </ol>
-            </nav>
+           @include('courses.partials.breadcrumb')
             <div class="d-flex">
                 <div class="col-8 pl-0">
                     <div class="d-flex justify-content-center align-items-center  detail-course-img-background">
-                        <img class="detail-course-img" src="{{ $course->image }}" alt="image">
+                        <img class="detail-course-img" src="{{ asset($course->image) }}" alt="image">
                     </div>
                     <div class="detail-course-content">
                         <ul class="nav nav-pills mb-3 detail-course-nav" id="pillsTabCourse" role="tablist">
@@ -35,10 +27,10 @@
                         </ul>
                         <div class="pr-3 pl-3"><hr class="m-0"></div>
                         <div class="tab-content" id="pillsTabCourseContent">
-                            <div class="tab-pane fade  show-detail-course" id="pills-lessons" role="tabpanel" aria-labelledby="pills-lessons-tab">
+                            <div class="tab-pane fade show active show-detail-course" id="pills-lessons" role="tabpanel" aria-labelledby="pills-lessons-tab">
                                 <div class="d-flex">
                                     <div>    
-                                        <form method="get" action="{{ route('detail_course') }}">
+                                        <form method="get" action="{{  route('detail_course', [$course->id]) }}">
                                             <div class="d-flex flex-row">
                                                 <div class="position-relative">
                                                     <input class="course-search" name="keyword" type="text" placeholder="Search...">
@@ -50,20 +42,12 @@
                                         </form>
                                     </div>
                                     <div class="">
-                                        @guest
-                                            @if (Route::has('login') || Route::has('register'))
-                                            @endif
-                                        @else
-                                            <form method="get" action="{{ route('detail_course') }}">
-                                                @if ($courseUser == config('lesson.joinin'))
-                                                    <input type="hidden" name="course_id" value="{{ $course->id }}"/>
-                                                    <input type="hidden" name="joined" value={{ config('lesson.joinedin') }}/>
-                                                    <button id="btnJoinCourse" class="btn btn-success btn-course-join" type="submit">Join in the course</button>
-                                                @elseif ($courseUser == config('lesson.joinedin'))
-                                                    <div id="btnJoinedCourse" class="btn-course-join w-50">Joined</div>
-                                                @endif
-                                            </form>
-                                        @endguest
+                                        @if ($status == config('course.joinin'))
+                                            <input type="hidden" name="joined" value={{ config('course.joinedin') }}/>
+                                            <a href="{{ route('join_course', [$course->id]) }}" id="btnJoinCourse" class="btn btn-success btn-course-join" type="submit">Join in the course</a>
+                                        @elseif ($status == config('course.joinedin'))
+                                            <div id="btnJoinedCourse" class="btn-course-join w-50">Joined</div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div>
@@ -76,7 +60,7 @@
                                             <span class="mr-3">{{ $key + 1 + (request('page')-1)*config('lesson.number_paginations') }}.</span> 
                                         @endif
                                             <span class="col-10">{{ $lesson->title }}</span>
-                                        @if ($courseUser == config('lesson.joinedin'))
+                                        @if ($status == config('course.joinedin'))
                                             <button id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson" type="submit">Learn</button>
                                         @endif
                                     </div>
@@ -87,20 +71,16 @@
                                     {!! $lessons->appends($_GET)->onEachSide(2)->links('components.pagination') !!}
                                 </div>
                                 <hr>
-                                @if ($courseUser == config('lesson.joinedin'))
+                                @if ($status == config('course.joinedin'))
                                     <div class="d-flex align-items-center justify-content-end">
-                                        <form method="get" action="{{ route('detail_course') }}">
-                                            <input type="hidden" name="course_id" value="{{ $course->id }}"/>
-                                            <input type="hidden" name="leave" value="leave"/>
-                                            <button id="btnLeaveCourse" class="ml-0 btn btn-success btn-course-join w-100" type="submit">Leave</button>
-                                        </form>
+                                        <a href="{{ route('leave_course', [$course->id]) }}" id="btnLeaveCourse" class="ml-0 btn btn-success btn-course-join w-25" type="submit">Leave</a>
                                     </div>
                                 @endif
                             </div>
                             <div class="tab-pane fade" id="pills-teacher" role="tabpanel" aria-labelledby="pills-teacher-tab">
                                 @include('courses.partials.teacher')
                             </div>
-                            <div class="tab-pane fade show active" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
+                            <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
                                 @include('courses.partials.reviews')
                             </div>
                         </div>

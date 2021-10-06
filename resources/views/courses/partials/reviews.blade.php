@@ -39,8 +39,8 @@
     </div>
     <hr>
     <div class="review-show">
-        <select class="add-select2 border-0">
-            <option class="select-option border-0" value="">Show all reviews</option>
+        <select class="add-select2">
+            <option class="select-option" value="">Show all reviews</option>
         </select>
     </div>
 </div>

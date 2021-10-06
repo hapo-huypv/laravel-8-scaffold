@@ -20,7 +20,7 @@ class CourseUser extends Model
         'user_id',
     ];
 
-    public function scopeRecord($query, $input)
+    public function scopeRecord($query, $id)
     {
         if (isset(Auth::user()->id)) {
             $userId = Auth::user()->id;
@@ -28,7 +28,7 @@ class CourseUser extends Model
             $userId = null;
         }
 
-        $courseId = $input['course_id'];
+        $courseId = $id;
 
         $query->where([
             ['course_id', $courseId],
@@ -38,37 +38,14 @@ class CourseUser extends Model
         return $query;
     }
 
-    public function joinCourse($input)
+    public function status($id)
     {
-        $record = CourseUser::record($input)->get();
-        
-        if (empty($input['joined']) && empty($record[0])) {
-            return config('lesson.joinin');
-        } elseif (empty($record[0]) && isset($input['joined'])) {
-            CourseUser::create([
-                'course_id' => $input['course_id'],
-                'user_id' => Auth::user()->id,
-            ]);
+        $record = CourseUser::record($id)->get();
 
-            return config('lesson.joinedin');
+        if (empty($record[0])) {
+            return config('course.joinin');
         } else {
-            return config('lesson.joinedin');
-        }
-    }
-
-    public function leaveCourse($input)
-    {
-        $record = CourseUser::record($input)->get();
-
-        if ($record->isEmpty()) {
-            $record = null;
-        } else {
-            $record = $record[0]->id;
-        }
-
-        if (isset($input['leave']) && $input['leave'] == "leave") {
-            CourseUser::withTrashed()->where('id', $record)->forceDelete();
-            return config('lesson.joinin');
+            return config('course.joinedin');
         }
     }
 }

@@ -5,7 +5,7 @@
                 <span id="navbarResponsiveClose" class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-branch" href="#">
-                <img src="./assets/img/hapolearn.png" alt="HapoLearn">        
+                <img src="{{ asset('assets/img/hapolearn.png') }}" alt="HapoLearn">        
             </a>
             <div class="collapse navbar-collapse align-items-center justify-content-end" id="navbarResponsive">
                 <ul class="navbar-nav align-items-center">

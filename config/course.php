@@ -10,4 +10,6 @@ return [
     'newest' => 'newest',
     'oldest' => 'oldest',
 
+    'joinin' => '0',
+    'joinedin' => '1',
 ];

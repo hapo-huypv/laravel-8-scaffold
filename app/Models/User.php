@@ -58,7 +58,7 @@ class User extends Authenticatable
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class, 'course_users', 'user_id', 'course_id')->using(CourseUser::class);
+        return $this->belongsToMany(Course::class, 'course_users', 'user_id', 'course_id');
     }
     
     public function lessons()
@@ -86,18 +86,4 @@ class User extends Authenticatable
 
         return $query;
     }
-
-    // public function scopeUser($query, $input)
-    // {
-    //     if(isset($input['course_id']) && isset($input['user_id'])) {
-    //         $user_id = $input['user_id'];
-    //         $course_id = $input['course_id'];
-
-    //         $query = $query->whereHas('courses', function ($subquery) use ($course_id, $user_id) {
-    //             $subquery->where('course_id', $course_id)->where('user_id', $user_id);
-    //         });
-    //     }
-
-    //     return $query;
-    // }
 }

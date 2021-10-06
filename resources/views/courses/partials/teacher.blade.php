@@ -2,7 +2,7 @@
     <div class="main-teacher">Main Teacher</div>
     @foreach ($courseTeachers as $courseTeacher)
         <div class="d-flex align-items-center">
-            <img src="./assets/img/avatar_nghialt.png" alt="teacher">
+            <img src="{{ asset('assets/img/avatar_nghialt.png') }}" alt="teacher">
             <div class="ml-3">
                 <div class="teacher-name">{{ $courseTeacher->name }}</div>
                 <div class="teacher-role">Second Year Teacher</div>

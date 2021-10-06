@@ -23,6 +23,12 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/course', [CourseController::class, 'index'])->name('courses');
+Route::prefix('course')->group(function () {
+    Route::get('/', [CourseController::class, 'index'])->name('courses');
 
-Route::get('/detail_course', [CourseController::class, 'show'])->name('detail_course');
+    Route::prefix('detail')->group(function () {
+        Route::get('/{course}', [CourseController::class, 'show'])->name('detail_course');
+        Route::get('/{course}/join', [CourseController::class, 'join'])->name('join_course');
+        Route::get('/{course}/leave', [CourseController::class, 'leave'])->name('leave_course');
+    });
+});
