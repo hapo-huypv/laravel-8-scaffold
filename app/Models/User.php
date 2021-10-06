@@ -78,6 +78,15 @@ class User extends Authenticatable
         return $teachers;
     }
 
+    public function scopeCourseTeachers($query, $courseId)
+    {
+        $query = $query->whereHas('courses', function ($subquery) use ($courseId) {
+            $subquery->where('course_id', $courseId);
+        })->where('role', User::ROLE_TEACHER);
+
+        return $query;
+    }
+
     // public function scopeUser($query, $input)
     // {
     //     if(isset($input['course_id']) && isset($input['user_id'])) {

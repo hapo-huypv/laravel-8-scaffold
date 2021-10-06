@@ -231,6 +231,173 @@
       padding-right: 17px;
     }
   }
+  .main-teacher {
+    font-family: $font_UTM_BryantLG;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 31px;
+    letter-spacing: -0.02em;
+    color: $color-dark;
+    -webkit-text-stroke: 0.5px;
+    margin-bottom: 37px;
+  }
+
+  .teacher-name {
+    font-family: $font_UTM_BryantLG;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.02em;
+    color: $color-dark;
+  }
+
+  .teacher-role {
+    font-family: $font_UTM_BryantLG;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.02em;
+    color: $color-gray-role;
+  }
+
+  .teacher-intro {
+    font-family: $font_UTM_BryantLG;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: -0.02em;
+    color: $color-gray-text-description;
+    margin-bottom: 50px;
+  }
+
+  .fa-google-plus-g {
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    border: 1px solid $color-red-icon-google;
+  }
+
+  .fa-google-plus-g:before {
+    content: "\f0d5";
+    font-size: 12px;
+    color: $color-red-icon-google;
+  }
+
+  .fa-facebook-f {
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    border: 1px solid $color-blue-icon-facebook;
+  }
+  
+  .fa-facebook-f:before {
+    font-size: 12px;
+    content: "\f39e";
+    color: $color-blue-icon-facebook;
+  }
+
+  .fa-star:before {
+    content: "\f005";
+    font-size: 22px;
+    color: $color-yellow-rating-star;
+}
+
+  .reviews {
+    font-family: $font_UTM_BryantLG;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 31px;
+    letter-spacing: -0.02em;
+    color: $color-dark;
+    -webkit-text-stroke: 0.5px;
+  }
+
+  .rating {
+    &-star {
+      background: $color-dark;
+      border-radius: 5px;
+      width: 244px;
+      height: 176px;
+
+     &-number {
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: $color-white;
+      font-family: $font_UTM_BryantLG;
+      font-weight: bold;
+      font-size: 60px;
+      line-height: 74px;
+      letter-spacing: -0.02em;
+      color: $color-white;
+     }
+
+     &-total {
+      font-family: $font_UTM_BryantLG;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: -0.02em;
+      color: $color-white;
+     }
+    }
+
+    .rating-statistic {
+      border: 1px solid $color-gray-border-rating;
+      box-sizing: border-box;
+      border-radius: 5px;
+
+      &-type {
+        font-family: $font_UTM_BryantLG;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: -0.02em;
+        color: $color-dark;
+      }
+
+      &-graph {
+        border-top: 6px solid $color-border-input;
+        width: 335px;
+        margin: 14px auto;
+      }
+
+      .active {
+        border-top: 6px solid $color-lightgreen;
+      }
+
+      &-total {
+        font-family: $font_UTM_BryantLG;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 17px;
+        letter-spacing: -0.02em;
+        color: $color-gray-number-rating;
+      }
+    }
+
+    .col-8 {
+      max-width: 62.6666666667%;
+    }
+  }
+
+  .review-show {
+    font-family: $font_UTM_BryantLG;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.02em;
+    color: $color-dark;
+    -webkit-text-stroke: 0.4px;
+    border: none;
+
+    .select2-container {
+      width: 151px !important;
+    }
+
+    .select2-container--default 
+      .select2-selection--single {
+        border: none;
+    }
+  }
 }
 
 @media screen and (min-width: 1200px) {

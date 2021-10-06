@@ -39,6 +39,8 @@ class CourseController extends Controller
         $courseUser = new CourseUser();
         $courseUser = $courseUser->joinCourse($request->input());
 
+        $courseTeachers = User::courseTeachers($request['course_id'])->get();
+
         if (isset($request['leave'])) {
             $leaveCourse = new CourseUser();
             $leaveCourse = $leaveCourse->leaveCourse($request->input());
@@ -46,6 +48,6 @@ class CourseController extends Controller
             $courseUser = config('lesson.joinin');
         }
 
-        return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'courseUser'));
+        return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'courseUser', 'courseTeachers'));
     }
 }

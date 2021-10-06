@@ -35,7 +35,7 @@
                         </ul>
                         <div class="pr-3 pl-3"><hr class="m-0"></div>
                         <div class="tab-content" id="pillsTabCourseContent">
-                            <div class="tab-pane fade show active show-detail-course" id="pills-lessons" role="tabpanel" aria-labelledby="pills-lessons-tab">
+                            <div class="tab-pane fade  show-detail-course" id="pills-lessons" role="tabpanel" aria-labelledby="pills-lessons-tab">
                                 <div class="d-flex">
                                     <div>    
                                         <form method="get" action="{{ route('detail_course') }}">
@@ -97,8 +97,12 @@
                                     </div>
                                 @endif
                             </div>
-                            <div class="tab-pane fade" id="pills-teacher" role="tabpanel" aria-labelledby="pills-teacher-tab">...</div>
-                            <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">...</div>
+                            <div class="tab-pane fade" id="pills-teacher" role="tabpanel" aria-labelledby="pills-teacher-tab">
+                                @include('courses.partials.teacher')
+                            </div>
+                            <div class="tab-pane fade show active" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
+                                @include('courses.partials.reviews')
+                            </div>
                         </div>
                     </div>
                 </div>

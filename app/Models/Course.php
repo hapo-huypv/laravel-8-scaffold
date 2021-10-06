@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use App\Models\CourseUser;
+use App\Models\User;
 
 class Course extends Model
 {
@@ -51,7 +52,12 @@ class Course extends Model
 
     public function getNumberUserAttribute()
     {
-        return $this->users()->count();
+        return $this->users()->where('role', User::ROLE_STUDENT)->count();
+    }
+
+    public function getTeachersAttribute()
+    {
+        return $this->users()->where('role', 0)->count();
     }
 
     public function reviews()
