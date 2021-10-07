@@ -19,33 +19,4 @@ class CourseUser extends Model
         'course_id',
         'user_id',
     ];
-
-    public function scopeRecord($query, $id)
-    {
-        if (isset(Auth::user()->id)) {
-            $userId = Auth::user()->id;
-        } else {
-            $userId = null;
-        }
-
-        $courseId = $id;
-
-        $query->where([
-            ['course_id', $courseId],
-            ['user_id', $userId],
-        ]);
-        
-        return $query;
-    }
-
-    public function status($id)
-    {
-        $record = CourseUser::record($id)->get();
-
-        if (empty($record[0])) {
-            return config('course.joinin');
-        } else {
-            return config('course.joinedin');
-        }
-    }
 }

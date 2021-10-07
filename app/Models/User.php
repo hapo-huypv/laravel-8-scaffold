@@ -63,7 +63,7 @@ class User extends Authenticatable
     
     public function lessons()
     {
-        return $this->belongsToMany(Lesson::class);
+        return $this->belongsToMany(Lesson::class, 'lesson_users', 'user_id', 'lesson_id');
     }
 
     public function reviews()
@@ -82,6 +82,16 @@ class User extends Authenticatable
     {
         $query = $query->whereHas('courses', function ($subquery) use ($courseId) {
             $subquery->where('course_id', $courseId);
+        })->where('role', User::ROLE_TEACHER);
+
+        return $query;
+    }
+
+    public function scopeLessonTeachers($query, $lessonId)
+    {
+        dd($lessonId);
+        $query = $query->whereHas('lessons', function ($subquery) use ($lessonId) {
+            $subquery->where('lesson_id', $lessonId);
         })->where('role', User::ROLE_TEACHER);
 
         return $query;

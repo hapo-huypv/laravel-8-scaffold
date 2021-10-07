@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('title')
-    Detail Course
+    Detail Lesson
 @endsection
 
+{{$lesson->id}}
 @section('content')
     <div class="show-detail">
         <div class="container">
@@ -16,10 +17,13 @@
                     <div class="show-detail-content">
                         <ul class="nav nav-pills mb-3 show-detail-nav" id="pillsTabCourse" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="border-0 position-relative nav-link active" id="pills-lessons-tab" data-bs-toggle="pill" data-bs-target="#pills-lessons" type="button" role="tab" aria-controls="pills-lessons" aria-selected="true">Lessons</button>
+                                <button class="border-0 position-relative nav-link active" id="pills-descriptions-tab" data-bs-toggle="pill" data-bs-target="#pills-descriptions" type="button" role="tab" aria-controls="pills-lessons" aria-selected="true">Descriptions</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="border-0 position-relative nav-link" id="pills-teacher-tab" data-bs-toggle="pill" data-bs-target="#pills-teacher" type="button" role="tab" aria-controls="pills-teacher" aria-selected="false">Teacher</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="border-0 position-relative nav-link" id="pills-program-tab" data-bs-toggle="pill" data-bs-target="#pills-program" type="button" role="tab" aria-controls="pills-lessons" aria-selected="true">Program</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="border-0 position-relative nav-link" id="pills-reviews-tab" data-bs-toggle="pill" data-bs-target="#pills-reviews" type="button" role="tab" aria-controls="pills-reviews" aria-selected="false">Reviews</button>
@@ -27,57 +31,13 @@
                         </ul>
                         <div class="pr-3 pl-3"><hr class="m-0"></div>
                         <div class="tab-content" id="pillsTabCourseContent">
-                            <div class="tab-pane fade show active show-detail-course" id="pills-lessons" role="tabpanel" aria-labelledby="pills-lessons-tab">
-                                <div class="d-flex">
-                                    <div>    
-                                        <form method="get" action="{{  route('detail_course', [$course->id]) }}">
-                                            <div class="d-flex flex-row">
-                                                <div class="position-relative">
-                                                    <input class="course-search" name="keyword" type="text" placeholder="Search...">
-                                                    <label><i class="fas fa-search"></i></label>
-                                                </div>
-                                                <input type="hidden" name="course_id" value="{{ $course->id }}" />
-                                                <button id="btnSearch" class="btn btn-success btn-block btn-course-search" type="submit">Search</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="">
-                                        @if ($course->join == config('course.joinin') && isset(Auth::user()->id))
-                                            <a href="{{ route('join_course', [$course->id]) }}" id="btnJoinCourse" class="btn btn-success btn-course-join" type="submit">Join in the course</a>
-                                        @elseif ($course->join == config('course.joinedin') && isset(Auth::user()->id))
-                                            <div id="btnJoinedCourse" class="btn-course-join w-50">Joined</div>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div>
-                                    @foreach($lessons as $key => $lesson)
-                                    <hr>
-                                    <div class="d-flex">
-                                        @if (empty(request('page')))
-                                            <span class="mr-3">{{ $key + 1 }}.</span> 
-                                        @else
-                                            <span class="mr-3">{{ $key + 1 + (request('page')-1)*config('lesson.number_paginations') }}.</span> 
-                                        @endif
-                                            <span class="col-10">{{ $lesson->title }}</span>
-                                        @if ($course->join == config('course.joinedin'))
-                                            <a href="{{ route('detail_lesson', [$lesson->id]) }}" id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson" type="submit">Learn</a>
-                                        @endif
-                                    </div>
-                                    @endforeach
-                                </div>
-                                <hr>
-                                <div class="paginationWrap">
-                                    {!! $lessons->appends($_GET)->onEachSide(2)->links('components.pagination') !!}
-                                </div>
-                                <hr>
-                                @if ($course->join == config('course.joinedin'))
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <a href="{{ route('leave_course', [$course->id]) }}" id="btnLeaveCourse" class="ml-0 btn btn-success btn-course-join w-25" type="submit">Leave</a>
-                                    </div>
-                                @endif
+                            <div class="tab-pane fade show active show-detail-course" id="pills-descriptions" role="tabpanel" aria-labelledby="pills-descriptions-tab">
+                                @include('courses.lessons.descriptions')
                             </div>
                             <div class="tab-pane fade" id="pills-teacher" role="tabpanel" aria-labelledby="pills-teacher-tab">
                                 @include('courses.partials.teacher')
+                            </div>
+                            <div class="tab-pane fade" id="pills-program" role="tabpanel" aria-labelledby="pills-program-tab">
                             </div>
                             <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
                                 @include('courses.partials.reviews')
@@ -86,12 +46,18 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <div class="course-description">
-                        <span class="course-description-title">Descriptions course</span>
-                        <hr class="course-description-hr">
-                        <span class="course-description-text">{{ $course->description }}</span>
-                    </div>
-                    <div class="course-info">
+                    <div class="m-0 course-info">
+                        <div class="d-flex align-items-center course-info-line">
+                            <div class="col-6 d-flex align-items-center">
+                                <div class="icon-course"></div>
+                                <div class="course-info-text">Course</div>
+                            </div>
+                            <div class="col-6 d-flex align-items-center">
+                                <div class="">:</div>
+                                <div class="course-info-number">{{ $course->title }}</div>
+                            </div>
+                        </div>
+                        <hr>
                         <div class="d-flex align-items-center course-info-line">
                             <div class="col-6 d-flex align-items-center">
                                 <div class="icon-learners"></div>
@@ -99,18 +65,7 @@
                             </div>
                             <div class="col-6 d-flex align-items-center">
                                 <div class="">:</div>
-                                <div class="course-info-number">{{ $course->number_user }}</div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="d-flex align-items-center course-info-line">
-                            <div class="col-6 d-flex align-items-center">
-                                <div class="icon-lessons"></div>
-                                <div class="course-info-text">Lessons</div>
-                            </div>
-                            <div class="col-6 d-flex align-items-center">
-                                <div class="">:</div>
-                                <div class="course-info-number">{{ $course->number_lesson }} lessons</div>
+                                <div class="course-info-number">{{ $lesson->number_user }}</div>
                             </div>
                         </div>
                         <hr>
@@ -121,7 +76,7 @@
                             </div>
                             <div class="col-6 d-flex align-items-center">
                                 <div class="">:</div>
-                                <div class="course-info-number">{{ $course->total_time }} hours</div>
+                                <div class="course-info-number">{{ $lesson->learn_time }} hours</div>
                             </div>
                         </div>
                         <hr>
@@ -151,7 +106,13 @@
                             </div>
                             <div class="col-6 d-flex align-items-center">
                                 <div class="">:</div>
-                                <div class="course-info-number">{{ $course->price }}</div>
+                                <div class="course-info-number">
+                                    @if($lesson->price != 0)
+                                        {{ $lesson->price }}
+                                    @else
+                                        Free
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>

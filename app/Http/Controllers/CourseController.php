@@ -37,10 +37,7 @@ class CourseController extends Controller
 
         $courseTeachers = User::courseTeachers($id)->get();
 
-        $status = new CourseUser();
-        $status = $status->status($id);
-
-        return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'status', 'courseTeachers'));
+        return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'courseTeachers'));
     }
 
     public function join(Course $course)

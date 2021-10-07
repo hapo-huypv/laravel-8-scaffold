@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\User;
+use Auth;
 
 class Lesson extends Model
 {
@@ -28,6 +30,11 @@ class Lesson extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'lesson_users', 'lesson_id', 'user_id');
+    }
+
+    public function getNumberUserAttribute()
+    {
+        return $this->users()->where('role', User::ROLE_STUDENT)->count();
     }
 }

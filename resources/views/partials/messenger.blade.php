@@ -12,5 +12,5 @@
         </a>
         <div class="text-messenger-end">Chat với HapoLearn trong Messenger</div>
     </div>
-    <img class="logo-messenger" alt="logo-messenger" src="./assets/img/messenger.png"></img>
+    <img class="logo-messenger" alt="logo-messenger" src="{{ asset('assets/img/messenger.png') }}"></img>
 </div>

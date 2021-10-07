@@ -2,7 +2,7 @@
     <div class="card mb-5">
         <div class="card-body">
             <div class="d-flex">
-                <img class="course-list-img" src="{{ $course->logo_path }}" alt="ellipse_html">
+                <img class="course-list-img" src="{{ asset($course->logo_path) }}" alt="ellipse_html">
                 <div class="">
                     <p class="course-list-title">{{ $course->title }}</p>
                     <p class="course-list-intro">{{ $course->intro }}</p>

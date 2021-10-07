@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use App\Models\CourseUser;
 use App\Models\User;
+use Auth;
 
 class Course extends Model
 {
@@ -42,12 +43,23 @@ class Course extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'course_tags')->using(CourseTag::class);
+        return $this->belongsToMany(Tag::class, 'course_tags');
     }
 
     public function users()
     {
         return $this->belongsToMany(User::class, 'course_users', 'course_id', 'user_id');
+    }
+
+    public function getJoinAttribute()
+    {
+        if (isset(Auth::user()->id)) {
+            $userId = Auth::user()->id;
+        } else {
+            $userId = null;
+        }
+
+        return $this->users()->where('user_id', $userId)->count();
     }
 
     public function getNumberUserAttribute()

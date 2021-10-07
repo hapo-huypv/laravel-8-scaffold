@@ -1,4 +1,4 @@
-.detail-course {
+.show-detail {
   background-color: $color-gray-background;
 
   &-img {
@@ -131,6 +131,15 @@
   
     .icon-learners {
       background-image: url(../assets/img/icon_learners.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 35px;
+      height: 37px;
+    }
+
+    .icon-course {
+      background-image: url(../assets/img/icon_course.png);
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
@@ -396,6 +405,28 @@
     .select2-container--default 
       .select2-selection--single {
         border: none;
+    }
+  }
+
+  .descriptions {
+    &-lesson-title {
+      font-family: $font_UTM_BryantLG;
+      font-weight: bold;
+      font-size: 25px;
+      line-height: 31px;
+      letter-spacing: -0.02em;
+      color: $color-dark;
+      -webkit-text-stroke: 0.5px;
+      margin-bottom: 15px;
+    }
+
+    &-lesson-content {
+      font-family: $font_UTM_BryantLG;
+      font-size: 18px;
+      line-height: 26px;
+      text-align: justify;
+      letter-spacing: -0.02em;
+      color: $color-gray-text-description;
     }
   }
 }
