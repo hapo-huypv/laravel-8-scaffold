@@ -9,7 +9,6 @@
   &-img-background {
     background: $color-bg-php;
     border-radius: 10px;
-    width: 770px;
     height: 439px;
     margin-bottom: 30px;
   }
@@ -124,7 +123,7 @@
     margin-top: 30px;
     padding: 0px 20px 20px 20px;
     width: 370px;
-    height: 475px;
+    height: auto;
     background: $color-white;
     border: 1px solid $color-gray-border-description;
     box-sizing: border-box;
@@ -239,16 +238,6 @@
       padding-left: 17px;
       padding-right: 17px;
     }
-  }
-  .main-teacher {
-    font-family: $font_UTM_BryantLG;
-    font-weight: bold;
-    font-size: 25px;
-    line-height: 31px;
-    letter-spacing: -0.02em;
-    color: $color-dark;
-    -webkit-text-stroke: 0.5px;
-    margin-bottom: 37px;
   }
 
   .teacher-name {
@@ -408,31 +397,138 @@
     }
   }
 
-  .descriptions {
-    &-lesson-title {
+  .tab-title {
+    font-family: $font_UTM_BryantLG;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 31px;
+    letter-spacing: -0.02em;
+    color: $color-dark;
+    -webkit-text-stroke: 0.5px;
+    margin-bottom: 15px;
+  }
+
+  .tab-content {
+    font-family: $font_UTM_BryantLG;
+    font-size: 18px;
+    line-height: 26px;
+    text-align: justify;
+    letter-spacing: -0.02em;
+    color: $color-gray-text-description;
+  }
+
+  .icon-video {
+    background-image: url(../assets/img/icon_video.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 35px;
+    height: 37px;
+  }
+
+  .icon-pdf {
+    background-image: url(../assets/img/icon_pdf.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 35px;
+    height: 37px;
+  }
+
+  .icon-word {
+    background-image: url(../assets/img/icon_word.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 35px;
+    height: 37px;
+  }
+
+  .program {
+    &-name {
       font-family: $font_UTM_BryantLG;
       font-weight: bold;
-      font-size: 25px;
-      line-height: 31px;
+      font-size: 18px;
+      line-height: 22px;
       letter-spacing: -0.02em;
       color: $color-dark;
       -webkit-text-stroke: 0.5px;
-      margin-bottom: 15px;
     }
 
-    &-lesson-content {
+    &-type {
+      width: 50px;
       font-family: $font_UTM_BryantLG;
-      font-size: 18px;
-      line-height: 26px;
-      text-align: justify;
+      font-size: 14px;
+      line-height: 17px;
       letter-spacing: -0.02em;
-      color: $color-gray-text-description;
+      color: $color-gray-role;
     }
+  }
+
+  .lesson-title {
+    font-family: $font_UTM_BryantLG;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: -0.02em;
+    color: $color-dark;
+  }
+
+  .othercourse {
+    font-family: $font_UTM_BryantLG;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+    color: $color-dark;
+  }
+
+  .lesson-index {
+    width: 20px;
+    font-family: $font_UTM_BryantLG;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 25px;
+    letter-spacing: -0.02em;
+    color: $color-dark;
+  }
+
+  .processing-border {
+    width: 64px;
+    height: 20px;
+    position: relative;
+  }
+
+  .processing {
+    height: 20px;
+    position: absolute;
+    z-index: 2;
+    left: 0px;
+    background-color: $color-bg-css;
+  }
+
+  .processing-number {
+    z-index: 3;
+    font-family: $font_UTM_BryantLG;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: -0.02em;
+    color: $color-dark;
+  }
+
+  .lesson-processing::before {
+    z-index: 0;
+    position: absolute;
+    width: 64px;
+    height: 20px;
+    background-color: $color-border-input;
+    content: '';
   }
 }
 
 @media screen and (min-width: 1200px) {
   .container {
-    max-width: 1200px;
+    max-width: 1300px;
   }
 }

@@ -8,6 +8,7 @@ use App\Models\Tag;
 use App\Models\User;
 use App\Models\Lesson;
 use App\Models\CourseUser;
+use App\Models\Program;
 use Illuminate\Support\Facades\DB;
 use Auth;
 
@@ -21,13 +22,32 @@ class LessonController extends Controller
         $courses = Course::suggestions()->get();
 
         $course = $lesson->course()->where('id', $lesson->course_id)->first();
-        // dd($course);
-
-        // $lessons = $course->lessons($lesson->id)->paginate(config('lesson.number_paginations'));
 
         $courseTeachers = User::lessonTeachers($lesson->id)->get();
-        dd($courseTeachers);
 
-        return view('courses.lessons.show', compact('course', 'lesson', 'tags', 'courses','courseTeachers'));
+        $programs = Program::programs($lesson->id)->get();
+
+        // $process = $lesson->process($lesson->id);
+
+        return view('courses.lessons.show', compact('course', 'lesson', 'tags', 'courses', 'courseTeachers', 'programs'));
+    }
+
+    public function join(Lesson $lesson)
+    {
+        $lesson->users()->attach([Auth::user()->id ?? false]);
+
+        return back();
+    }
+
+    public function leave(Lesson $lesson)
+    {
+        $lesson->users()->detach([Auth::user()->id ?? false]);
+
+        $programs = Program::programs($lesson->id)->get();
+        foreach ($programs as $key => $program) {
+            $program->users()->detach([Auth::user()->id ?? false]);
+        }
+
+        return back();
     }
 }

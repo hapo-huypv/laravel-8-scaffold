@@ -1,10 +1,10 @@
-<div class="descriptions">
+<div class="">
     <div class="">
-        <div class="descriptions-lesson-title">Descriptions Lesson</div>
-        <div class="descriptions-lesson-content">{{ $lesson->description }}</div>
+        <div class="tab-title">Descriptions Lesson</div>
+        <div class="tab-content">{{ $lesson->description }}</div>
     </div>
     <div class="">
-        <div class="descriptions-lesson-title">Requirements</div>
-        <div class="descriptions-lesson-content">{{ $lesson->requirement }}</div>
+        <div class="tab-title">Requirements</div>
+        <div class="tab-content">{{ $lesson->requirement }}</div>
     </div>
 </div>

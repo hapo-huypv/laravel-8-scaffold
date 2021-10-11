@@ -35,6 +35,10 @@ class CourseController extends Controller
 
         $lessons = $course->lessons($id)->paginate(config('lesson.number_paginations'));
 
+        foreach ($lessons as $lesson) {
+            $lesson->process = $lesson->numberProcess($lesson->id);
+        }
+
         $courseTeachers = User::courseTeachers($id)->get();
 
         return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'courseTeachers'));
@@ -50,6 +54,11 @@ class CourseController extends Controller
     public function leave(Course $course)
     {
         $course->users()->detach([Auth::user()->id ?? false]);
+        
+        $lessons = Lesson::lessons($course->id)->get();
+        foreach ($lessons as $key => $lesson) {
+            $lesson->users()->detach([Auth::user()->id ?? false]);
+        }
 
         return back();
     }

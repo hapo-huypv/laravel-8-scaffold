@@ -52,14 +52,18 @@
                                 <div>
                                     @foreach($lessons as $key => $lesson)
                                     <hr>
-                                    <div class="d-flex">
+                                    <div class="d-flex align-items-center">
                                         @if (empty(request('page')))
-                                            <span class="mr-3">{{ $key + 1 }}.</span> 
+                                            <span class="mr-3 lesson-index">{{ $key + 1 }}.</span> 
                                         @else
-                                            <span class="mr-3">{{ $key + 1 + (request('page')-1)*config('lesson.number_paginations') }}.</span> 
+                                            <span class="mr-3 lesson-index">{{ $key + 1 + (request('page')-1)*config('lesson.number_paginations') }}.</span> 
                                         @endif
-                                            <span class="col-10">{{ $lesson->title }}</span>
+                                            <span class="col-9 lesson-title">{{ $lesson->title }}</span>
                                         @if ($course->join == config('course.joinedin'))
+                                            <div class="processing-border d-flex lesson-processing justify-content-center align-items-center">
+                                                <span class="processing" style="width:{{round($lesson->process, 2)}}%"></span>
+                                                <span class="processing-number">{{ round($lesson->process, 2) }}%</span>
+                                            </div>
                                             <a href="{{ route('detail_lesson', [$lesson->id]) }}" id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson" type="submit">Learn</a>
                                         @endif
                                     </div>
@@ -151,7 +155,13 @@
                             </div>
                             <div class="col-6 d-flex align-items-center">
                                 <div class="">:</div>
-                                <div class="course-info-number">{{ $course->price }}</div>
+                                <div class="course-info-number">
+                                    @if($course->price != 0)
+                                        {{ $course->price }}
+                                    @else
+                                        Free
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -161,7 +171,7 @@
                             @foreach ($courses as $key => $randomCourse)
                                 <div class="d-flex">
                                     <span class="mr-3">{{ $key+1 }}.</span> 
-                                    <span class="">{{ $randomCourse->title }}</span>
+                                    <a href="{{ route('detail_course', [$randomCourse->id])}}" class="othercourse">{{ $randomCourse->title }}</a>
                                 </div>
                                 <hr>
                             @endforeach

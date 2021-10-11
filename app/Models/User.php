@@ -66,6 +66,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Lesson::class, 'lesson_users', 'user_id', 'lesson_id');
     }
 
+    public function programs()
+    {
+        return $this->belongsToMany(Program::class, 'program_users', 'user_id', 'program_id');
+    }
+
     public function reviews()
     {
         return $this->belongsToMany(Review::class);
@@ -89,7 +94,7 @@ class User extends Authenticatable
 
     public function scopeLessonTeachers($query, $lessonId)
     {
-        dd($lessonId);
+        // dd($lessonId);
         $query = $query->whereHas('lessons', function ($subquery) use ($lessonId) {
             $subquery->where('lesson_id', $lessonId);
         })->where('role', User::ROLE_TEACHER);

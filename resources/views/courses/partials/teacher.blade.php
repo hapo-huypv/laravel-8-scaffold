@@ -1,5 +1,5 @@
-<div class="p-2">
-    <div class="main-teacher">Main Teacher</div>
+<div class="show-detail-course">
+    <div class="tab-title">Main Teacher</div>
     @foreach ($courseTeachers as $courseTeacher)
         <div class="d-flex align-items-center">
             <img src="{{ asset('assets/img/avatar_nghialt.png') }}" alt="teacher">

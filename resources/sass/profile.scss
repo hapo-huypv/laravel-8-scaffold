@@ -1,0 +1,100 @@
+.profile {
+  .user-avatar {
+    width: 260px;
+    height: 260px;
+    border: 5px solid $color-white;
+  }
+
+  .icon-birthday {
+    background-image: url(../assets/img/icon_birthday.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 17px;
+    height: 20px;
+  }
+
+  .icon-phone {
+    background-image: url(../assets/img/icon_phone.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 15px;
+    height: 21px;
+  }
+
+  .icon-address {
+    background-image: url(../assets/img/icon_address.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 17px;
+    height: 21px;
+  }
+
+  .img-addcourse {
+    background: $color-white;
+    border: 1.5px solid $color-lightgreen;
+    box-sizing: border-box;
+    width: 65px;
+    height: 65px;
+    border-radius: 50px;
+
+    .icon-add {
+      background-image: url(../assets/img/icon_add.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .img-course {
+    width: 65px;
+    height: 65px;
+    border-radius: 50px;
+  }
+
+  .course-text {
+    font-family: $font_UTM_BryantLG;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.02em;
+    color: $color-dark;
+  }
+
+  .addcourse-text {
+    font-family: $font_UTM_BryantLG;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.05em;
+    color: $color-lightgreen;
+  }
+
+  &-title {
+    font-family: $font_UTM_BryantLG;
+    font-weight: bold;
+    font-size: 38px;
+    line-height: 47px;
+    color: $color-dark;
+    -webkit-text-stroke: 0.75px;
+    margin-top: 177px;
+  }
+
+  &-underline {
+    position: relative;
+    border: 0.75px solid $color-lightgreen;
+  }
+
+  &-underline::before {
+    content: "";
+    position: absolute;
+    border: 0.75px solid $color-lightgreen;
+    width: 100%;
+    top: 3px;
+    left: 0px;
+  }
+}

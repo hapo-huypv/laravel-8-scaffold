@@ -23,13 +23,17 @@ class LessonFactory extends Factory
      */
     public function definition()
     {
+        $arrayTitle = array("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean egestas magna at porttitor vehicula. Nullam augue augue.");
+        $randIndex = array_rand($arrayTitle);
         return [
             'course_id' => $this->faker->randomDigit(),
-            'title' => $this->faker->title(),
+            'title' => $arrayTitle[$randIndex],
             'learn_time' => $this->faker->randomDigit(),
             'description' => $this->faker->Text(),
             'video' => $this->faker->Text(),
             'requirement' => $this->faker->Text(),
+            'price' => $this->faker->randomDigit(),
+            'image' => $this->faker->imageUrl($width = 400, $height = 400, 'technics', true, 'Hapo'),
         ];
     }
 }
