@@ -158,7 +158,7 @@
                     <div class="course-othercourse">
                         <div class="d-flex align-items-center justify-content-center course-othercourse-title">Other Courses</div>
                         <div class="course-othercourse-list">
-                            @foreach ($courses as $key => $randomCourse)
+                            @foreach ($otherCourses as $key => $randomCourse)
                                 <div class="d-flex">
                                     <span class="mr-3">{{ $key+1 }}.</span> 
                                     <span class="">{{ $randomCourse->title }}</span>

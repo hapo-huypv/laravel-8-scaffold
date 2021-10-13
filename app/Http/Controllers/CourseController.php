@@ -31,13 +31,13 @@ class CourseController extends Controller
 
         $tags = $course->tags($id)->get();
 
-        $courses = Course::suggestions()->get();
+        $otherCourses = Course::suggestions()->get();
 
         $lessons = $course->lessons($id)->paginate(config('lesson.number_paginations'));
 
         $courseTeachers = User::courseTeachers($id)->get();
 
-        return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'courseTeachers'));
+        return view('courses.show', compact('course', 'lessons', 'tags', 'otherCourses', 'courseTeachers'));
     }
 
     public function join(Course $course)
