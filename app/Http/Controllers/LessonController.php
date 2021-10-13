@@ -44,7 +44,7 @@ class LessonController extends Controller
         $lesson->users()->detach([Auth::user()->id ?? false]);
 
         $programs = Program::programs($lesson->id)->get();
-        foreach ($programs as $key => $program) {
+        foreach ($programs as $program) {
             $program->users()->detach([Auth::user()->id ?? false]);
         }
 

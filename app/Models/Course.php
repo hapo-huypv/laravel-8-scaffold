@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use App\Models\CourseUser;
 use App\Models\User;
+use App\Models\Review;
 use Auth;
 
 class Course extends Model
@@ -69,7 +70,7 @@ class Course extends Model
 
     public function reviews()
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Review::class, 'targer_id')->where('type', Review::TYPE_COURSE);
     }
 
     public function scopeFilter($query, $dataRequest)

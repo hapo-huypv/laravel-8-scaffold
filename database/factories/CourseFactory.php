@@ -31,7 +31,7 @@ class CourseFactory extends Factory
 
         return [
             'title' => $arrayTitle[$randIndex],
-            'logo_path' => $this->faker->imageUrl($width = 400, $height = 400, 'technics', true, 'Hapo'),
+            'logo_path' => $this->faker->imageUrl(400, 400, 'technics', true, 'Hapo'),
             'description' => $this->faker->realText(),
             'intro' => $this->faker->realText(),
             'learn_time' => $this->faker->randomDigitNotNull(),

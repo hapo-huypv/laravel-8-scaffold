@@ -65,9 +65,17 @@ $('#alertSuccess').click(function(){
   $("#alertSuccess").addClass('d-none');
 });
 
+setTimeout(function(){
+  $("#alertSuccess").addClass('d-none'); 
+}, 2000);
+
 $('#alertError').click(function(){
   $("#alertError").addClass('d-none');
 });
+
+setTimeout(function(){
+  $("#alertError").addClass('d-none'); 
+}, 2000);
 
 if($('#pillsLogin input').hasClass('is-invalid')){
   $('#modalLoginRegister').modal('show');
@@ -111,3 +119,30 @@ $('.nav-item button').on('shown.bs.tab', function(event){
   $(activeTab).tab('show');
   $(previousTab).removeClass('show active');
 });
+
+$('#imgCamera').click(function() {
+  if ($('#formUploadImg').hasClass('d-none')) {
+    $('#formUploadImg').removeClass('d-none');
+  } else {
+    $('#formUploadImg').addClass('d-none');
+  }
+});
+
+
+
+
+  // $("input[type='radio']").click(function(){
+  //   var sim = $("input[type='radio']:checked").val();
+  //   if ($("input[type='radio']").val() <sim) {
+  //   $b=$(this).attr('id');
+  //   // alert($b);
+  //   }
+  //   alert($('#vote label 2').attr('[for = "two-star"]'));
+    
+  // });
+
+  // $('#vote label i').on('click', function() {
+  //   $h=$(this).removeClass('star-vote');
+  //   console.log($h);
+  // });
+  

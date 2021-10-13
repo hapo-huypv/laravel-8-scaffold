@@ -308,7 +308,72 @@
     letter-spacing: -0.02em;
     color: $color-dark;
     -webkit-text-stroke: 0.5px;
+
+    &-username {
+      font-family: $font_UTM_BryantLG;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 22px;
+      letter-spacing: -0.02em;
+      color: $color-dark;
+      -webkit-text-stroke: 0.4px;
+      margin-right: 15px;
+    }
+
+    &-time {
+      font-family: $font_UTM_BryantLG;
+      font-size: 14px;
+      line-height: 17px;
+      letter-spacing: -0.02em;
+      color: $color-gray-role;
+    }
+
+    &-content {
+      font-family: $font_UTM_BryantLG;
+      font-size: 18px;
+      line-height: 26px;
+      letter-spacing: -0.02em;
+      color: $color-gray-text-description;
+    }
+
+    &-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50px;
+      margin-right: 10px;
+    }
   }
+
+  .font-size-22 {
+    font-size: 22px;
+  }
+
+  label.star {
+    background-image: url(../assets/img/star_gray.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 16px;
+    height: 17px;
+    float: right;
+    cursor: pointer;
+    margin: 0px;
+    margin-right: 7px;
+  }
+
+  .course-review {
+    width: 768px;
+    height: 113px;
+    word-break: break-word;
+  }
+
+  .p-btn-send {
+    padding: 0px 40px;
+  }
+
+  input.star:checked~label.star {
+    background-image: url(../assets/img/star_yellow.png);
+}
 
   .rating {
     &-star {

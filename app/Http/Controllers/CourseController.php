@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Lesson;
+use App\Models\Review;
 use App\Models\CourseUser;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -41,7 +42,16 @@ class CourseController extends Controller
 
         $courseTeachers = User::courseTeachers($id)->get();
 
-        return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'courseTeachers'));
+        $reviews = $course->reviews($id)->get();
+        // dd($reviews);
+        foreach ($reviews as $review) {
+            $user = User::find($review->user_id);
+            
+            $review->avatar = $user->avatar;
+            $review->user_name = $user->name;
+        }
+
+        return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'reviews', 'courseTeachers'));
     }
 
     public function join(Course $course)
@@ -56,9 +66,17 @@ class CourseController extends Controller
         $course->users()->detach([Auth::user()->id ?? false]);
         
         $lessons = Lesson::lessons($course->id)->get();
-        foreach ($lessons as $key => $lesson) {
+        foreach ($lessons as $lesson) {
             $lesson->users()->detach([Auth::user()->id ?? false]);
         }
+
+        return back();
+    }
+
+    public function review(Request $request, $courseId)
+    {
+        $newReview = new Review();
+        $newReview = $newReview->createReviewCourse($request, $courseId);
 
         return back();
     }

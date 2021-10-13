@@ -74,14 +74,16 @@ class Lesson extends Model
         $numberLearnedLesson = count($learnedLesson);
      
         if ($lesson->number_program != 0) {
-            $process = $numberLearnedLesson/$lesson->number_program;
-            return $process*100;
-        } else return 0;
+            $process = $numberLearnedLesson / $lesson->number_program;
+            
+            return $process * 100;
+        } else {
+            return 0;
+        }
     }
 
     public function setProcessAttribute($value)
     {
         $this->attributes['process'] = strtolower($value);
     }
-
 }

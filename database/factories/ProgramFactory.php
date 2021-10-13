@@ -27,7 +27,7 @@ class ProgramFactory extends Factory
             'lesson_id' => $this->faker->randomDigit(),
             'name' => $arrayName[$randIndex],
             'type' => $randIndex,
-            'path' => $this->faker->imageUrl($width = 400, $height = 400, 'technics', true, 'Hapo'),
+            'path' => $this->faker->imageUrl(400, 400, 'technics', true, 'Hapo'),
         ];
     }
 }

@@ -33,7 +33,7 @@ class LessonFactory extends Factory
             'video' => $this->faker->Text(),
             'requirement' => $this->faker->Text(),
             'price' => $this->faker->randomDigit(),
-            'image' => $this->faker->imageUrl($width = 400, $height = 400, 'technics', true, 'Hapo'),
+            'image' => $this->faker->imageUrl(400, 400, 'technics', true, 'Hapo'),
         ];
     }
 }

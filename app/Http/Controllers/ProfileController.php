@@ -16,20 +16,28 @@ class ProfileController extends Controller
 {
     public function show(User $user)
     {
-        return view('profile.show', compact('user'));
+        if (isset(Auth::user()->id)) {
+            return view('profile.show', compact('user'));
+        } else {
+            return "404";
+        }
     }
 
     public function edit(Request $request, User $user)
     {
-        $user->name = $request['name'];
-        $user->birthday = $request['birthday'];
-        if ($request['email'] != null) {
-        $user->email = $request['email'];
-        }
-        $user->address = $request['address'];
-        $user->phone = $request['phone'];
-        $user->intro = $request['about_me'];
-        $user->save();
+        $user->edit($request, $user);
+
         return back()->with('success', 'Edit successfully!');
+    }
+
+    public function upload(Request $request, User $user)
+    {
+        $image = $request->file('image');
+        $image->move('assets/img', $image->getClientOriginalName());
+        
+        $user->avatar = 'assets/img/'. $image->getClientOriginalName();
+        $user->save();
+        
+        return back();
     }
 }

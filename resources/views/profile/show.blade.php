@@ -4,35 +4,45 @@
     Profile
 @endsection
 
+@include('partials.message')
+
 @section('content')
     <div class="profile">
         <div class="container">
             <div class="d-flex">
                 <div class="col-3">
                     <div class="d-flex flex-column align-items-center text-center">
-                        <img class="rounded-circle mt-5  user-avatar" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQF2psCzfbB611rnUhxgMi-lc2oB78ykqDGYb4v83xQ1pAbhPiB&usqp=CAU">
-                        <span class="font-weight-bold">Amelly</span>
-                        <span class="text-black-50">amelly12@bbb.com</span>
+                        <img class="rounded-circle mt-5  user-avatar" src="{{ asset($user->avatar) }}" alt="avatar">
+                        <i id="imgCamera" class="fas fa-camera"></i>
+                        <form id="formUploadImg" class="form-horizontal d-none" action="{{ route('uploadimg_profile', [$user->id]) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <input class=" d-flex justify-content-center" type="file" name="image">
+                            <input type="submit" value="Submit">
+                        </form>
+                        <span class="font-weight-bold">{{ $user->name }}</span>
+                        <span class="text-black-50">{{ $user->email }}</span>
                         <span> </span>
                     </div>
                     <hr>
-                    <div class="d-flex align-items-center">
-                        <div class="icon-birthday"></div>
-                        <div class="user-info">10/10/2998</div>
-                    </div>
-                    <hr>
-                    <div class="d-flex align-items-center">
-                        <div class="icon-phone"></div>
-                        <div class="user-info">0123456789</div>
-                    </div>
-                    <hr>
-                    <div class="d-flex align-items-center">
-                        <div class="icon-address"></div>
-                        <div class="user-info">Cầu Giấy, Hà Nội</div>
-                    </div>
-                    <hr>
-                    <div class="d-flex align-items-center">
-                        <div class="user-aboutme">Vivamus volutpat eros pulvinar velit laoreet, sit amet egestas erat dignissim. Sed quis rutrum tellus, sit amet viverra felis. Cras sagittis sem sit amet urna feugiat rutrum. Nam nulla ippsumipsum, them venenatis</div>
+                    <div class="p-2">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-birthday mr-2"></div>
+                            <div class="user-info">{{ $user->birthday }}</div>
+                        </div>
+                        <hr>
+                        <div class="d-flex align-items-center">
+                            <div class="icon-phone mr-2"></div>
+                            <div class="user-info">0{{ $user->phone }}</div>
+                        </div>
+                        <hr>
+                        <div class="d-flex align-items-center">
+                            <div class="icon-address mr-2"></div>
+                            <div class="user-info">{{ $user->address }}</div>
+                        </div>
+                        <hr>
+                        <div class="d-flex align-items-center">
+                            <div class="user-aboutme">{{ $user->intro }}</div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-9">
@@ -40,7 +50,7 @@
                         Main courses      
                     </div>
                     <hr class="profile-underline m-0">
-                    <div class="mt-4 d-flex">
+                    <div class="mt-4 d-flex justify-content-center">
                         <div class="d-flex flex-column align-items-center mr-4">
                             <img class="img-course" src="{{ asset('assets/img/ellipse_html.png') }}" alt="course">
                             <div class="course-text">HTML</div>
@@ -60,34 +70,36 @@
                         <div class="edit-user d-flex">
                             <div class="col-6">
                                 <div class="d-flex flex-column">
-                                    <label class="mt-4">Name:</label>
-                                    <input name="name" type="text" placeholder="Your name">
+                                    <label class="mt-4 user-label">Name:</label>
+                                    <input class="p-2 profile-input " name="name" type="text" value="{{ $user->name != null ? $user->name : '' }}" placeholder="Your name">
                                 </div>
                                 <div class="d-flex flex-column">
-                                    <label class="mt-4">Date of birthday:</label>
-                                    <input name="birthday" type="date" placeholder="dd/mm/yyyy">
+                                    <label class="mt-4 user-label">Date of birthday:</label>
+                                    <input class="p-2 profile-input " name="birthday" type="date" value="{{ $user->birthday != null ? $user->birthday : '' }}" placeholder="dd/mm/yyyy">
                                 </div>
                                 <div class="d-flex flex-column">
-                                    <label class="mt-4">Address:</label>
-                                    <input name="address" type="text" placeholder="Your address...">
+                                    <label class="mt-4 user-label">Address:</label>
+                                    <input class="p-2 profile-input " name="address" type="text" value="{{ $user->address != null ? $user->address : '' }}" placeholder="Your address...">
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="d-flex flex-column">
-                                    <label class="mt-4">Email:</label>
-                                    <input name="email" type="text" placeholder="Your email...">
+                                <div class="d-flex flex-column">zend_logo_guid
+                                    <label class="mt-4 user-label">Email:</label>
+                                    <input class="p-2 profile-input " name="email" type="text" value="{{ $user->email != null ? $user->email : '' }}" placeholder="Your email...">
                                 </div>
                                 <div class="d-flex flex-column">
-                                    <label class="mt-4">Phone:</label>
-                                    <input name="phone" type="text" placeholder="Your phone...">
+                                    <label class="mt-4 user-label">Phone:</label>
+                                    <input class="p-2 profile-input " name="phone" type="text" value="{{ $user->phone != null ? $user->phone : '' }}" placeholder="Your phone...">
                                 </div>
                                 <div class="d-flex flex-column">
-                                    <label class="mt-4">About me:</label>
-                                    <input name="about_me" type="text" placeholder="About you...">
+                                    <label class="mt-4 user-label">About me:</label>
+                                    <input class="p-2 profile-input " name="about_me" type="text" value="{{ $user->intro != null ? $user->intro : '' }}" placeholder="About you...">
                                 </div>
                             </div>
                         </div>
-                        <button id="btnSave" class="btn btn-success btn-block btn-course-search" type="submit">Save</button>
+                        <div class="d-flex justify-content-end m-3">
+                            <button id="btnSave" class="btn btn-success btn-block btn-course-search" type="submit">Save</button>
+                        </div>
                     </form>
                 </div>
             </div>

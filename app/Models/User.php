@@ -73,7 +73,7 @@ class User extends Authenticatable
 
     public function reviews()
     {
-        return $this->belongsToMany(Review::class);
+        return $this->hasMany(Review::class);
     }
 
     public function scopeTeachers()
@@ -100,5 +100,25 @@ class User extends Authenticatable
         })->where('role', User::ROLE_TEACHER);
 
         return $query;
+    }
+
+    public function edit($request, $user)
+    {
+        if ($request['email'] != null) {
+            $email = $request['email'];
+        } else {
+            $email = $user->email;
+        }
+
+
+        User::where('id', $user->id)
+            ->update([
+                'name' => $request['name'],
+                'birthday' => $request['birthday'],
+                'address' => $request['address'],
+                'phone' => $request['phone'],
+                'intro' => $request['about_me'],
+                'email' => $email,
+            ]);
     }
 }
