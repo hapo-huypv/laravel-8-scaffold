@@ -89,7 +89,6 @@ class User extends Authenticatable
 
     public function scopeLessonTeachers($query, $lessonId)
     {
-        dd($lessonId);
         $query = $query->whereHas('lessons', function ($subquery) use ($lessonId) {
             $subquery->where('lesson_id', $lessonId);
         })->where('role', User::ROLE_TEACHER);

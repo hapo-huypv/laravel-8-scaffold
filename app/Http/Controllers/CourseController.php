@@ -20,6 +20,7 @@ class CourseController extends Controller
         $teachers = User::teachers()->get();
 
         $dataRequest = $request->input();
+
         $courses = Course::filter($dataRequest)->paginate(config('course.number_paginations'));
         
         return view('courses.index', compact('courses', 'tags', 'teachers'));
@@ -29,13 +30,13 @@ class CourseController extends Controller
     {
         $id = $course->id;
 
-        $tags = $course->tags($id)->get();
+        $tags = $course->tags()->get();
 
         $otherCourses = Course::suggestions()->get();
 
-        $lessons = $course->lessons($id)->paginate(config('lesson.number_paginations'));
+        $lessons = $course->lessons()->paginate(config('lesson.number_paginations'));
 
-        $courseTeachers = User::courseTeachers($id)->get();
+        $courseTeachers = User::courseTeachers()->get();
 
         return view('courses.show', compact('course', 'lessons', 'tags', 'otherCourses', 'courseTeachers'));
     }
