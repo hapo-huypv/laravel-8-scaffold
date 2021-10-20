@@ -15,7 +15,7 @@
                 <div>    
                     <div class="d-flex flex-row">
                         <div class="position-relative">
-                            <input class="course-search" name="keyword" type="text" placeholder="Search...">
+                            <input class="course-search ml-1" name="keyword" type="text" placeholder="Search...">
                             <label><i class="fas fa-search"></i></label>
                         </div>
                         <button id="btnSearch" class="btn btn-success btn-block btn-course-search" type="submit">Search</button>

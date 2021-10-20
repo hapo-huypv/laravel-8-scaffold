@@ -61,20 +61,12 @@ $('.navbar-toggler').click(function() {
   }
 });
 
-$('#alertSuccess').click(function(){
-  $("#alertSuccess").addClass('d-none');
+$(".alert").click(function(){
+  $(".alert").removeClass('d-flex').addClass('d-none');
 });
 
 setTimeout(function(){
-  $("#alertSuccess").addClass('d-none'); 
-}, 2000);
-
-$('#alertError').click(function(){
-  $("#alertError").addClass('d-none');
-});
-
-setTimeout(function(){
-  $("#alertError").addClass('d-none'); 
+  $(".alert").removeClass('d-flex').addClass('d-none'); 
 }, 2000);
 
 if($('#pillsLogin input').hasClass('is-invalid')){
@@ -128,21 +120,24 @@ $('#imgCamera').click(function() {
   }
 });
 
+$.ajaxSetup({
+  headers: {
+  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
 
+$("#selectReview").change(function() {
+  $.get("/course" , function(data) {
+    alert(data);
+  });
+});
 
+$('#btnAddReview').click(function() {
+  $.post("/course/review/1" , function(data) {
+    $('#showReview').load('home');
+  });
+})
 
-  // $("input[type='radio']").click(function(){
-  //   var sim = $("input[type='radio']:checked").val();
-  //   if ($("input[type='radio']").val() <sim) {
-  //   $b=$(this).attr('id');
-  //   // alert($b);
-  //   }
-  //   alert($('#vote label 2').attr('[for = "two-star"]'));
-    
-  // });
-
-  // $('#vote label i').on('click', function() {
-  //   $h=$(this).removeClass('star-vote');
-  //   console.log($h);
-  // });
-  
+$('#paginationReview').click(function() {
+  $('#pills-reviews').addClass('show active');
+});

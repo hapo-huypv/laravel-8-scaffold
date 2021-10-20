@@ -54,10 +54,16 @@ class Lesson extends Model
         return $this->users()->where('user_id', $userId)->count();
     }
 
-    public function scopeLessons($query, $courseId)
+    public function scopeLessons($query, $array)
     {
-        $query = $query->where('course_id', $courseId);
-
+        // dd($array);
+        $keyword = $array[0];
+        $courseId = $array[1];
+        if (isset($keyword)) {
+            $query = $query->where('course_id', $courseId)->where('title', 'like', "%$keyword%");
+        } else {
+            $query = $query->where('course_id', $courseId);
+        }
         return $query;
     }
 
@@ -66,15 +72,13 @@ class Lesson extends Model
         return $this->programs()->count();
     }
 
-    public function numberProcess($lessonId)
+    public function getNumberProcessAttribute()
     {
-        $lesson = Lesson::find($lessonId);
-
-        $learnedLesson = Program::learnedPrograms($lessonId)->get();
+        $learnedLesson = Program::learnedPrograms($this->id)->get();
         $numberLearnedLesson = count($learnedLesson);
      
-        if ($lesson->number_program != 0) {
-            $process = $numberLearnedLesson / $lesson->number_program;
+        if ($this->number_program != 0) {
+            $process = $numberLearnedLesson / $this->number_program;
             
             return $process * 100;
         } else {
@@ -85,5 +89,10 @@ class Lesson extends Model
     public function setProcessAttribute($value)
     {
         $this->attributes['process'] = strtolower($value);
+    }
+
+    public function getLessonCountAttribute()
+    {
+        return $this->count();
     }
 }

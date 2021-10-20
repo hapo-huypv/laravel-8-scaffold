@@ -19,4 +19,9 @@ class CourseUser extends Model
         'course_id',
         'user_id',
     ];
+
+    public function getLearnersAttribute()
+    {
+        return $this->groupBy('user_id')->count();
+    }
 }

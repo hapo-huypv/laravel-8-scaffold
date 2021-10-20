@@ -104,13 +104,6 @@ class User extends Authenticatable
 
     public function edit($request, $user)
     {
-        if ($request['email'] != null) {
-            $email = $request['email'];
-        } else {
-            $email = $user->email;
-        }
-
-
         User::where('id', $user->id)
             ->update([
                 'name' => $request['name'],
@@ -118,7 +111,6 @@ class User extends Authenticatable
                 'address' => $request['address'],
                 'phone' => $request['phone'],
                 'intro' => $request['about_me'],
-                'email' => $email,
             ]);
     }
 }

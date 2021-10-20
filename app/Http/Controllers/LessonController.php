@@ -27,8 +27,6 @@ class LessonController extends Controller
 
         $programs = Program::programs($lesson->id)->get();
 
-        // $process = $lesson->process($lesson->id);
-
         return view('courses.lessons.show', compact('course', 'lesson', 'tags', 'courses', 'courseTeachers', 'programs'));
     }
 

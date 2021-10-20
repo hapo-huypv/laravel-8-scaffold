@@ -11,6 +11,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    @include('partials.message')
+
     <div id="app">
         <!-- Header -->
         @include('partials.header')

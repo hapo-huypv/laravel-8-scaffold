@@ -39,11 +39,12 @@ Route::prefix('course')->group(function () {
         Route::get('/lesson/program/{program}/leave', [ProgramController::class, 'leave'])->name('leave_program');
         Route::get('/{course}/join', [CourseController::class, 'join'])->name('join_course');
         Route::get('/{course}/leave', [CourseController::class, 'leave'])->name('leave_course');
+        Route::get('/review/{courseId}', [CourseController::class, 'review'])->name('review');
     });
 });
+
 Route::prefix('/profile')->group(function () {
     Route::get('/{user}', [ProfileController::class, 'show'])->name('profile');
     Route::get('/{user}/edit', [ProfileController::class, 'edit'])->name('edit_profile');
     Route::post('/{user}/upload', [ProfileController::class, 'upload'])->name('uploadimg_profile');
 });
-Route::get('/review/{courseId}', [CourseController::class, 'review'])->name('review');

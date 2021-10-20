@@ -4,8 +4,6 @@
     Profile
 @endsection
 
-@include('partials.message')
-
 @section('content')
     <div class="profile">
         <div class="container">
@@ -51,10 +49,12 @@
                     </div>
                     <hr class="profile-underline m-0">
                     <div class="mt-4 d-flex justify-content-center">
-                        <div class="d-flex flex-column align-items-center mr-4">
-                            <img class="img-course" src="{{ asset('assets/img/ellipse_html.png') }}" alt="course">
-                            <div class="course-text">HTML</div>
+                        @foreach($courses as $course)
+                        <div class="d-flex flex-column align-items-center mr-2">
+                            <img class="img-course" src="{{ asset($course->image) }}" alt="course">
+                            <div class="course-text">{{ $course->title }}</div>
                         </div>
+                        @endforeach
                         <div class="user-addcourse">
                             <div class="img-addcourse d-flex justify-content-center align-items-center">
                                 <div class="icon-add"></div>
@@ -83,17 +83,22 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="d-flex flex-column">zend_logo_guid
+                                <div class="d-flex flex-column"> 
                                     <label class="mt-4 user-label">Email:</label>
-                                    <input class="p-2 profile-input " name="email" type="text" value="{{ $user->email != null ? $user->email : '' }}" placeholder="Your email...">
+                                    <input disabled class="p-2 profile-input" name="edit_email" type="text" value="{{ $user->email != null ? $user->email : '' }}" placeholder="Your email...">
                                 </div>
+                                @error('edit_email')
+                                    <span class="invalid-feedback d-block" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 <div class="d-flex flex-column">
                                     <label class="mt-4 user-label">Phone:</label>
-                                    <input class="p-2 profile-input " name="phone" type="text" value="{{ $user->phone != null ? $user->phone : '' }}" placeholder="Your phone...">
+                                    <input class="p-2 profile-input " name="phone" type="text" placeholder="Your phone...">
                                 </div>
                                 <div class="d-flex flex-column">
                                     <label class="mt-4 user-label">About me:</label>
-                                    <input class="p-2 profile-input " name="about_me" type="text" value="{{ $user->intro != null ? $user->intro : '' }}" placeholder="About you...">
+                                    <input class="p-2 profile-input " name="about_me" type="text" placeholder="About you...">
                                 </div>
                             </div>
                         </div>

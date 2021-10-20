@@ -11,6 +11,7 @@ use App\Models\CourseUser;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Auth;
+use Carbon\Carbon;
 
 class CourseController extends Controller
 {
@@ -26,30 +27,21 @@ class CourseController extends Controller
         return view('courses.index', compact('courses', 'tags', 'teachers'));
     }
 
-    public function show(Course $course)
+    public function show(Request $request, Course $course)
     {
         $id = $course->id;
 
-        $tags = $course->tags($id)->get();
+        $tags = $course->tags()->get();
 
-        $courses = Course::suggestions()->get();
+        $courses = $course->suggestions()->get();
 
-        $lessons = $course->lessons($id)->paginate(config('lesson.number_paginations'));
+        $array = array($request['keyword'], $id);
+        
+        $lessons = Lesson::lessons($array)->paginate(config('lesson.number_paginations'), ['*'], 'lessons');
 
-        foreach ($lessons as $lesson) {
-            $lesson->process = $lesson->numberProcess($lesson->id);
-        }
+        $courseTeachers = $course->users()->courseTeachers($id)->get();
 
-        $courseTeachers = User::courseTeachers($id)->get();
-
-        $reviews = $course->reviews($id)->get();
-        // dd($reviews);
-        foreach ($reviews as $review) {
-            $user = User::find($review->user_id);
-            
-            $review->avatar = $user->avatar;
-            $review->user_name = $user->name;
-        }
+        $reviews = Review::reviewByCourse($id)->paginate(config('course.paginate_review'), ['*'], 'reviews');
 
         return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'reviews', 'courseTeachers'));
     }
@@ -65,7 +57,7 @@ class CourseController extends Controller
     {
         $course->users()->detach([Auth::user()->id ?? false]);
         
-        $lessons = Lesson::lessons($course->id)->get();
+        $lessons = $course->lessons()->get();
         foreach ($lessons as $lesson) {
             $lesson->users()->detach([Auth::user()->id ?? false]);
         }
@@ -78,6 +70,6 @@ class CourseController extends Controller
         $newReview = new Review();
         $newReview = $newReview->createReviewCourse($request, $courseId);
 
-        return back();
+        return back()->with('post_review', 'check');
     }
 }

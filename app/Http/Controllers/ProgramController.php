@@ -9,7 +9,6 @@ use App\Models\Lesson;
 use App\Models\Course;
 use Auth;
 
-
 class ProgramController extends Controller
 {
     public function show(Program $program)

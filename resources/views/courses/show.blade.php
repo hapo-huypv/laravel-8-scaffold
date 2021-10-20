@@ -16,18 +16,18 @@
                     <div class="show-detail-content">
                         <ul class="nav nav-pills mb-3 show-detail-nav" id="pillsTabCourse" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="border-0 position-relative nav-link active" id="pills-lessons-tab" data-bs-toggle="pill" data-bs-target="#pills-lessons" type="button" role="tab" aria-controls="pills-lessons" aria-selected="true">Lessons</button>
+                                <button class="border-0 position-relative nav-link {{ substr(url()->full(), 31, 7) == 'reviews' ? '' : 'active'}}" id="pills-lessons-tab" data-bs-toggle="pill" data-bs-target="#pills-lessons" type="button" role="tab" aria-controls="pills-lessons" aria-selected="true">Lessons</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="border-0 position-relative nav-link" id="pills-teacher-tab" data-bs-toggle="pill" data-bs-target="#pills-teacher" type="button" role="tab" aria-controls="pills-teacher" aria-selected="false">Teacher</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="border-0 position-relative nav-link" id="pills-reviews-tab" data-bs-toggle="pill" data-bs-target="#pills-reviews" type="button" role="tab" aria-controls="pills-reviews" aria-selected="false">Reviews</button>
+                                <button class="border-0 position-relative nav-link {{ substr(url()->full(), 31, 7) == 'reviews' ? 'active' : ''}}" id="pills-reviews-tab" data-bs-toggle="pill" data-bs-target="#pills-reviews" type="button" role="tab" aria-controls="pills-reviews" aria-selected="false">Reviews</button>
                             </li>
                         </ul>
                         <div class="pr-3 pl-3"><hr class="m-0"></div>
                         <div class="tab-content" id="pillsTabCourseContent">
-                            <div class="tab-pane fade show active show-detail-course" id="pills-lessons" role="tabpanel" aria-labelledby="pills-lessons-tab">
+                            <div class="tab-pane fade {{ (Session::has('post_review')) ? '' : (substr(url()->full(), 31, 7) == 'reviews' ? '' : 'show active') }} show-detail-course" id="pills-lessons" role="tabpanel" aria-labelledby="pills-lessons-tab">
                                 <div class="d-flex">
                                     <div>    
                                         <form method="get" action="{{  route('detail_course', [$course->id]) }}">
@@ -45,7 +45,7 @@
                                         @if ($course->join == config('course.joinin') && isset(Auth::user()->id))
                                             <a href="{{ route('join_course', [$course->id]) }}" id="btnJoinCourse" class="btn btn-success btn-course-join" type="submit">Join in the course</a>
                                         @elseif ($course->join == config('course.joinedin') && isset(Auth::user()->id))
-                                            <div id="btnJoinedCourse" class="btn-course-join w-50">Joined</div>
+                                            <div id="btnJoinedCourse" class="btn-course-join w-50 btn-color-nonactive">Joined</div>
                                         @endif
                                     </div>
                                 </div>
@@ -58,20 +58,26 @@
                                         @else
                                             <span class="mr-3 lesson-index">{{ $key + 1 + (request('page')-1)*config('lesson.number_paginations') }}.</span> 
                                         @endif
-                                            <span class="col-9 lesson-title">{{ $lesson->title }}</span>
+                                            <a href="{{ route('detail_lesson', [$lesson->id]) }}" class="col-9 lesson-title">{{ $lesson->title }}</a>
                                         @if ($course->join == config('course.joinedin'))
                                             <div class="processing-border d-flex lesson-processing justify-content-center align-items-center">
-                                                <span class="processing" style="width:{{round($lesson->process, 2)}}%"></span>
-                                                <span class="processing-number">{{ round($lesson->process, 2) }}%</span>
+                                                <span class="processing" style="width:{{round($lesson->number_process, 2)}}%"></span>
+                                                <span class="processing-number">{{ round($lesson->number_process, 2) }}%</span>
                                             </div>
-                                            <a href="{{ route('detail_lesson', [$lesson->id]) }}" id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson" type="submit">Learn</a>
+                                            @if ($lesson->join == config('lesson.joinin'))
+                                                <a href="{{ route('detail_lesson', [$lesson->id]) }}" id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson" type="submit">Learn</a>
+                                            @elseif ($lesson->join == config('lesson.joinedin') && round($lesson->number_process, 2) == 100) 
+                                                <a href="{{ route('detail_lesson', [$lesson->id]) }}" id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson btn-color-nonactive" type="submit">Completed</a>
+                                            @elseif ($lesson->join == config('lesson.joinedin'))
+                                                <a href="{{ route('detail_lesson', [$lesson->id]) }}" id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson btn-color-processing" type="submit">Learning</a>
+                                            @endif
                                         @endif
                                     </div>
                                     @endforeach
                                 </div>
                                 <hr>
                                 <div class="paginationWrap">
-                                    {!! $lessons->appends($_GET)->onEachSide(2)->links('components.pagination') !!}
+                                    {!! $lessons->appends($_GET)->fragment('pills-lessons-tab')->onEachSide(2)->links('components.pagination') !!}
                                 </div>
                                 <hr>
                                 @if ($course->join == config('course.joinedin'))
@@ -83,8 +89,8 @@
                             <div class="tab-pane fade" id="pills-teacher" role="tabpanel" aria-labelledby="pills-teacher-tab">
                                 @include('courses.partials.teacher')
                             </div>
-                            <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
-                                @include('courses.partials.reviews')
+                            <div class="tab-pane fade {{ substr(url()->full(), 31, 7) == 'reviews' ? 'show active' : ''}} @if (Session::has('post_review')) show active @endif" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
+                                @include('courses.reviews.index_review')
                             </div>
                         </div>
                     </div>
@@ -136,10 +142,13 @@
                             </div>
                             <div class="col-6 d-flex align-items-center">
                                 <div class="">:</div>
-                                <div class="d-flex course-info-number">
+                                <div class="d-flex ">
                                 <!-- {{ $toEnd = count($tags) }} -->
                                 @foreach ($tags as $key => $tag)
-                                    <a href="#" class="color-tags">{{ $tag->name }}</a>
+                                <form method="get" action="{{ route('courses') }}">
+                                    <input type="hidden" name="tags" value="{{ $tag->id}}">
+                                    <button type="submit" class="course-info-number color-tags border-0">{{ $tag->name }}</button>
+                                </form>
                                     @if ($key+1 < $toEnd )
                                         <div class="mr-2 color-tags">,</div>
                                     @endif
@@ -177,7 +186,7 @@
                             @endforeach
                         </div>
                         <div class="d-flex justify-content-center mt-4">
-                            <button id="btnViewAllCourse" class="ml-0 btn btn-success btn-course-join" type="submit">View all our courses</button>
+                            <a href="{{ route('courses') }}"id="btnViewAllCourse" class="ml-0 btn btn-success btn-course-join" type="submit">View all our courses</a>
                         </div>
                     </div>
                 </div>

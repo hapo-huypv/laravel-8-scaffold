@@ -42,7 +42,6 @@
                             @endif
                             </div>
                             <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
-                                @include('courses.partials.reviews')
                             </div>
                         </div>
                     </div>

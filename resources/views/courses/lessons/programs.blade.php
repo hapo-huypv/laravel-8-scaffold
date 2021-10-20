@@ -1,6 +1,10 @@
 <div class="show-detail-course">
-    <div class="">
-        <div class="tab-title">Program</div>
+    <div class="d-flex align-items-center">
+        <div class="tab-title col-7">Program</div>
+        <div class="col-4 processing-border d-flex lesson-processing justify-content-center align-items-center">
+            <span class="processing" style="width:{{round($lesson->number_process, 2)}}%"></span>
+            <span class="processing-number">{{ round($lesson->number_process, 2) }}%</span>
+        </div>
     </div>
     <hr>
     @foreach ($programs as $program)

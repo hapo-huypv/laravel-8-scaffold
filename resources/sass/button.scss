@@ -69,3 +69,15 @@ button:focus {
   border-radius: 22px;
   flex: 1 0 10.666667%;
 }
+
+.btn-color-nonactive {
+  background-color : $color-gray-btn-border;
+  border: none;
+  box-shadow: none;
+}
+
+.btn-color-processing {
+  background-color : $color-green-processing;
+  border: none;
+  box-shadow: none;
+}

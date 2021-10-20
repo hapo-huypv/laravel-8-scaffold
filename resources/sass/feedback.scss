@@ -40,6 +40,11 @@
     border-radius: 50%;
   }
   
+  .rounded-circle {
+    width: 60px;
+    height: 60px;
+  }
+
   .prev-arrow {
     z-index: 2;
     left: 0;
@@ -92,6 +97,7 @@
     margin: 20px;
     padding: 20px;
     padding-right: 0px;
+    height: 100px;
   }
 
   .user-info {
