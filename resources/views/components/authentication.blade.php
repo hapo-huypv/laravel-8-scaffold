@@ -18,7 +18,7 @@
                 <div class="tab-content" id="pillsTabContent">
                     <form action="{{route('login')}}" method="POST" class="form-signin tab-pane fade show active pt-0 form-login-and-register" id="pillsLogin" role="tabpanel" aria-labelledby="pillsLoginTab">
                         @csrf <!-- {{ csrf_field() }} -->
-                        <label for="username" class="col-md-4 col-form-label text-md-right">{{ ('Username') }}</label>
+                        <label for="username" class="login-text">{{ ('Username') }}</label>
                         <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" autofocus>
                         @error('username')
                             <span class="invalid-feedback" role="alert">

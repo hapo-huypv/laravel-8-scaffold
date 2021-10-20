@@ -2,14 +2,14 @@
     <div class="card mb-5">
         <div class="card-body">
             <div class="d-flex">
-                <img class="course-list-img" src="{{ $course->logo_path }}" alt="ellipse_html">
+                <img class="course-list-img" src="{{ asset($course->logo_path) }}" alt="ellipse_html">
                 <div class="">
                     <p class="course-list-title">{{ $course->title }}</p>
                     <p class="course-list-intro">{{ $course->intro }}</p>
-                </div>
+                </div>  
             </div>
             <div class="d-flex justify-content-end">
-                <a href="#" class="btn btn-primary course-list-btn">More</a>
+                <a href="{{ route('detail_course', [$course->id]) }}" class="btn btn-success course-list-btn" type="submit">More</a>
             </div>
             <div class="d-flex flex-row justify-content-center course-list-statistic">
                 <div class="col-4 p-0 d-flex flex-column align-items-start">

@@ -2,7 +2,7 @@
     <div class="container d-flex justify-content-center footer-container">
         <div class="col-4 mb-4 d-flex flex-column footer-logo">
             <a class="" href="#">
-                <img src="./assets/img/hapolearn_white_1.png" alt="HapoLearn">        
+                <img src="{{ asset('assets/img/hapolearn_white_1.png') }}" alt="HapoLearn">        
             </a>
             <p class="footer-slogan">
                 Interactive lessons, "on-the-go" practice, peer support.
@@ -24,19 +24,19 @@
         <div class="d-flex flex-row align-items-center justify-content-center col-4 footer-contact">
             <div class="d-inline-flex footer-iconandlink">
                 <a href="https://www.facebook.com/haposoft.story"  class="footer-icon">
-                    <img class="" src="./assets/img/fb_icon.png" alt="icon-fb">    
+                    <img class="" src="{{ asset('assets/img/fb_icon.png') }}" alt="icon-fb">    
                 </a>
                 <div id= "imgContact" class="txt-hidden">facebook.com/tuyen.dung.haposoft</div>
             </div> 
             <div class="d-inline-flex footer-iconandlink">
                 <a href class="footer-icon">
-                    <img class="" src="./assets/img/phone_icon.png" alt="icon-phone">
+                    <img class="" src="{{ asset('assets/img/phone_icon.png') }}" alt="icon-phone">
                 </a>
                 <div id= "imgContact" class="txt-hidden">+84-85-645-9898</div>
             </div> 
             <div class="d-inline-flex footer-iconandlink">
                 <a href="" class="footer-icon">
-                    <img class="" src="./assets/img/email_icon.png" alt="icon-email">
+                    <img class="" src="{{ asset('assets/img/email_icon.png') }}" alt="icon-email">
                 </a>
                 <div id= "imgContact" class="txt-hidden">info@haposoft.com</div>
             </div> 

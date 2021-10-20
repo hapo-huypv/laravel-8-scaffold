@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\User;
+use Auth;
 
 class Lesson extends Model
 {
@@ -28,6 +30,69 @@ class Lesson extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'lesson_users', 'lesson_id', 'user_id');
+    }
+
+    public function programs()
+    {
+        return $this->hasMany(Program::class);
+    }
+
+    public function getNumberUserAttribute()
+    {
+        return $this->users()->where('role', User::ROLE_STUDENT)->count();
+    }
+
+    public function getJoinAttribute()
+    {
+        if (isset(Auth::user()->id)) {
+            $userId = Auth::user()->id;
+        } else {
+            $userId = null;
+        }
+
+        return $this->users()->where('user_id', $userId)->count();
+    }
+
+    public function scopeLessons($query, $array)
+    {
+        // dd($array);
+        $keyword = $array[0];
+        $courseId = $array[1];
+        if (isset($keyword)) {
+            $query = $query->where('course_id', $courseId)->where('title', 'like', "%$keyword%");
+        } else {
+            $query = $query->where('course_id', $courseId);
+        }
+        return $query;
+    }
+
+    public function getNumberProgramAttribute()
+    {
+        return $this->programs()->count();
+    }
+
+    public function getNumberProcessAttribute()
+    {
+        $learnedLesson = Program::learnedPrograms($this->id)->get();
+        $numberLearnedLesson = count($learnedLesson);
+     
+        if ($this->number_program != 0) {
+            $process = $numberLearnedLesson / $this->number_program;
+            
+            return $process * 100;
+        } else {
+            return 0;
+        }
+    }
+
+    public function setProcessAttribute($value)
+    {
+        $this->attributes['process'] = strtolower($value);
+    }
+
+    public function getLessonCountAttribute()
+    {
+        return $this->count();
     }
 }

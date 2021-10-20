@@ -61,13 +61,13 @@ $('.navbar-toggler').click(function() {
   }
 });
 
-$('#alertSuccess').click(function(){
-  $("#alertSuccess").addClass('d-none');
+$(".alert").click(function(){
+  $(".alert").removeClass('d-flex').addClass('d-none');
 });
 
-$('#alertError').click(function(){
-  $("#alertError").addClass('d-none');
-});
+setTimeout(function(){
+  $(".alert").removeClass('d-flex').addClass('d-none'); 
+}, 2000);
 
 if($('#pillsLogin input').hasClass('is-invalid')){
   $('#modalLoginRegister').modal('show');
@@ -98,4 +98,46 @@ $('.oldest').click(function() {
 });
 
 $('.add-select2').select2({
+});
+
+$('.nav-item button').on('click', function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+});
+
+$('.nav-item button').on('shown.bs.tab', function(event){
+  var activeTab = $(event.target).attr('data-bs-target');         // active tab
+  var previousTab = $(event.relatedTarget).attr('data-bs-target');  // previous tab
+  $(activeTab).tab('show');
+  $(previousTab).removeClass('show active');
+});
+
+$('#imgCamera').click(function() {
+  if ($('#formUploadImg').hasClass('d-none')) {
+    $('#formUploadImg').removeClass('d-none');
+  } else {
+    $('#formUploadImg').addClass('d-none');
+  }
+});
+
+$.ajaxSetup({
+  headers: {
+  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
+
+$("#selectReview").change(function() {
+  $.get("/course" , function(data) {
+    alert(data);
+  });
+});
+
+$('#btnAddReview').click(function() {
+  $.post("/course/review/1" , function(data) {
+    $('#showReview').load('home');
+  });
+})
+
+$('#paginationReview').click(function() {
+  $('#pills-reviews').addClass('show active');
 });

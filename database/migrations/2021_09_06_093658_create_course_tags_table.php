@@ -17,7 +17,7 @@ class CreateCourseTagsTable extends Migration
             $table->increments('id');
             $table->integer('course_id')->nullable();
             $table->integer('tag_id')->nullable();
-            $table->softDelete();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use App\Models\CourseUser;
+use App\Models\User;
+use App\Models\Review;
+use Auth;
 
 class Course extends Model
 {
@@ -41,22 +44,33 @@ class Course extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'course_tags')->using(CourseTag::class);
+        return $this->belongsToMany(Tag::class, 'course_tags');
     }
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'course_users')->using(CourseUser::class);
+        return $this->belongsToMany(User::class, 'course_users', 'course_id', 'user_id');
+    }
+
+    public function getJoinAttribute()
+    {
+        if (isset(Auth::user()->id)) {
+            $userId = Auth::user()->id;
+        } else {
+            $userId = null;
+        }
+
+        return $this->users()->where('user_id', $userId)->count();
     }
 
     public function getNumberUserAttribute()
     {
-        return $this->users()->count();
+        return $this->users()->where('role', User::ROLE_STUDENT)->count();
     }
 
     public function reviews()
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Review::class, 'targer_id')->where('type', Review::TYPE_COURSE);
     }
 
     public function scopeFilter($query, $dataRequest)
@@ -119,5 +133,96 @@ class Course extends Model
         }
         
         return $query;
+    }
+
+    public function scopeSuggestions($query)
+    {
+        $query = $query->inRandomOrder()->limit(5);
+
+        return $query;
+    }
+
+    public function scopeByUser($query, $userId)
+    {
+        $query = $query->whereHas('users', function ($subquery) use ($userId) {
+            $subquery->where('user_id', $userId);
+        });
+
+        return $query;
+    }
+
+    public function getCourseCountAttribute()
+    {
+        return $this->count();
+    }
+
+    public function getCountFivestarAttribute()
+    {
+        return $this->reviews->where('rate', config('course.star_five'))->count();
+    }
+
+    public function getCountFourstarAttribute()
+    {
+        return $this->reviews->where('rate', config('course.star_four'))->count();
+    }
+
+    public function getCountThreestarAttribute()
+    {
+        return $this->reviews->where('rate', config('course.star_three'))->count();
+    }
+
+    public function getCountTwostarAttribute()
+    {
+        return $this->reviews->where('rate', config('course.star_two'))->count();
+    }
+
+    public function getCountOnestarAttribute()
+    {
+        return $this->reviews->where('rate', config('course.star_one'))->count();
+    }
+
+    public function getAvgRateAttribute()
+    {
+        return $this->reviews->avg('rate');
+    }
+
+    public function getCountRateAttribute()
+    {
+        return $this->reviews->count();
+    }
+
+    public function getPercentFivestarAttribute()
+    {
+        if ($this->count_fivestar != 0) {
+            return ($this->count_fivestar / $this->count_rate) * 100;
+        }
+    }
+
+    public function getPercentFourstarAttribute()
+    {
+        if ($this->count_fourstar != 0) {
+            return ($this->count_fourstar / $this->count_rate) * 100;
+        }
+    }
+
+    public function getPercentThreestarAttribute()
+    {
+        if ($this->count_threestar != 0) {
+            return ($this->count_threestar / $this->count_rate) * 100;
+        }
+    }
+
+    public function getPercentTwostarAttribute()
+    {
+        if ($this->count_twostar != 0) {
+            return ($this->count_twostar / $this->count_rate) * 100;
+        }
+    }
+
+    public function getPercentOnestarAttribute()
+    {
+        if ($this->count_onestar != 0) {
+            return ($this->count_onestar / $this->count_rate) * 100;
+        }
     }
 }

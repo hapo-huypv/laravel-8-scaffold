@@ -14,7 +14,16 @@
     }
   }
 
+  .card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+    width: 570px;
+    height: 350px;
+}
+
   .course-search {
+    margin-left: 150px;
     width: 355px;
     height: 42px;
     background-color: $color-white;
@@ -62,20 +71,6 @@
     }
   }
 
-  .btn-course-search {
-    background: $color-lightgreen;
-    border: 1px solid $color-lightgreen;
-    border-radius: 5px;
-    font-family: $font-Open-Sans;
-    font-weight: bold;
-    font-size: 15px;
-    line-height: 20px;
-    color: $color-white;
-    height: 42px;
-    align-items: center;
-    display: flex;
-  }
-
   .course-lookup {
     background: $color-white;
     border: 1px solid $color-circle-gray;
@@ -102,6 +97,7 @@
       font-size: 14px;
       line-height: 19px;
       color: $color-white;
+      border: none;
     }
 
     &-btn-status {
@@ -111,7 +107,8 @@
       font-weight: 600;
       font-size: 14px;
       line-height: 19px;
-      color: $color-white;
+      color: $color-dark;
+      border: none;
     }
 
     .course-lookup-dropdown-toggle, 
@@ -179,6 +176,7 @@
       width: 90px;
       height: 90px;
       margin-right: 30px;
+      border-radius: 50px;
     }
 
     &-title {

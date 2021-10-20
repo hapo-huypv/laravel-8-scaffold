@@ -23,8 +23,11 @@ class TagFactory extends Factory
      */
     public function definition()
     {
+        $arrayName = array("html", "css", "learn", "coder", "developer", "js");
+        $randIndex = array_rand($arrayName);
+
         return [
-            'name' => $this->faker->title(),
+            'name' => '#'.$arrayName[$randIndex],
         ];
     }
 }

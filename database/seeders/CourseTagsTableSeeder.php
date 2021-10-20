@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Faker\Factory as Faker;
 use App\Models\Course;
+use App\Models\Lesson;
+use App\Models\Program;
 use App\Models\Tag;
 use App\Models\CourseTag;
 use database\factories\CourseTagsFactory;
@@ -21,7 +23,87 @@ class CourseTagsTableSeeder extends Seeder
     public function run()
     {
         Tag::factory()
-            ->hasAttached(Course::factory()->count(3))
-            ->count(10)->create();
+        ->hasAttached(Course::factory()
+            ->has(Lesson::factory()
+                ->has(Program::factory()->count(3)->state(function (array $attributes, Lesson $lesson) {
+                    return ['lesson_id' => $lesson->id];
+                }))
+            ->count(5)->state(function (array $attributes, Course $course) {
+                return ['course_id' => $course->id];
+            }))
+            ->count(30))
+        ->state([
+            'name' => '#css',
+        ])->create();
+
+        Tag::factory()
+        ->hasAttached(Course::factory()
+            ->has(Lesson::factory()
+                ->has(Program::factory()->count(3)->state(function (array $attributes, Lesson $lesson) {
+                    return ['lesson_id' => $lesson->id];
+                }))
+            ->count(5)->state(function (array $attributes, Course $course) {
+                return ['course_id' => $course->id];
+            }))
+            ->count(30))
+        ->state([
+            'name' => '#html',
+        ])->create();
+
+        Tag::factory()
+        ->hasAttached(Course::factory()
+            ->has(Lesson::factory()
+                ->has(Program::factory()->count(3)->state(function (array $attributes, Lesson $lesson) {
+                    return ['lesson_id' => $lesson->id];
+                }))
+            ->count(5)->state(function (array $attributes, Course $course) {
+                return ['course_id' => $course->id];
+            }))
+            ->count(30))
+        ->state([
+            'name' => '#learn',
+        ])->create();
+
+        Tag::factory()
+            ->hasAttached(Course::factory()
+                ->has(Lesson::factory()
+                    ->has(Program::factory()->count(3)->state(function (array $attributes, Lesson $lesson) {
+                        return ['lesson_id' => $lesson->id];
+                    }))
+                ->count(5)->state(function (array $attributes, Course $course) {
+                    return ['course_id' => $course->id];
+                }))
+                ->count(30))
+            ->state([
+                'name' => '#coder',
+            ])->create();
+
+            Tag::factory()
+            ->hasAttached(Course::factory()
+                ->has(Lesson::factory()
+                    ->has(Program::factory()->count(3)->state(function (array $attributes, Lesson $lesson) {
+                        return ['lesson_id' => $lesson->id];
+                    }))
+                ->count(5)->state(function (array $attributes, Course $course) {
+                    return ['course_id' => $course->id];
+                }))
+                ->count(30))
+            ->state([
+                'name' => '#developer',
+            ])->create();
+
+            Tag::factory()
+            ->hasAttached(Course::factory()
+                ->has(Lesson::factory()
+                    ->has(Program::factory()->count(3)->state(function (array $attributes, Lesson $lesson) {
+                        return ['lesson_id' => $lesson->id];
+                    }))
+                ->count(5)->state(function (array $attributes, Course $course) {
+                    return ['course_id' => $course->id];
+                }))
+                ->count(30))
+            ->state([
+                'name' => '#js',
+            ])->create();
     }
 }
