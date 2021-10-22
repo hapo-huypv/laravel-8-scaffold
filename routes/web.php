@@ -22,9 +22,9 @@ use Carbon\Carbon;
 |
 */
 
-Auth::routes();
-
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/', [HomeController::class, 'index']);
 
 Route::prefix('course')->group(function () {
     Route::get('/', [CourseController::class, 'index'])->name('courses');
@@ -48,3 +48,9 @@ Route::prefix('/profile')->group(function () {
     Route::get('/{user}/edit', [ProfileController::class, 'edit'])->name('edit_profile');
     Route::post('/{user}/upload', [ProfileController::class, 'upload'])->name('uploadimg_profile');
 });
+
+Route::get('/forgot-password', function () {
+    return view('auth.verify');
+})->name('password.request');
+
+Auth::routes();
