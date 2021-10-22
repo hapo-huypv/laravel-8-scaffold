@@ -44,8 +44,8 @@
                         </div>
                         <div class="d-flex justify-content-center p-0 title-social-login">Login with</div>
                         <div class="d-flex flex-column social-login">
-                            <button class="btn google-btn social-btn" type="button"><span class="d-flex justify-content-center align-item-center"><i class="fab fa-google-plus-g mr-2"></i>  Google</span> </button>
-                            <button class="btn facebook-btn social-btn" type="button"><span class="d-flex justify-content-center align-item-center"><i class="fab fa-facebook-f mr-2"></i>  Facebook</span> </button>
+                            <a href="{{ route('google') }}" class="btn google-btn social-btn d-flex justify-content-center align-items-center" type="button"><span class="d-flex justify-content-center align-items-center"><i class="fab fa-google-plus-g mr-2"></i>  Google</span> </a>
+                            <a class="btn facebook-btn social-btn d-flex justify-content-center align-items-center" type="button"><span class="d-flex justify-content-center align-items-center"><i class="fab fa-facebook-f mr-2"></i>  Facebook</span> </a>
                         </div>
                     </form>                  
                     <form action="{{route('register')}}" method="POST" class="form-signup tab-pane fade pt-0 form-login-and-register" id="pillsRegister" role="tabpanel" aria-labelledby="pillsRegisterTab">

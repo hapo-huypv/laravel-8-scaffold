@@ -7,6 +7,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\GoogleController;
 use App\Models\User;
 use App\Models\Course;
 use Carbon\Carbon;
@@ -49,8 +50,8 @@ Route::prefix('/profile')->group(function () {
     Route::post('/{user}/upload', [ProfileController::class, 'upload'])->name('uploadimg_profile');
 });
 
-Route::get('/forgot-password', function () {
-    return view('auth.verify');
-})->name('password.request');
-
 Auth::routes();
+
+Route::get('/google', [GoogleController::class, 'redirectToGoogle'])->name('google');
+
+Route::get('/google/callback', [GoogleController::class, 'handleGoogleCallback']);
