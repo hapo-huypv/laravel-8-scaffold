@@ -21,9 +21,6 @@ class ProfileController extends Controller
         if (isset(Auth::user()->id)) {
             $courses = Course::byUser($user->id)->get();
 
-            // $ddmmyy = Carbon::parse($user->birthday)->format('d/m/Y');
-            // dd($user->birthday);
-
             return view('profile.show', compact('user', 'courses'));
         } else {
             return "404";

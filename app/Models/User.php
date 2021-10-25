@@ -119,8 +119,6 @@ class User extends Authenticatable
 
     public function getDateOfBirthAttribute()
     {
-        $ddmmyy = Carbon::parse($this->birthday)->format('d/m/Y');
-        
-        return $ddmmyy;
+        return Carbon::parse($this->birthday)->format('d/m/Y');
     }
 }
