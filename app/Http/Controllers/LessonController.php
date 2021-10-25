@@ -15,13 +15,11 @@ use Auth;
 class LessonController extends Controller
 {
     //
-    public function show(Lesson $lesson)
+    public function show(Course $course, Lesson $lesson)
     {
-        $tags = Tag::tags($lesson->course_id)->get();
+        $tags = Tag::tags($course->id)->get();
 
         $courses = Course::suggestions()->get();
-
-        $course = $lesson->course()->where('id', $lesson->course_id)->first();
 
         $courseTeachers = User::lessonTeachers($lesson->id)->get();
 
@@ -42,6 +40,7 @@ class LessonController extends Controller
         $lesson->users()->detach([Auth::user()->id ?? false]);
 
         $programs = Program::programs($lesson->id)->get();
+        
         foreach ($programs as $program) {
             $program->users()->detach([Auth::user()->id ?? false]);
         }

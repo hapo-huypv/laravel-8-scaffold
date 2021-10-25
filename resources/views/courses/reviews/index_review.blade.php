@@ -23,7 +23,7 @@
                 </div>
             @endforeach
         </div>
-        
+
     </div>
     <hr>
     <div class="review-show">
@@ -39,7 +39,7 @@
     <div id="showReview">
         @include('courses.reviews.show_review')
     </div>
-    <form method="get" action="{{ route('review', ['courseId' => $course->id]) }}" id="ajaxform">
+    <form method="POST" action="{{ route('review', ['courseId' => $course->id]) }}" id="ajaxform">
         @csrf <!-- {{ csrf_field() }} -->
         <div class="reviews font-size-22">Leave a Review</div>
         <div class="reviews-content mt-3">Message</div>

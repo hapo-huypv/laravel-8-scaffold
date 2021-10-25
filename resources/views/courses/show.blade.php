@@ -65,7 +65,7 @@
                                                 <span class="processing-number">{{ round($lesson->number_process, 2) }}%</span>
                                             </div>
                                             @if ($lesson->join == config('lesson.joinin'))
-                                                <a href="{{ route('detail_lesson', [$lesson->id]) }}" id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson" type="submit">Learn</a>
+                                                <a href="{{ route('detail_lesson', ['course'=>$course->id, 'lesson' => $lesson->id]) }}" id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson" type="submit">Learn</a>
                                             @elseif ($lesson->join == config('lesson.joinedin') && round($lesson->number_process, 2) == 100) 
                                                 <a href="{{ route('detail_lesson', [$lesson->id]) }}" id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson btn-color-nonactive" type="submit">Completed</a>
                                             @elseif ($lesson->join == config('lesson.joinedin'))
