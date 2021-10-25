@@ -21,8 +21,8 @@ class ProfileController extends Controller
         if (isset(Auth::user()->id)) {
             $courses = Course::byUser($user->id)->get();
 
-            $ddmmyy = Carbon::parse($user->birthday)->format('d/m/Y');
-            $user->birthday = $ddmmyy;
+            // $ddmmyy = Carbon::parse($user->birthday)->format('d/m/Y');
+            // dd($user->birthday);
 
             return view('profile.show', compact('user', 'courses'));
         } else {
@@ -37,7 +37,7 @@ class ProfileController extends Controller
         return back()->with('success', 'Edit successfully!');
     }
 
-    public function upload(Request $request, User $user)
+    public function update(Request $request, User $user)
     {
         $image = $request->file('image');
         $image->move('assets/img', $image->getClientOriginalName());

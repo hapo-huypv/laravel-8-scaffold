@@ -20,7 +20,7 @@
         <div class="mr-3 program-type">Video</div>
         @endif
         <div class="col-8 program-name">{{ $program->name }}</div>
-        <a href="{{ route('program', [$program->id]) }}" id="btnPreviewLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson p-0" type="submit">Preview</a>
+        <a href="{{ route('programs', ['course' => $course->id, 'lesson' => $lesson->id, 'program' => $program->id]) }}" id="btnPreviewLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson p-0" type="submit">Preview</a>
     </div>
     <hr>
     @endforeach

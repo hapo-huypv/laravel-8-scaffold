@@ -37,7 +37,7 @@
                                 <input  name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} type="checkbox" class="custom-control-input" id="customControlInline">
                                 <label class="custom-control-label form-control-label" for="customControlInline">Remember me</label>
                             </div>
-                            <a href="#" id="forgot_pswd" class="col-6 pr-0 form-text-forgotpass">Forgot password</a>
+                            <a href="{{ route('password.request') }}" id="forgot_pswd" class="col-6 pr-0 form-text-forgotpass">Forgot password</a>
                         </div>
                         <div class=" d-flex justify-content-center">
                             <button class="btn btn-success btn-block custom-btn-login" type="submit">LOGIN</button>

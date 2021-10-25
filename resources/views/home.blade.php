@@ -31,7 +31,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $course->title }}</h5>
                                 <p class="card-text">{{ $course->intro }}</p>
-                                <a href="{{ route('detail_course', [$course->id]) }}" class="btn btn-primary">Take This Course</a>
+                                <a href="{{ route('courses.show', [$course->id]) }}" class="btn btn-primary">Take This Course</a>
                             </div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $course->title }}</h5>
                                 <p class="card-text">{{ $course->intro }}</p>
-                                <a href="{{ route('detail_course', [$course->id]) }}" class="btn btn-primary">Take This Course</a>
+                                <a href="{{ route('courses.show', [$course->id]) }}" class="btn btn-primary">Take This Course</a>
                             </div>
                         </div>
                     </div>

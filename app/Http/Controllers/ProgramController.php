@@ -11,12 +11,8 @@ use Auth;
 
 class ProgramController extends Controller
 {
-    public function show(Program $program)
+    public function show(Course $course, Lesson $lesson, Program $program)
     {
-        $lesson = Lesson::find($program['lesson_id']);
-
-        $course = Course::find($lesson['course_id']);
-
         return view('courses.lessons.show_program', compact('program', 'course', 'lesson'));
     }
 

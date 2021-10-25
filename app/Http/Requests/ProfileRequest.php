@@ -24,14 +24,12 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'edit_email' => ['required', 'unique:users,email'],
         ];
     }
 
     public function messages()
     {
         return [
-            'edit_email.unique:users' => 'this username does not match',
         ];
     }
 }

@@ -37,7 +37,7 @@
                                 @include('courses.partials.teacher')
                             </div>
                             <div class="tab-pane fade" id="pills-program" role="tabpanel" aria-labelledby="pills-program-tab">
-                            @if($lesson->join == config('lesson.joinedin'))    
+                            @if($lesson->join == config('lessons.joinedin'))    
                                 @include('courses.lessons.programs')
                             @endif
                             </div>
@@ -117,10 +117,10 @@
                             </div>
                         </div>
                         <hr>
-                        @if($lesson->join == config('lesson.joinedin'))
-                            <div class="d-flex justify-content-center"><a href="{{ route('leave_lesson', [$lesson->id]) }}" id="btnLeaveLesson" class="m-0 btn btn-success btn-course-join" type="submit">Leave the lesson</a></div>
+                        @if($lesson->join == config('lessons.joinedin'))
+                            <div class="d-flex justify-content-center"><a href="{{ route('lessons.leave', ['course' => $course->id, 'lesson' => $lesson->id]) }}" id="btnLeaveLesson" class="m-0 btn btn-success btn-course-join" type="submit">Leave the lesson</a></div>
                         @else
-                            <div class="d-flex justify-content-center"><a href="{{ route('join_lesson', [$lesson->id]) }}" id="btnJoinLesson" class="m-0 btn btn-success btn-course-join" type="submit">Learn the lesson</a></div>
+                            <div class="d-flex justify-content-center"><a href="{{ route('lessons.join', ['course' => $course->id, 'lesson' => $lesson->id]) }}" id="btnJoinLesson" class="m-0 btn btn-success btn-course-join" type="submit">Learn the lesson</a></div>
                         @endif                      
                     </div>
                     <div class="course-othercourse">

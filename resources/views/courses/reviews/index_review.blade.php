@@ -3,13 +3,13 @@
     <hr>
     <div class="d-flex rating">
         <div class="col-4 mr-4 d-flex flex-column justify-content-center align-items-center rating-star">
-            <div class="rating-star-number">{{ $course->avg_rate }}</div>
+            <div class="rating-star-number">{{ round($course->avg_rate) }}</div>
             <div class="rating-star-icon">
                 @for ($i = 0; $i < $course->avg_rate; $i++)
                 <i class="fa fa-star" aria-hidden="true"></i>
                 @endfor
             </div>
-            <div class="rating-star-total">{{ $course->avg_rate }} Ratings</div>
+            <div class="rating-star-total">{{ round($course->avg_rate) }} Ratings</div>
         </div>
 
         <div class="col-8 rating-statistic">
@@ -17,7 +17,7 @@
                 <div class="d-flex align-items-center">
                     <div class="col-2 rating-statistic-type">{{ 5 - $key }} stars</div>
                     <div class="col-9 p-0 mr-1 progress progress-setup">
-                        <div class="progress-bar" role="progressbar" style="width: {{ $rating / $course->count_rate * 100 }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" role="progressbar" style="width: {{ ($course->count_rate > 0) ? $rating / $course->count_rate * 100  : '0'}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <div class="col-1 rating-statistic-total">{{ $rating }}</div>
                 </div>
@@ -39,7 +39,7 @@
     <div id="showReview">
         @include('courses.reviews.show_review')
     </div>
-    <form method="POST" action="{{ route('review', ['courseId' => $course->id]) }}" id="ajaxform">
+    <form method="POST" action="{{ route('reviews', ['courseId' => $course->id]) }}" id="ajaxform">
         @csrf <!-- {{ csrf_field() }} -->
         <div class="reviews font-size-22">Leave a Review</div>
         <div class="reviews-content mt-3">Message</div>

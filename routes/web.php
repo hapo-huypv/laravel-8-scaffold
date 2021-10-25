@@ -30,26 +30,34 @@ Route::get('/', [HomeController::class, 'index']);
 
 Route::prefix('courses')->group(function () {
     Route::get('/', [CourseController::class, 'index'])->name('courses');
-    Route::get('/{course}', [CourseController::class, 'show'])->name('detail_course');
-    Route::get('/lessons/{lesson}', [LessonController::class, 'show'])->name('detail_lesson');
-    Route::get('/lessons/{lesson}/join', [LessonController::class, 'join'])->name('join_lesson');
-    Route::get('/lessons/{lesson}/leave', [LessonController::class, 'leave'])->name('leave_lesson');
-    Route::get('/lessons/programs/{program}', [ProgramController::class, 'show'])->name('program');
-    Route::get('/lessons/programs/{program}/learned', [ProgramController::class, 'join'])->name('learned_program');
-    Route::get('/lessons/programs/{program}/leave', [ProgramController::class, 'leave'])->name('leave_program');
-    Route::get('/{course}/join', [CourseController::class, 'join'])->name('join_course');
-    Route::get('/{course}/leave', [CourseController::class, 'leave'])->name('leave_course');
-    Route::POST('/reviews/{courseId}', [ReviewController::class, 'store'])->name('review');
+    Route::get('/{course}', [CourseController::class, 'show'])->name('courses.show');
+    Route::get('/{course}/join', [CourseController::class, 'join'])->name('courses.join');
+    Route::get('/{course}/leave', [CourseController::class, 'leave'])->name('courses.leave');
+
+    Route::prefix('/{course}/lessons')->group(function () {
+        Route::get('/{lesson}', [LessonController::class, 'show'])->name('lessons.show');
+        Route::get('/{lesson}/join', [LessonController::class, 'join'])->name('lessons.join');
+        Route::get('/{lesson}/leave', [LessonController::class, 'leave'])->name('lessons.leave');
+
+        Route::prefix('/{lesson}/programs')->group(function () {
+            Route::get('/{program}', [ProgramController::class, 'show'])->name('programs');
+            Route::get('/{program}/learned', [ProgramController::class, 'join'])->name('programs.join');
+            Route::get('/{program}/leave', [ProgramController::class, 'leave'])->name('programs.leave');
+        });
+    });
+    
+    Route::POST('/reviews/{courseId}', [ReviewController::class, 'store'])->name('reviews');
 });
 
 Route::prefix('/profile')->group(function () {
     Route::get('/{user}', [ProfileController::class, 'show'])->name('profile');
-    Route::get('/{user}/edit', [ProfileController::class, 'edit'])->name('edit_profile');
-    Route::post('/{user}/upload', [ProfileController::class, 'upload'])->name('uploadimg_profile');
+    Route::get('/{user}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/{user}/update', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 Auth::routes();
 
-Route::get('/google', [GoogleController::class, 'redirectToGoogle'])->name('google');
-
-Route::get('/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+Route::prefix('/google')->group(function () {
+    Route::get('/', [GoogleController::class, 'redirectToGoogle'])->name('google');
+    Route::get('/callback', [GoogleController::class, 'handleGoogleCallback']);
+});

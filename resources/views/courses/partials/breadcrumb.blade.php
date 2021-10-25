@@ -10,19 +10,19 @@
         </li>
         @if (isset($course->id))
         <li class="nav-crumb-link" aria-current="page">
-            <a class="nav-crumb-link-text" href="{{ route('detail_course', [$course->id]) }}">{{ $course->title }}</a>
+            <a class="nav-crumb-link-text" href="{{ route('courses.show', [$course->id]) }}">{{ $course->title }}</a>
         </li>
         @endif
         @if (isset($lesson->id))
         <li class="nav-crumb-link" aria-current="page">
             <i class="fas fa-angle-right ml-1"></i>
-            <a class="nav-crumb-link-text" href="{{ route('detail_lesson', [$lesson->id]) }}">{{ $lesson->title }}</a>
+            <a class="nav-crumb-link-text" href="{{ route('lessons.show', ['course' => $course->id, 'lesson' => $lesson->id]) }}">{{ $lesson->title }}</a>
         </li>
         @endif
         @if (isset($program->id))
         <li class="nav-crumb-link" aria-current="page">
             <i class="fas fa-angle-right ml-1"></i>
-            <a class="nav-crumb-link-text" href="{{ route('program', [$program->id]) }}">{{ $program->name }}</a>
+            <a class="nav-crumb-link-text" href="{{ route('program', ['course' => $course->id, 'lesson' => $lesson->id, 'program' => $program->id]) }}">{{ $program->name }}</a>
         </li>
         @endif
     </ol>
