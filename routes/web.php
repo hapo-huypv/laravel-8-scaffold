@@ -29,19 +29,16 @@ Route::get('/', [HomeController::class, 'index']);
 
 Route::prefix('course')->group(function () {
     Route::get('/', [CourseController::class, 'index'])->name('courses');
-
-    Route::prefix('/')->group(function () {
-        Route::get('/{course}', [CourseController::class, 'show'])->name('detail_course');
-        Route::get('/lesson/{lesson}', [LessonController::class, 'show'])->name('detail_lesson');
-        Route::get('/lesson/{lesson}/join', [LessonController::class, 'join'])->name('join_lesson');
-        Route::get('/lesson/{lesson}/leave', [LessonController::class, 'leave'])->name('leave_lesson');
-        Route::get('/lesson/program/{program}', [ProgramController::class, 'show'])->name('program');
-        Route::get('/lesson/program/{program}/learned', [ProgramController::class, 'learned'])->name('learned_program');
-        Route::get('/lesson/program/{program}/leave', [ProgramController::class, 'leave'])->name('leave_program');
-        Route::get('/{course}/join', [CourseController::class, 'join'])->name('join_course');
-        Route::get('/{course}/leave', [CourseController::class, 'leave'])->name('leave_course');
-        Route::get('/review/{courseId}', [CourseController::class, 'review'])->name('review');
-    });
+    Route::get('/{course}', [CourseController::class, 'show'])->name('detail_course');
+    Route::get('/lesson/{lesson}', [LessonController::class, 'show'])->name('detail_lesson');
+    Route::get('/lesson/{lesson}/join', [LessonController::class, 'join'])->name('join_lesson');
+    Route::get('/lesson/{lesson}/leave', [LessonController::class, 'leave'])->name('leave_lesson');
+    Route::get('/lesson/program/{program}', [ProgramController::class, 'show'])->name('program');
+    Route::get('/lesson/program/{program}/learned', [ProgramController::class, 'join'])->name('learned_program');
+    Route::get('/lesson/program/{program}/leave', [ProgramController::class, 'leave'])->name('leave_program');
+    Route::get('/{course}/join', [CourseController::class, 'join'])->name('join_course');
+    Route::get('/{course}/leave', [CourseController::class, 'leave'])->name('leave_course');
+    Route::get('/review/{courseId}', [CourseController::class, 'review'])->name('review');
 });
 
 Route::prefix('/profile')->group(function () {

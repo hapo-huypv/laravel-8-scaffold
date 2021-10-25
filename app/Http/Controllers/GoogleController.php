@@ -17,10 +17,9 @@ class GoogleController extends Controller
     public function handleGoogleCallback()
     {
         $userGG = Socialite::driver('google')->user();
-        // dd($userGG->id);
         
         $user = User::where('google', $userGG->id)->first();
-        // dd($user);
+
         if (!empty($user)) {
             Auth::login($user);
 
@@ -34,7 +33,6 @@ class GoogleController extends Controller
                 'google' => $userGG->id,
             ]);
 
-            // dd($user);
             Auth::login($user);
 
             return redirect('home');

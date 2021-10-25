@@ -156,31 +156,6 @@ class Course extends Model
         return $this->count();
     }
 
-    public function getCountFivestarAttribute()
-    {
-        return $this->reviews->where('rate', config('course.star_five'))->count();
-    }
-
-    public function getCountFourstarAttribute()
-    {
-        return $this->reviews->where('rate', config('course.star_four'))->count();
-    }
-
-    public function getCountThreestarAttribute()
-    {
-        return $this->reviews->where('rate', config('course.star_three'))->count();
-    }
-
-    public function getCountTwostarAttribute()
-    {
-        return $this->reviews->where('rate', config('course.star_two'))->count();
-    }
-
-    public function getCountOnestarAttribute()
-    {
-        return $this->reviews->where('rate', config('course.star_one'))->count();
-    }
-
     public function getAvgRateAttribute()
     {
         return $this->reviews->avg('rate');
@@ -191,38 +166,20 @@ class Course extends Model
         return $this->reviews->count();
     }
 
-    public function getPercentFivestarAttribute()
+    public function getNumberCountRateAttribute()
     {
-        if ($this->count_fivestar != 0) {
-            return ($this->count_fivestar / $this->count_rate) * 100;
+        $numberCountRate = array(0, 0, 0, 0, 0);
+        // dd($numberCountRate);
+        $numberCount = $this->reviews()->selectRaw('rate, count(*) as total')->groupBy('rate')->orderBy('rate', config('course.descending'))->get();
+    
+        foreach ($numberCount as $rating) {
+            for ($i = 0; $i < 5; $i ++) {
+                if ($rating->rate == 5 - $i) {
+                    $numberCountRate[$i] = $rating->total;
+                }
+            }
         }
-    }
 
-    public function getPercentFourstarAttribute()
-    {
-        if ($this->count_fourstar != 0) {
-            return ($this->count_fourstar / $this->count_rate) * 100;
-        }
-    }
-
-    public function getPercentThreestarAttribute()
-    {
-        if ($this->count_threestar != 0) {
-            return ($this->count_threestar / $this->count_rate) * 100;
-        }
-    }
-
-    public function getPercentTwostarAttribute()
-    {
-        if ($this->count_twostar != 0) {
-            return ($this->count_twostar / $this->count_rate) * 100;
-        }
-    }
-
-    public function getPercentOnestarAttribute()
-    {
-        if ($this->count_onestar != 0) {
-            return ($this->count_onestar / $this->count_rate) * 100;
-        }
+        return $numberCountRate;
     }
 }

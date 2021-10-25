@@ -47,7 +47,9 @@ class LoginController extends Controller
     public function attemptLogin($request)
     {
         $remember = $request['remember'] ? true : false;
-        $loginRequest = ['email' => $request['username'], 'password' => $request['password']];
+
+        $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $loginRequest = [$fieldType => $request['username'], 'password' => $request['password']];
 
         return Auth::attempt($loginRequest, $remember);
     }
@@ -55,11 +57,9 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         if ($this->attemptLogin($request)) {
-            // dd(true);
-            return redirect()->route('home')->with('success', 'Logged in successfully!');
+            return back()->with('success', 'Logged in successfully!');
         } else {
-            dd(false);
-            return back()->with('error', 'Incorrect username or password');
+            return back()->with('error', 'Incorrect username or password')->with('popup', 'true');
         }
     }
 

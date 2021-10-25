@@ -141,3 +141,8 @@ $('#btnAddReview').click(function() {
 $('#paginationReview').click(function() {
   $('#pills-reviews').addClass('show active');
 });
+
+if ($('.pop-up').hasClass('pop-up')) {
+  $('#modalLoginRegister').modal('show');
+  $('#pillsLoginTab').tab('show');
+}

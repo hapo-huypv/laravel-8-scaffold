@@ -5,5 +5,8 @@
 
     @if(session('error'))
         <section id="alertError" class="d-flex justify-content-center w-25 alert alert-danger">{{session('error')}}</section>
+        @if(session('popup'))
+        <section class="pop-up">Hello</section>
+        @endif
     @endif
 </div>
