@@ -20,7 +20,7 @@ class ProgramController extends Controller
         return view('courses.lessons.show_program', compact('program', 'course', 'lesson'));
     }
 
-    public function learned(Program $program)
+    public function join(Program $program)
     {
         $program->users()->attach([Auth::user()->id ?? false]);
 
