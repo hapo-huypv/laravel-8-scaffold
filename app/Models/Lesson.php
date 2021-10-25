@@ -77,8 +77,8 @@ class Lesson extends Model
         $learnedLesson = Program::learnedPrograms($this->id)->get();
         $numberLearnedLesson = count($learnedLesson);
      
-        if ($this->number_program != 0) {
-            $process = $numberLearnedLesson / $this->number_program;
+        if ($this->getNumberProgramAttribute() != 0) {
+            $process = $numberLearnedLesson / $this->getNumberProgramAttribute();
             
             return $process * 100;
         } else {

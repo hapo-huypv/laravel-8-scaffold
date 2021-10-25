@@ -82,7 +82,7 @@ class Review extends Model
     public function getDateAttribute()
     {
         $ddmmyy = Carbon::now();
-        $ddmmyy = $this->created_at;
+        $ddmmyy = $this['created_at'];
 
         return $ddmmyy->toFormattedDateString();
     }
@@ -90,7 +90,7 @@ class Review extends Model
     public function getTimeAttribute()
     {
         $ddmmyy = Carbon::now();
-        $ddmmyy = $this->created_at;
+        $ddmmyy = $this['created_at'];
 
         return $ddmmyy->toTimeString();
     }

@@ -31,14 +31,13 @@ class HomeController extends Controller
         $reviews = Review::all();
 
         $countCourses = new Course();
-        $countCourses = $countCourses->course_count;
+        $countCourses = $countCourses->courseCount;
 
         $countLessons = new Lesson();
-        $countLessons = $countLessons->lesson_count;
+        $countLessons = $countLessons->lessonCount;
 
         $numberLeaners = new CourseUser();
         $numberLeaners = $numberLeaners->learners;
-        // dd($numberLeaners);
 
         return view('home', compact('courses', 'otherCourses', 'reviews', 'countCourses', 'countLessons', 'numberLeaners'));
     }
