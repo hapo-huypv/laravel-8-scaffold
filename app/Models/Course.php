@@ -173,11 +173,7 @@ class Course extends Model
         $numberCount = $this->reviews()->selectRaw('rate, count(*) as total')->groupBy('rate')->orderBy('rate', config('course.descending'))->get();
     
         foreach ($numberCount as $rating) {
-            for ($i = config('course.none'); $i < config('course.max_rate'); $i ++) {
-                if ($rating->rate == 5 - $i) {
-                    $numberCountRate[$i] = $rating->total;
-                }
-            }
+            $numberCountRate[config('course.max_rate') - $rating->rate] = $rating->total;
         }
 
         return $numberCountRate;
