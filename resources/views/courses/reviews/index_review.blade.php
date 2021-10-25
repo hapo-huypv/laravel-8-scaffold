@@ -11,6 +11,7 @@
             </div>
             <div class="rating-star-total">{{ $course->avg_rate }} Ratings</div>
         </div>
+
         <div class="col-8 rating-statistic">
             @foreach ($course->number_count_rate as $key => $rating)
                 <div class="d-flex align-items-center">
@@ -22,6 +23,7 @@
                 </div>
             @endforeach
         </div>
+        
     </div>
     <hr>
     <div class="review-show">

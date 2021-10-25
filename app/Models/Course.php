@@ -169,7 +169,7 @@ class Course extends Model
     public function getNumberCountRateAttribute()
     {
         $numberCountRate = array(0, 0, 0, 0, 0);
-        // dd($numberCountRate);
+        
         $numberCount = $this->reviews()->selectRaw('rate, count(*) as total')->groupBy('rate')->orderBy('rate', config('course.descending'))->get();
     
         foreach ($numberCount as $rating) {
