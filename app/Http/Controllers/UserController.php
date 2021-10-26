@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function show(User $user)
     {
-        if (isset(Auth::user()->id)) {
+        if (Auth::user()->id == $user->id) {
             $courses = $user->courses;
             
             return view('profile.show', compact('user', 'courses'));
@@ -28,7 +28,7 @@ class UserController extends Controller
 
             return back()->with('success', 'Edit successfully!');
         } elseif (!isset($request['image']) && isset($request['name'])) {
-            $user->edit($request, $user);
+            $user->editInfoUser($request, $user);
 
             return back()->with('success', 'Edit successfully!');
         } else {

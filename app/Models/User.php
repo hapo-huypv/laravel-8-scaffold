@@ -105,7 +105,7 @@ class User extends Authenticatable
         return $query;
     }
 
-    public function edit($request, $user)
+    public function editInfoUser($request, $user)
     {
         $user->update([
             'name' => $request['name'],
