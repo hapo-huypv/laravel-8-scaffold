@@ -137,15 +137,15 @@
             <div class="d-flex flex-row justify-content-center statistic-parameter">
                 <div class="col-4 d-flex flex-column align-items-center">
                     <div class="statistic-parameter-title">Courses</div>
-                    <div class="statistic-parameter-number">{{ $countCourses }}</div>
+                    <div class="statistic-parameter-number">{{ $totalCourses }}</div>
                 </div>
                 <div class="col-4 d-flex flex-column align-items-center">
                     <div class="statistic-parameter-title">Lessons</div>
-                    <div class="statistic-parameter-number">{{ $countLessons }}</div>
+                    <div class="statistic-parameter-number">{{ $totalLessons }}</div>
                 </div>
                 <div class="col-4 d-flex flex-column align-items-center">
                     <div class="statistic-parameter-title">Learns</div>
-                    <div class="statistic-parameter-number">{{ $numberLeaners }}</div>
+                    <div class="statistic-parameter-number">{{ $totalLearners }}</div>
                 </div>
             </div>
         </div>
