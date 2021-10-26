@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProgramController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ReviewController;
 use App\Models\User;
@@ -50,9 +50,8 @@ Route::prefix('courses')->group(function () {
 });
 
 Route::prefix('/profile')->group(function () {
-    Route::get('/{user}', [ProfileController::class, 'show'])->name('profile');
-    Route::get('/{user}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/{user}/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/{user}', [UserController::class, 'show'])->name('profile');
+    Route::post('/{user}/update', [UserController::class, 'update'])->name('profile.update');
 });
 
 Auth::routes();

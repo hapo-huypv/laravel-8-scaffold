@@ -107,14 +107,22 @@ class User extends Authenticatable
 
     public function edit($request, $user)
     {
-        User::where('id', $user->id)
-            ->update([
-                'name' => $request['name'],
-                'birthday' => $request['birthday'],
-                'address' => $request['address'],
-                'phone' => $request['phone'],
-                'intro' => $request['about_me'],
-            ]);
+        $user->update([
+            'name' => $request['name'],
+            'birthday' => $request['birthday'],
+            'address' => $request['address'],
+            'phone' => $request['phone'],
+            'intro' => $request['about_me'],
+        ]);
+    }
+
+    public function uploadImg($request, $user)
+    {
+        $image = $request->file('image');
+        $image->move(storage_path('app/public/user'), $image->getClientOriginalName());
+        
+        $user->avatar = 'storage/user/'. $image->getClientOriginalName();
+        $user->save();
     }
 
     public function getDateOfBirthAttribute()

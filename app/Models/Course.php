@@ -142,15 +142,6 @@ class Course extends Model
         return $query;
     }
 
-    public function scopeByUser($query, $userId)
-    {
-        $query = $query->whereHas('users', function ($subquery) use ($userId) {
-            $subquery->where('user_id', $userId);
-        });
-
-        return $query;
-    }
-
     public function getCourseCountAttribute()
     {
         return $this->count();

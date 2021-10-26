@@ -66,7 +66,8 @@
                         Edit profile      
                     </div>
                     <hr class="profile-underline m-0">
-                    <form method="get" action="{{ route('profile.edit', [$user->id]) }}">
+                    <form method="POST" action="{{ route('profile.update', [$user->id]) }}">
+                        @csrf
                         <div class="edit-user d-flex">
                             <div class="col-6">
                                 <div class="d-flex flex-column">
@@ -87,19 +88,24 @@
                                     <label class="mt-4 user-label">Email:</label>
                                     <input disabled class="p-2 profile-input" name="edit_email" type="text" value="{{ $user->email != null ? $user->email : '' }}" placeholder="Your email...">
                                 </div>
-                                @error('edit_email')
+                                <div class="d-flex flex-column">
+                                    <label class="mt-4 user-label">Phone:</label>
+                                    <input class="p-2 profile-input " value="0{{ $user->phone }}" name="phone" type="text" placeholder="Your phone...">
+                                </div>
+                                @error('phone')
                                     <span class="invalid-feedback d-block" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                                 <div class="d-flex flex-column">
-                                    <label class="mt-4 user-label">Phone:</label>
-                                    <input class="p-2 profile-input " name="phone" type="text" placeholder="Your phone...">
-                                </div>
-                                <div class="d-flex flex-column">
                                     <label class="mt-4 user-label">About me:</label>
                                     <input class="p-2 profile-input " name="about_me" type="text" placeholder="About you...">
                                 </div>
+                                @error('address')
+                                    <span class="invalid-feedback d-block" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="d-flex justify-content-end m-3">
