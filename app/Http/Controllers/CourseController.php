@@ -41,28 +41,29 @@ class CourseController extends Controller
 
         $courseTeachers = $course->users()->courseTeachers($id)->get();
 
+        // dd($course->join);
         $reviews = Review::reviewByCourse($id)->paginate(config('course.paginate_review'), ['*'], 'reviews');
 
         return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'reviews', 'courseTeachers'));
     }
 
-    public function join(Course $course)
+    public function edit(Course $course)
     {
-        $course->users()->attach([Auth::user()->id ?? false]);
+        if ($course->join == config('course.joinin')) {
+            $course->users()->attach([Auth::user()->id ?? false]);
 
-        return back();
-    }
-
-    public function leave(Course $course)
-    {
-        $course->users()->detach([Auth::user()->id ?? false]);
+            return back();
+        } else {
+            $course->users()->detach([Auth::user()->id ?? false]);
         
-        $lessons = $course->lessons()->get();
-        foreach ($lessons as $lesson) {
-            $lesson->users()->detach([Auth::user()->id ?? false]);
-        }
+            $lessons = $course->lessons()->get();
+            foreach ($lessons as $lesson) {
+                $lesson->users()->detach([Auth::user()->id ?? false]);
+            }
 
-        return back();
+            return back();
+        }
+       
     }
 
     public function review(Request $request, $courseId)

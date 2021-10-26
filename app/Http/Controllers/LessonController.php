@@ -28,23 +28,23 @@ class LessonController extends Controller
         return view('courses.lessons.show', compact('course', 'lesson', 'tags', 'courses', 'courseTeachers', 'programs'));
     }
 
-    public function join(Lesson $lesson)
+    public function edit(Lesson $lesson)
     {
-        $lesson->users()->attach([Auth::user()->id ?? false]);
+        if ($lesson->join == config('lesson.joinin')) {
+            $lesson->users()->attach([Auth::user()->id ?? false]);
 
-        return back();
-    }
+            return back();
+        } else {
+            $lesson->users()->detach([Auth::user()->id ?? false]);
 
-    public function leave(Lesson $lesson)
-    {
-        $lesson->users()->detach([Auth::user()->id ?? false]);
-
-        $programs = Program::programs($lesson->id)->get();
-        
-        foreach ($programs as $program) {
-            $program->users()->detach([Auth::user()->id ?? false]);
+            $programs = Program::programs($lesson->id)->get();
+            
+            foreach ($programs as $program) {
+                $program->users()->detach([Auth::user()->id ?? false]);
+            }
+    
+            return back();
         }
-
-        return back();
+        
     }
 }

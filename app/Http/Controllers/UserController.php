@@ -10,15 +10,17 @@ use App\Models\Lesson;
 use App\Models\CourseUser;
 use Carbon\Carbon;
 use App\Models\Program;
-use App\http\Requests\ProfileRequest;
+use App\http\Requests\UserRequest;
 use Illuminate\Support\Facades\DB;
 use Auth;
 
-class ProfileController extends Controller
+class UserController extends Controller
 {
-    public function show(User $user)
+    public function show(User $profile)
     {
-        if (isset(Auth::user()->id)) {
+        $user = $profile;
+
+        if (Auth::user()->id == $user->id) {
             $courses = Course::byUser($user->id)->get();
 
             return view('profile.show', compact('user', 'courses'));
@@ -34,7 +36,7 @@ class ProfileController extends Controller
         return back()->with('success', 'Edit successfully!');
     }
 
-    public function update(Request $request, User $user)
+    public function store(Request $request, User $user)
     {
         $image = $request->file('image');
         $image->move('assets/img', $image->getClientOriginalName());

@@ -16,16 +16,16 @@ class ProgramController extends Controller
         return view('courses.lessons.show_program', compact('program', 'course', 'lesson'));
     }
 
-    public function join(Program $program)
+    public function edit(Program $program)
     {
-        $program->users()->attach([Auth::user()->id ?? false]);
+        if ($program->join == config('course.joinin')) {
+            $program->users()->attach([Auth::user()->id ?? false]);
 
-        return back();
-    }
-
-    public function leave(Program $program)
-    {
-        $program->users()->detach([Auth::user()->id ?? false]);
-        return back();
+            return back();
+        } else {
+            $program->users()->detach([Auth::user()->id ?? false]);
+            return back();
+        }
+       
     }
 }

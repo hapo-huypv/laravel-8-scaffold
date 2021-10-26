@@ -12,7 +12,7 @@
                     <div class="d-flex flex-column align-items-center text-center">
                         <img class="rounded-circle mt-5  user-avatar" src="{{ asset($user->avatar) }}" alt="avatar">
                         <i id="imgCamera" class="fas fa-camera"></i>
-                        <form id="formUploadImg" class="form-horizontal d-none" action="{{ route('profile.update', [$user->id]) }}" method="POST" enctype="multipart/form-data">
+                        <form id="formUploadImg" class="form-horizontal d-none" action="{{ route('profile.store', ['profile' => $user->id]) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input class=" d-flex justify-content-center" type="file" name="image">
                             <input type="submit" value="Submit">
@@ -66,7 +66,7 @@
                         Edit profile      
                     </div>
                     <hr class="profile-underline m-0">
-                    <form method="get" action="{{ route('profile.edit', [$user->id]) }}">
+                    <form method="get" action="{{ route('profile.edit', ['profile' => Auth::id()]) }}">
                         <div class="edit-user d-flex">
                             <div class="col-6">
                                 <div class="d-flex flex-column">
