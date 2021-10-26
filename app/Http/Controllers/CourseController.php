@@ -41,7 +41,6 @@ class CourseController extends Controller
 
         $courseTeachers = $course->users()->courseTeachers($id)->get();
 
-        // dd($course->join);
         $reviews = Review::reviewByCourse($id)->paginate(config('course.paginate_review'), ['*'], 'reviews');
 
         return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'reviews', 'courseTeachers'));
@@ -60,10 +59,8 @@ class CourseController extends Controller
             foreach ($lessons as $lesson) {
                 $lesson->users()->detach([Auth::user()->id ?? false]);
             }
-
             return back();
         }
-       
     }
 
     public function review(Request $request, $courseId)

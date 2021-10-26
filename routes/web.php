@@ -5,8 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
+use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ReviewController;
 use App\Models\User;
@@ -34,7 +34,7 @@ Route::resource('courses.lessons.programs', ProgramController::class)->only(['sh
 
 Route::resource('courses.reviews', ReviewController::class)->only(['store']);
 
-Route::resource('profile' , UserController::class)->only(['show', 'edit', 'store']);
+Route::resource('profile', UserController::class)->only(['show', 'edit', 'store']);
 
 
 Auth::routes();

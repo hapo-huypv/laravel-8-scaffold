@@ -24,8 +24,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right border-0" aria-labelledby="navbarDropdown">
                                 <ul class="list-unstyled">
-                                    <!-- {{ $userId = Auth::user()->id }} -->
-                                    <li class="nav-item ml-0"><a href="{{ route('profile.show', [$userId]) }}"class="nav-link header-nav text-center">PROFILE</a></li>
+                                    <li class="nav-item ml-0"><a href="{{ route('profile.show', [Auth::user()]) }}"class="nav-link header-nav text-center">PROFILE</a></li>
                                     <li class="nav-item ml-0">
                                         <a class="dropdown-item nav-link header-nav text-center" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

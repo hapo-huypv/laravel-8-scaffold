@@ -28,7 +28,7 @@ class LessonController extends Controller
         return view('courses.lessons.show', compact('course', 'lesson', 'tags', 'courses', 'courseTeachers', 'programs'));
     }
 
-    public function edit(Lesson $lesson)
+    public function edit(Course $course, Lesson $lesson)
     {
         if ($lesson->join == config('lesson.joinin')) {
             $lesson->users()->attach([Auth::user()->id ?? false]);
@@ -45,6 +45,5 @@ class LessonController extends Controller
     
             return back();
         }
-        
     }
 }

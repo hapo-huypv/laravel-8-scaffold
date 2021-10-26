@@ -26,6 +26,5 @@ class ProgramController extends Controller
             $program->users()->detach([Auth::user()->id ?? false]);
             return back();
         }
-       
     }
 }

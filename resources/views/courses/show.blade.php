@@ -30,7 +30,7 @@
                             <div class="tab-pane fade {{ (Session::has('post_review')) ? '' : (substr(url()->full(), 31, 7) == 'reviews' ? '' : 'show active') }} show-detail-course" id="pills-lessons" role="tabpanel" aria-labelledby="pills-lessons-tab">
                                 <div class="d-flex">
                                     <div>    
-                                        <form method="get" action="{{  route('courses.show', [$course->id]) }}">
+                                        <form method="get" action="{{  route('courses.show', [$course]) }}">
                                             <div class="d-flex flex-row">
                                                 <div class="position-relative">
                                                     <input class="course-search" name="keyword" type="text" placeholder="Search...">
@@ -44,7 +44,7 @@
                                     <div class="">
                                         {{config('course.joinedin')}}
                                         @if ($course->join == config('course.joinin') && isset(Auth::user()->id))
-                                            <a href="{{ route('courses.edit', [$course->id]) }}" id="btnJoinCourse" class="btn btn-success btn-course-join" type="submit">Join in the course</a>
+                                            <a href="{{ route('courses.edit', [$course]) }}" id="btnJoinCourse" class="btn btn-success btn-course-join" type="submit">Join in the course</a>
                                         @elseif ($course->join == config('course.joinedin') && isset(Auth::user()->id))
                                             <div id="btnJoinedCourse" class="btn-course-join w-50 btn-color-nonactive">Joined</div>
                                         @endif
@@ -59,18 +59,18 @@
                                         @else
                                             <span class="mr-3 lesson-index">{{ $key + 1 + (request('page')-1)*config('lesson.number_paginations') }}.</span> 
                                         @endif
-                                            <a href="{{ route('courses.lessons.show', ['course' => $course->id, 'lesson' => $lesson->id]) }}" class="col-9 lesson-title">{{ $lesson->title }}</a>
+                                            <a href="{{ route('courses.lessons.show', ['course' => $course, 'lesson' => $lesson]) }}" class="col-9 lesson-title">{{ $lesson->title }}</a>
                                         @if ($course->join == config('course.joinedin'))
                                             <div class="processing-border d-flex lesson-processing justify-content-center align-items-center">
                                                 <span class="processing" style="width:{{round($lesson->number_process, 2)}}%"></span>
                                                 <span class="processing-number">{{ round($lesson->number_process, 2) }}%</span>
                                             </div>
                                             @if ($lesson->join == config('lesson.joinin'))
-                                                <a href="{{ route('courses.lessons.show', ['course' => $course->id, 'lesson' => $lesson->id]) }}" id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson" type="submit">Learn</a>
+                                                <a href="{{ route('courses.lessons.show', ['course' => $course, 'lesson' => $lesson]) }}" id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson" type="submit">Learn</a>
                                             @elseif ($lesson->join == config('lesson.joinedin') && round($lesson->number_process, 2) == 100) 
-                                                <a href="{{ route('courses.lessons.show', ['course' => $course->id, 'lesson' => $lesson->id]) }}" id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson btn-color-nonactive" type="submit">Completed</a>
+                                                <a href="{{ route('courses.lessons.show', ['course' => $course, 'lesson' => $lesson]) }}" id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson btn-color-nonactive" type="submit">Completed</a>
                                             @elseif ($lesson->join == config('lesson.joinedin'))
-                                                <a href="{{ route('courses.lessons.show', ['course' => $course->id, 'lesson' => $lesson->id]) }}" id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson btn-color-processing" type="submit">Learning</a>
+                                                <a href="{{ route('courses.lessons.show', ['course' => $course, 'lesson' => $lesson]) }}" id="btnJoinLesson" class="col-2 flex-end btn btn-success btn-course-join-lesson btn-color-processing" type="submit">Learning</a>
                                             @endif
                                         @endif
                                     </div>
@@ -83,7 +83,7 @@
                                 <hr>
                                 @if ($course->join == config('course.joinedin'))
                                     <div class="d-flex align-items-center justify-content-end">
-                                        <a href="{{ route('courses.edit', [$course->id]) }}" id="btnLeaveCourse" class="ml-0 btn btn-success btn-course-join w-25" type="submit">Leave</a>
+                                        <a href="{{ route('courses.edit', [$course]) }}" id="btnLeaveCourse" class="ml-0 btn btn-success btn-course-join w-25" type="submit">Leave</a>
                                     </div>
                                 @endif
                             </div>
