@@ -90,9 +90,4 @@ class Lesson extends Model
     {
         $this->attributes['process'] = strtolower($value);
     }
-
-    public function getLessonCountAttribute()
-    {
-        return $this->count();
-    }
 }

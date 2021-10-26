@@ -18,21 +18,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $courses = Course::all()->take(3);
+        $courses = Course::all()->take(config('home.get_course'));
 
-        $otherCourses = Course::suggestions()->get()->take(3);
+        $otherCourses = Course::suggestions()->get()->take(config('home.get_course'));
 
-        $reviews = Review::all();
+        $reviews = Review::highRating()->take(config('home.get_review'))->get();
 
-        $countCourses = new Course();
-        $countCourses = $countCourses->courseCount;
+        $totalCourses = Course::count();
 
-        $countLessons = new Lesson();
-        $countLessons = $countLessons->lessonCount;
+        $totalLessons = Lesson::count();
 
-        $numberLeaners = new CourseUser();
-        $numberLeaners = $numberLeaners->learners;
-
-        return view('pages.home', compact('courses', 'otherCourses', 'reviews', 'countCourses', 'countLessons', 'numberLeaners'));
+        $totalLearners = User::where('role', User::ROLE_STUDENT)->count();
+        
+        return view('home', compact('courses', 'otherCourses', 'reviews', 'totalCourses', 'totalLessons', 'totalLearners'));
     }
 }
