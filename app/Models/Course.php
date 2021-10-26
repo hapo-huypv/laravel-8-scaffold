@@ -158,19 +158,19 @@ class Course extends Model
 
     public function getAvgRateAttribute()
     {
-        return $this->reviews->avg('rate');
+        return $this->reviews->where('type', Review::TYPE_COURSE)->avg('rate');
     }
 
     public function getCountRateAttribute()
     {
-        return $this->reviews->count();
+        return $this->reviews->where('type', Review::TYPE_COURSE)->count();
     }
 
     public function getNumberCountRateAttribute()
     {
         $numberCountRate = array(config('course.none'), config('course.none'), config('course.none'), config('course.none'), config('course.none'));
         
-        $numberCount = $this->reviews()->selectRaw('rate, count(*) as total')->groupBy('rate')->orderBy('rate', config('course.descending'))->get();
+        $numberCount = $this->reviews()->where('type', Review::TYPE_COURSE)->selectRaw('rate, count(*) as total')->groupBy('rate')->orderBy('rate', config('course.descending'))->get();
     
         foreach ($numberCount as $rating) {
             $numberCountRate[config('course.max_rate') - $rating->rate] = $rating->total;
