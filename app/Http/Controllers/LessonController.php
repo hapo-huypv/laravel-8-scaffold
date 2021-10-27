@@ -51,7 +51,6 @@ class LessonController extends Controller
     public function leave(Course $course, Lesson $lesson)
     {
         if ($lesson->join != config('lessons.joinin')) {
-
             $lesson->users()->detach([Auth::user()->id ?? false]);
 
             $programs = Program::programs($lesson->id)->get();
@@ -60,7 +59,7 @@ class LessonController extends Controller
                 $program->users()->detach([Auth::user()->id ?? false]);
             }
         }
-        
+
         return back();
     }
 }
