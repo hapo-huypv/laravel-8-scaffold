@@ -26,10 +26,13 @@ use Carbon\Carbon;
 
 Route::resource('home', HomeController::class)->only(['index']);
 
-Route::resource('courses', CourseController::class)->only(['index', 'show', 'edit']);
+Route::get('/courses/{course}/action', [CourseController::class, 'userAction'])->name('courses.userAction');
+Route::resource('courses', CourseController::class)->only(['index', 'show', 'edit', ]);
 
+Route::get('/courses/{course}/lessons/{lesson}/action', [LessonController::class, 'userAction'])->name('courses.lessons.userAction');
 Route::resource('courses.lessons', LessonController::class)->only(['show', 'edit']);
 
+Route::get('/courses/{course}/lessons/{lesson}/programs/{program}/action', [ProgramController::class, 'userAction'])->name('courses.lessons.programs.userAction');
 Route::resource('courses.lessons.programs', ProgramController::class)->only(['show', 'edit']);
 
 Route::resource('courses.reviews', ReviewController::class)->only(['create']);

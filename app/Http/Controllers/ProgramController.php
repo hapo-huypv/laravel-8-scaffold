@@ -16,7 +16,7 @@ class ProgramController extends Controller
         return view('courses.lessons.show_program', compact('program', 'course', 'lesson'));
     }
 
-    public function edit(Program $program)
+    public function userAction(Program $program)
     {
         if ($program->join == config('course.joinin')) {
             $program->users()->attach([Auth::user()->id ?? false]);

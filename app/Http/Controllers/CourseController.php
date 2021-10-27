@@ -46,7 +46,7 @@ class CourseController extends Controller
         return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'reviews', 'courseTeachers'));
     }
 
-    public function edit(Course $course)
+    public function userAction(Course $course)
     {
         if ($course->join == config('course.joinin')) {
             $course->users()->attach([Auth::user()->id ?? false]);

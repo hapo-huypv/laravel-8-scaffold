@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="">
                                         @if ($course->join == config('course.joinin') && isset(Auth::user()->id))
-                                            <a href="{{ route('courses.edit', [$course]) }}" id="btnJoinCourse" class="btn btn-success btn-course-join" type="submit">Join in the course</a>
+                                            <a href="{{ route('courses.userAction', [$course]) }}" id="btnJoinCourse" class="btn btn-success btn-course-join" type="submit">Join in the course</a>
                                         @elseif ($course->join == config('course.joinedin') && isset(Auth::user()->id))
                                             <div id="btnJoinedCourse" class="btn-course-join w-50 btn-color-nonactive">Joined</div>
                                         @endif
@@ -82,7 +82,7 @@
                                 <hr>
                                 @if ($course->join == config('course.joinedin'))
                                     <div class="d-flex align-items-center justify-content-end">
-                                        <a href="{{ route('courses.edit', [$course]) }}" id="btnLeaveCourse" class="ml-0 btn btn-success btn-course-join w-25" type="submit">Leave</a>
+                                        <a href="{{ route('courses.userAction', [$course]) }}" id="btnLeaveCourse" class="ml-0 btn btn-success btn-course-join w-25" type="submit">Leave</a>
                                     </div>
                                 @endif
                             </div>
