@@ -11,12 +11,24 @@ use Auth;
 
 class ProgramController extends Controller
 {
-    public function show(Course $course, Lesson $lesson, Program $program)
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
+        $this->middleware('auth');
+    }
+
+    public function show(Lesson $lesson, Program $program)
+    {
+        $course = $lesson->course;
+
         return view('courses.lessons.show_program', compact('program', 'course', 'lesson'));
     }
 
-    public function userAction(Program $program)
+    public function userAction(Lesson $lesson, Program $program)
     {
         if ($program->join == config('course.joinin')) {
             $program->users()->attach([Auth::user()->id ?? false]);

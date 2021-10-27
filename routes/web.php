@@ -32,8 +32,8 @@ Route::resource('courses', CourseController::class)->only(['index', 'show', 'edi
 Route::get('/courses/{course}/lessons/{lesson}/action', [LessonController::class, 'userAction'])->name('courses.lessons.userAction');
 Route::resource('courses.lessons', LessonController::class)->only(['show', 'edit']);
 
-Route::get('/courses/{course}/lessons/{lesson}/programs/{program}/action', [ProgramController::class, 'userAction'])->name('courses.lessons.programs.userAction');
-Route::resource('courses.lessons.programs', ProgramController::class)->only(['show', 'edit']);
+Route::get('/lessons/{lesson}/programs/{program}/action', [ProgramController::class, 'userAction'])->name('lessons.programs.userAction');
+Route::resource('lessons.programs', ProgramController::class)->only(['show', 'edit']);
 
 Route::resource('courses.reviews', ReviewController::class)->only(['create']);
 

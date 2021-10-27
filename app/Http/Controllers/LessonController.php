@@ -15,6 +15,17 @@ use Auth;
 class LessonController extends Controller
 {
     //
+
+    // /**
+    //  * Create a new controller instance.
+    //  *
+    //  * @return void
+    //  */
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
+
     public function show(Course $course, Lesson $lesson)
     {
         $tags = Tag::tags($course->id)->get();

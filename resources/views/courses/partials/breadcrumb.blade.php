@@ -22,7 +22,7 @@
         @if (isset($program->id))
         <li class="nav-crumb-link" aria-current="page">
             <i class="fas fa-angle-right ml-1"></i>
-            <a class="nav-crumb-link-text" href="{{ route('courses.lessons.programs.show', ['course' => $course, 'lesson' => $lesson, 'program' => $program]) }}">{{ $program->name }}</a>
+            <a class="nav-crumb-link-text" href="{{ route('lessons.programs.show', ['lesson' => $lesson, 'program' => $program]) }}">{{ $program->name }}</a>
         </li>
         @endif
     </ol>
