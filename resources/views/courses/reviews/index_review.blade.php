@@ -37,8 +37,7 @@
     <div id="showReview">
         @include('courses.reviews.show_review')
     </div>
-    <form method="POST" action="{{ route('courses.reviews.store', ['course' => $course]) }}" id="ajaxform">
-        @csrf <!-- {{ csrf_field() }} -->
+    <form method="get" action="{{ route('courses.reviews.create', ['course' => $course]) }}" id="ajaxform">
         <div class="reviews font-size-22">Leave a Review</div>
         <div class="reviews-content mt-3">Message</div>
         <textarea class="course-review" name="course_review" type="text"></textarea>

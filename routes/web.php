@@ -32,7 +32,7 @@ Route::resource('courses.lessons', LessonController::class)->only(['show', 'edit
 
 Route::resource('courses.lessons.programs', ProgramController::class)->only(['show', 'edit']);
 
-Route::resource('courses.reviews', ReviewController::class)->only(['store']);
+Route::resource('courses.reviews', ReviewController::class)->only(['create']);
 
 Route::resource('profile', UserController::class)->only(['show', 'edit', 'store']);
 

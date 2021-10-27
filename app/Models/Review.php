@@ -74,11 +74,6 @@ class Review extends Model
         return $query;
     }
 
-    public function getFiveStarAttribute()
-    {
-        return $this->where('rate', 5)->count();
-    }
-
     public function getDateAttribute()
     {
         $ddmmyy = Carbon::now();
