@@ -46,20 +46,22 @@ class CourseController extends Controller
         return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'reviews', 'courseTeachers'));
     }
 
-    public function userAction(Course $course)
+    public function join(Course $course)
     {
-        if ($course->join == config('course.joinin')) {
-            $course->users()->attach([Auth::user()->id ?? false]);
+        $course->users()->attach([Auth::user()->id ?? false]);
 
-            return back();
-        } else {
-            $course->users()->detach([Auth::user()->id ?? false]);
+        return back();
+    }
+
+    public function leave(Course $course)
+    {
+        $course->users()->detach([Auth::user()->id ?? false]);
         
-            $lessons = $course->lessons()->get();
-            foreach ($lessons as $lesson) {
-                $lesson->users()->detach([Auth::user()->id ?? false]);
-            }
-            return back();
+        $lessons = $course->lessons()->get();
+        foreach ($lessons as $lesson) {
+            $lesson->users()->detach([Auth::user()->id ?? false]);
         }
+
+        return back();
     }
 }

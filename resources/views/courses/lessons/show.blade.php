@@ -118,9 +118,9 @@
                         </div>
                         <hr>
                         @if ($lesson->join == config('lesson.joinedin'))
-                            <div class="d-flex justify-content-center"><a href="{{ route('courses.lessons.userAction', ['course' => $course, 'lesson' => $lesson]) }}" id="btnLeaveLesson" class="m-0 btn btn-success btn-course-join" type="submit">Leave the lesson</a></div>
+                            <div class="d-flex justify-content-center"><a href="{{ route('courses.lessons.leave', ['course' => $course, 'lesson' => $lesson]) }}" id="btnLeaveLesson" class="m-0 btn btn-success btn-course-join" type="submit">Leave the lesson</a></div>
                         @else
-                            <div class="d-flex justify-content-center"><a href="{{ route('courses.lessons.userAction', ['course' => $course, 'lesson' => $lesson]) }}" id="btnJoinLesson" class="m-0 btn btn-success btn-course-join" type="submit">Learn the lesson</a></div>
+                            <div class="d-flex justify-content-center"><a href="{{ route('courses.lessons.join', ['course' => $course, 'lesson' => $lesson]) }}" id="btnJoinLesson" class="m-0 btn btn-success btn-course-join" type="submit">Learn the lesson</a></div>
                         @endif                      
                     </div>
                     <div class="course-othercourse">

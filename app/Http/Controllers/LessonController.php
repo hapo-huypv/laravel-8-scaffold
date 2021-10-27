@@ -39,13 +39,19 @@ class LessonController extends Controller
         return view('courses.lessons.show', compact('course', 'lesson', 'tags', 'courses', 'courseTeachers', 'programs'));
     }
 
-    public function userAction(Course $course, Lesson $lesson)
+    public function join(Course $course, Lesson $lesson)
     {
-        if ($lesson->join == config('lesson.joinin')) {
+        if ($lesson->join == config('lessons.joinin')) {
             $lesson->users()->attach([Auth::user()->id ?? false]);
+        }
 
-            return back();
-        } else {
+        return back();
+    }
+
+    public function leave(Course $course, Lesson $lesson)
+    {
+        if ($lesson->join != config('lessons.joinin')) {
+
             $lesson->users()->detach([Auth::user()->id ?? false]);
 
             $programs = Program::programs($lesson->id)->get();
@@ -53,8 +59,8 @@ class LessonController extends Controller
             foreach ($programs as $program) {
                 $program->users()->detach([Auth::user()->id ?? false]);
             }
-    
-            return back();
         }
+        
+        return back();
     }
 }

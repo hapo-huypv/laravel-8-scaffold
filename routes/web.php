@@ -13,32 +13,29 @@ use App\Models\User;
 use App\Models\Course;
 use Carbon\Carbon;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get('home', [HomeController::class, 'index'])->name('home.index');
 
-Route::resource('home', HomeController::class)->only(['index']);
+Route::prefix('/courses/{course}')->group(function (){
+    Route::get('/join', [CourseController::class, 'join'])->name('courses.join');
+    Route::get('/leave', [CourseController::class, 'leave'])->name('courses.leave');
+    Route::get('/lessons/{lesson}/join', [LessonController::class, 'join'])->name('courses.lessons.join');
+    Route::get('/lessons/{lesson}/leave', [LessonController::class, 'leave'])->name('courses.lessons.leave');
+});
 
-Route::get('/courses/{course}/action', [CourseController::class, 'userAction'])->name('courses.userAction');
-Route::resource('courses', CourseController::class)->only(['index', 'show', 'edit', ]);
+Route::prefix('/lessons/{lesson}/programs/{program}')->group(function () {
+    Route::get('/join', [ProgramController::class, 'join'])->name('lessons.programs.join');
+    Route::get('/leave', [ProgramController::class, 'leave'])->name('lessons.programs.leave');
+});
 
-Route::get('/courses/{course}/lessons/{lesson}/action', [LessonController::class, 'userAction'])->name('courses.lessons.userAction');
-Route::resource('courses.lessons', LessonController::class)->only(['show', 'edit']);
+Route::resource('courses', CourseController::class)->only(['index', 'show']);
 
-Route::get('/lessons/{lesson}/programs/{program}/action', [ProgramController::class, 'userAction'])->name('lessons.programs.userAction');
-Route::resource('lessons.programs', ProgramController::class)->only(['show', 'edit']);
+Route::resource('courses.lessons', LessonController::class)->only(['show']);
+
+Route::resource('lessons.programs', ProgramController::class)->only(['show']);
 
 Route::resource('courses.reviews', ReviewController::class)->only(['create']);
 
 Route::resource('profile', UserController::class)->only(['show', 'edit', 'store']);
-
 
 Auth::routes();
 
