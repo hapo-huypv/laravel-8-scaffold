@@ -11,19 +11,17 @@
             </div>
             <div class="rating-star-total">{{ $course->avg_rate }} Ratings</div>
         </div>
-
         <div class="col-8 rating-statistic">
             @foreach ($course->number_count_rate as $key => $rating)
                 <div class="d-flex align-items-center">
-                    <div class="col-2 rating-statistic-type">{{ 5 - $key }} stars</div>
+                    <div class="col-2 rating-statistic-type">{{ config('course.max_rate') - $key }} stars</div>
                     <div class="col-9 p-0 mr-1 progress progress-setup">
-                        <div class="progress-bar" role="progressbar" style="width: {{ $rating / $course->count_rate * 100 }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" role="progressbar" style="width: {{ ($course->count_rate > config('course.none')) ? $rating / $course->count_rate * config('course.hundred_percent') : config('course.none')}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <div class="col-1 rating-statistic-total">{{ $rating }}</div>
                 </div>
             @endforeach
         </div>
-
     </div>
     <hr>
     <div class="review-show">
