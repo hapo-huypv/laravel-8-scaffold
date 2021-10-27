@@ -42,7 +42,6 @@
                                         </form>
                                     </div>
                                     <div class="">
-                                        {{config('course.joinedin')}}
                                         @if ($course->join == config('course.joinin') && isset(Auth::user()->id))
                                             <a href="{{ route('courses.edit', [$course]) }}" id="btnJoinCourse" class="btn btn-success btn-course-join" type="submit">Join in the course</a>
                                         @elseif ($course->join == config('course.joinedin') && isset(Auth::user()->id))
