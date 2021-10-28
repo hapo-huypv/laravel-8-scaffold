@@ -7,7 +7,7 @@
 @section('content')
     <div class="show-detail">
         <div class="container">
-           @include('courses.partials.breadcrumb')
+           @include('components.breadcrumb')
             <div class="d-flex">
                 <div class="col-8 pl-0">
                     <div class="d-flex justify-content-center align-items-center  show-detail-img-background">
@@ -31,10 +31,10 @@
                         <div class="pr-3 pl-3"><hr class="m-0"></div>
                         <div class="tab-content" id="pillsTabCourseContent">
                             <div class="tab-pane fade show active show-detail-course" id="pills-descriptions" role="tabpanel" aria-labelledby="pills-descriptions-tab">
-                                @include('courses.lessons.descriptions')
+                                @include('pages.lessons.descriptions')
                             </div>
                             <div class="tab-pane fade" id="pills-teacher" role="tabpanel" aria-labelledby="pills-teacher-tab">
-                                @include('courses.partials.teacher')
+                                @include('components.teacher')
                             </div>
                             <div class="tab-pane fade" id="pills-program" role="tabpanel" aria-labelledby="pills-program-tab">
                             @if($course->join == config('lesson.joinedin'))    

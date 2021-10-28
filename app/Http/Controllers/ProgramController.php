@@ -15,7 +15,7 @@ class ProgramController extends Controller
     {
         $course = $lesson->course;
 
-        return view('courses.lessons.show_program', compact('program', 'course', 'lesson'));
+        return view('pages.programs.show', compact('program', 'course', 'lesson'));
     }
 
     public function join(Lesson $lesson, Program $program)
