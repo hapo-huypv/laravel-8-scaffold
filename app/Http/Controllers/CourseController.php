@@ -33,7 +33,7 @@ class CourseController extends Controller
 
         $tags = $course->tags()->get();
 
-        $courses = $course->suggestions()->get();
+        $courses = $course->suggestions()->get()->take(config('course.five'));
 
         $array = array($request['keyword'], $id);
         

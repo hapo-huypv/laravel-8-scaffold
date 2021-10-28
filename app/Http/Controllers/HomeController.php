@@ -24,9 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $courses = Course::all()->take(config('home.get_course'));
+        $courses = Course::suggestions()->get()->take(config('home.get_course'));
 
-        $otherCourses = Course::suggestions()->get()->take(config('home.get_course'));
+        $otherCourses = Course::inRandomOrder()->get()->take(config('home.get_course'));
 
         $reviews = Review::highRating()->take(config('home.get_review'))->get();
 
