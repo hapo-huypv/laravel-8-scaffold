@@ -15,27 +15,28 @@ use Carbon\Carbon;
 
 Route::get('home', [HomeController::class, 'index'])->name('home.index');
 
-Route::prefix('/courses/{course}')->group(function () {
-    Route::get('/join', [CourseController::class, 'join'])->name('courses.join');
-    Route::get('/leave', [CourseController::class, 'leave'])->name('courses.leave');
-    Route::get('/lessons/{lesson}/join', [LessonController::class, 'join'])->name('courses.lessons.join');
-    Route::get('/lessons/{lesson}/leave', [LessonController::class, 'leave'])->name('courses.lessons.leave');
-});
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('/courses/{course}')->group(function () {
+        Route::get('/join', [CourseController::class, 'join'])->name('courses.join');
+        Route::get('/leave', [CourseController::class, 'leave'])->name('courses.leave');
+        Route::get('/lessons/{lesson}/join', [LessonController::class, 'join'])->name('courses.lessons.join');
+        Route::get('/lessons/{lesson}/leave', [LessonController::class, 'leave'])->name('courses.lessons.leave');
+        Route::get('/reviews', [ReviewController::class, 'create'])->name('courses.reviews.create');
+    });
+    
+    Route::prefix('/lessons/{lesson}/programs/{program}')->group(function () {
+        Route::get('/join', [ProgramController::class, 'join'])->name('lessons.programs.join');
+        Route::get('/leave', [ProgramController::class, 'leave'])->name('lessons.programs.leave');
+    });
 
-Route::prefix('/lessons/{lesson}/programs/{program}')->group(function () {
-    Route::get('/join', [ProgramController::class, 'join'])->name('lessons.programs.join');
-    Route::get('/leave', [ProgramController::class, 'leave'])->name('lessons.programs.leave');
+    Route::resource('courses.lessons', LessonController::class)->only(['show']);
+
+    Route::resource('lessons.programs', ProgramController::class)->only(['show']);
+
+    Route::resource('profile', UserController::class)->only(['show', 'edit', 'store']);
 });
 
 Route::resource('courses', CourseController::class)->only(['index', 'show']);
-
-Route::resource('courses.lessons', LessonController::class)->only(['show']);
-
-Route::resource('courses.reviews', ReviewController::class)->only(['create']);
-
-Route::resource('lessons.programs', ProgramController::class)->only(['show']);
-
-Route::resource('profile', UserController::class)->only(['show', 'edit', 'store']);
 
 Auth::routes();
 

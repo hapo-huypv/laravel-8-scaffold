@@ -7,7 +7,6 @@ use App\Models\Review;
 
 class ReviewController extends Controller
 {
-    //
     public function create(Request $request, $targetId)
     {
         $newReview = new Review();
