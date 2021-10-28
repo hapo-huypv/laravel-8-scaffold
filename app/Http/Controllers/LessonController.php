@@ -24,7 +24,7 @@ class LessonController extends Controller
 
         $programs = Program::programs($lesson->id)->get();
 
-        return view('courses.lessons.show', compact('course', 'lesson', 'tags', 'courses', 'courseTeachers', 'programs'));
+        return view('pages.lessons.show', compact('course', 'lesson', 'tags', 'courses', 'courseTeachers', 'programs'));
     }
 
     public function join(Course $course, Lesson $lesson)
