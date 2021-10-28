@@ -35,7 +35,7 @@
         </select>
     </div>
     <div id="showReview">
-        @include('courses.reviews.show_review')
+        @include('components.reviews.show_review')
     </div>
     <form method="get" action="{{ route('courses.reviews.create', ['course' => $course]) }}" id="ajaxform">
         <div class="reviews font-size-22">Leave a Review</div>

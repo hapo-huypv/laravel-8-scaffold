@@ -24,7 +24,7 @@ class CourseController extends Controller
         $dataRequest = $request->input();
         $courses = Course::filter($dataRequest)->paginate(config('course.number_paginations'));
         
-        return view('courses.index', compact('courses', 'tags', 'teachers'));
+        return view('pages.courses.index', compact('courses', 'tags', 'teachers'));
     }
 
     public function show(Request $request, Course $course)
@@ -42,7 +42,7 @@ class CourseController extends Controller
 
         $reviews = $course->reviews()->reviewByCourse($id)->paginate(config('course.paginate_review'), ['*'], 'reviews');
 
-        return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'reviews', 'courseTeachers'));
+        return view('pages.courses.show', compact('course', 'lessons', 'tags', 'courses', 'reviews', 'courseTeachers'));
     }
 
     public function join(Course $course)

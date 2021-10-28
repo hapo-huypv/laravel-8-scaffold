@@ -14,7 +14,7 @@ class UserController extends Controller
         $user = $profile;
 
         if (Auth::user()->id == $user->id) {
-            return view('profile.show', compact('user'));
+            return view('pages.profile.show', compact('user'));
         } else {
             return "404";
         }
@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         $user = $profile;
         if (!is_null($request->file('image'))) {
-            $user->uploadImg($request, $user);
+            $user->updateImg($request, $user);
         } else {
             $user->updateInfo($request, $user);
         }

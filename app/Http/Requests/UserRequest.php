@@ -27,8 +27,8 @@ class UserRequest extends FormRequest
             'phone' => ['digits_between:10,11'],
             'image' => ['image'],
             'profile_name' => ['not_regex:/[0-9]|~|\.|\,|\!|\@|\#|\$/i'],
-            'about_me' => ['required', 'string'],
-            'address' => ['required', 'string'],
+            'about_me' => ['string'],
+            'address' => ['string'],
         ];
     }
 

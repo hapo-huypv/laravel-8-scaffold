@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Profile
+    {{ Auth::user()->name }}
 @endsection
 
 @section('content')
@@ -14,6 +14,7 @@
                         <i id="imgCamera" class="fas fa-camera"></i>
                         <form id="formUploadImg" class="form-horizontal d-none" action="{{ route('profile.update', ['profile' => $user->id]) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PATCH')
                             <input class=" d-flex justify-content-center" type="file" name="image">
                             <input type="submit" value="Submit">
                         </form>
