@@ -64,12 +64,4 @@ class CourseController extends Controller
 
         return back();
     }
-
-    public function review(Request $request, $courseId)
-    {
-        $newReview = new Review();
-        $newReview = $newReview->createReviewCourse($request, $courseId);
-
-        return back()->with('post_review', 'check');
-    }
 }

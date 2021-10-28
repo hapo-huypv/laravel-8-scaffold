@@ -7,7 +7,7 @@
 @section('content')
 <div class="all-course">
     <div class="container">
-        <form method="get" action="{{ route('courses') }}">
+        <form method="get" action="{{ route('courses.index') }}">
             <div class="d-flex mb-3 nav-filter">
                 <div id="btnFilter" class="course-filter">
                     <p class="course-filter-text">Filter</p>

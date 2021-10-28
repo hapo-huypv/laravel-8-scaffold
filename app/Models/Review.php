@@ -19,7 +19,7 @@ class Review extends Model
 
     protected $fillable = [
         'user_id',
-        'targer_id',
+        'target_id',
         'type',
         'content',
         'rate',
@@ -53,7 +53,7 @@ class Review extends Model
             Review::create(
                 [
                     'user_id' => $userId,
-                    'targer_id' => $courseId,
+                    'target_id' => $courseId,
                     'type' => Review::TYPE_COURSE,
                     'rate' => $review['star'],
                     'content' => $review['course_review'],
@@ -68,15 +68,10 @@ class Review extends Model
     {
         $query = $query->where([
             'type' => Review::TYPE_COURSE,
-            'targer_id' => $courseId,
+            'target_id' => $courseId,
         ])->orderBy('created_at', 'DESC');
 
         return $query;
-    }
-
-    public function getFiveStarAttribute()
-    {
-        return $this->where('rate', 5)->count();
     }
 
     public function getDateAttribute()

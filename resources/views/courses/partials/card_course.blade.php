@@ -9,7 +9,7 @@
                 </div>  
             </div>
             <div class="d-flex justify-content-end">
-                <a href="{{ route('detail_course', [$course->id]) }}" class="btn btn-success course-list-btn" type="submit">More</a>
+                <a href="{{ route('courses.show', [$course]) }}" class="btn btn-success course-list-btn" type="submit">More</a>
             </div>
             <div class="d-flex flex-row justify-content-center course-list-statistic">
                 <div class="col-4 p-0 d-flex flex-column align-items-start">

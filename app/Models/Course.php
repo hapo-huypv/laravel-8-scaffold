@@ -70,7 +70,7 @@ class Course extends Model
 
     public function reviews()
     {
-        return $this->hasMany(Review::class, 'targer_id')->where('type', Review::TYPE_COURSE);
+        return $this->hasMany(Review::class, 'target_id')->where('type', Review::TYPE_COURSE);
     }
 
     public function scopeFilter($query, $dataRequest)

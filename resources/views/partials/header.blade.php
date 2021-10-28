@@ -4,13 +4,13 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
                 <span id="navbarResponsiveClose" class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-branch" href="{{ route('home') }}">
+            <a class="navbar-branch" href="{{ route('home.index') }}">
                 <img src="{{ asset('assets/img/hapolearn.png') }}" alt="HapoLearn">        
             </a>
             <div class="collapse navbar-collapse align-items-center justify-content-end" id="navbarResponsive">
                 <ul class="navbar-nav align-items-center">
-                    <li class="nav-item"><a class="nav-link header-nav {{ Route::currentRouteName() == 'home' ? 'nav-link-active' : ''}}" href="{{ route('home') }}">HOME</a></li>
-                    <li class="nav-item"><a class="nav-link header-nav {{ Route::currentRouteName() == 'courses' ? 'nav-link-active' : ''}}" href="{{ route('courses') }}">ALL COURSES</a></li>
+                    <li class="nav-item"><a class="nav-link header-nav {{ Route::currentRouteName() == 'home' ? 'nav-link-active' : ''}}" href="{{ route('home.index') }}">HOME</a></li>
+                    <li class="nav-item"><a class="nav-link header-nav {{ Route::currentRouteName() == 'courses' ? 'nav-link-active' : ''}}" href="{{ route('courses.index') }}">ALL COURSES</a></li>
                    
                     @guest
                         @if (Route::has('login') || Route::has('register'))
@@ -24,8 +24,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right border-0" aria-labelledby="navbarDropdown">
                                 <ul class="list-unstyled">
-                                    <!-- {{ $userId = Auth::user()->id }} -->
-                                    <li class="nav-item ml-0"><a href="{{ route('profile', [$userId]) }}"class="nav-link header-nav text-center">PROFILE</a></li>
+                                    <li class="nav-item ml-0"><a href="{{ route('profile.show', [Auth::user()]) }}"class="nav-link header-nav text-center">PROFILE</a></li>
                                     <li class="nav-item ml-0">
                                         <a class="dropdown-item nav-link header-nav text-center" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

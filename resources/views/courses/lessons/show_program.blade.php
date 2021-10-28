@@ -7,10 +7,10 @@
 @section('content')
     <div class="show-detail">
         @include('courses.partials.breadcrumb')
-        @if ($program->join == 0)
-        <a href="{{ route('learned_program', [$program->id]) }}" id="btnLearnedProgram" class="col-2 flex-end btn btn-success btn-course-join-lesson p-0" type="submit">Learned</a>
+        @if ($program->join == config('course.joinin'))
+        <a href="{{ route('lessons.programs.join', ['lesson' => $lesson, 'program' => $program]) }}" id="btnLearnedProgram" class="col-2 flex-end btn btn-success btn-course-join-lesson p-0" type="submit">Learned</a>
         @else
-        <a href="{{ route('leave_program', [$program->id]) }}" id="btnLeaveProgram" class="col-2 flex-end btn btn-success btn-course-join-lesson p-0" type="submit">Leave</a>
+        <a href="{{ route('lessons.programs.leave', ['lesson' => $lesson, 'program' => $program]) }}" id="btnLeaveProgram" class="col-2 flex-end btn btn-success btn-course-join-lesson p-0" type="submit">Leave</a>
         @endif
         <video controls>
             <source src="{{ asset('assets/video/TinhKhucVang.mp4') }}">

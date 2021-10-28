@@ -3,13 +3,13 @@
     <hr>
     <div class="d-flex rating">
         <div class="col-4 mr-4 d-flex flex-column justify-content-center align-items-center rating-star">
-            <div class="rating-star-number">{{ $course->avg_rate }}</div>
+            <div class="rating-star-number">{{ round($course->avg_rate) }}</div>
             <div class="rating-star-icon">
                 @for ($i = 0; $i < $course->avg_rate; $i++)
                 <i class="fa fa-star" aria-hidden="true"></i>
                 @endfor
             </div>
-            <div class="rating-star-total">{{ $course->avg_rate }} Ratings</div>
+            <div class="rating-star-total">{{ round($course->avg_rate) }} Ratings</div>
         </div>
         <div class="col-8 rating-statistic">
             @foreach ($course->number_count_rate as $key => $rating)
@@ -37,8 +37,7 @@
     <div id="showReview">
         @include('courses.reviews.show_review')
     </div>
-    <form method="POST" action="{{ route('review', ['courseId' => $course->id]) }}" id="ajaxform">
-        @csrf <!-- {{ csrf_field() }} -->
+    <form method="get" action="{{ route('courses.reviews.create', ['course' => $course]) }}" id="ajaxform">
         <div class="reviews font-size-22">Leave a Review</div>
         <div class="reviews-content mt-3">Message</div>
         <textarea class="course-review" name="course_review" type="text"></textarea>

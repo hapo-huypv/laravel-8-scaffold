@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\CourseUser;
+use Carbon\Carbon;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -113,5 +115,10 @@ class User extends Authenticatable
                 'phone' => $request['phone'],
                 'intro' => $request['about_me'],
             ]);
+    }
+
+    public function getDateOfBirthAttribute()
+    {
+        return Carbon::parse($this->birthday)->format('d/m/Y');
     }
 }
