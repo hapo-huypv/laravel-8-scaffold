@@ -15,9 +15,8 @@ return [
 
     'paginate_review' => '5',
 
-    'star_five' => '5',
-    'star_four' => '4',
-    'star_three' => '3',
-    'star_two' => '2',
-    'star_one' => '1',
+    'max_rate' => '5',
+    'none' => '0',
+
+    'hundred_percent' => '100',
 ];

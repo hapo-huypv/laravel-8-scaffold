@@ -11,19 +11,21 @@ use Auth;
 
 class ProgramController extends Controller
 {
-    public function show(Course $course, Lesson $lesson, Program $program)
+    public function show(Lesson $lesson, Program $program)
     {
+        $course = $lesson->course;
+
         return view('courses.lessons.show_program', compact('program', 'course', 'lesson'));
     }
 
-    public function join(Program $program)
+    public function join(Lesson $lesson, Program $program)
     {
         $program->users()->attach([Auth::user()->id ?? false]);
 
         return back();
     }
 
-    public function leave(Program $program)
+    public function leave(Lesson $lesson, Program $program)
     {
         $program->users()->detach([Auth::user()->id ?? false]);
         return back();

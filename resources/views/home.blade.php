@@ -14,7 +14,7 @@
                         <img src="./assets/img/hapo_logo.png" alt="hapo_logo"> !
                     </div>
                     <div class="sub-title">Interactive lessons, "on-the-go" <br>practice, peer support</div>
-                    <a href="{{ route('courses') }}" class="btn btn-primary firstbanner-btn" type="submit">Start Learning Now!</a>
+                    <a href="{{ route('courses.index') }}" class="btn btn-primary firstbanner-btn" type="submit">Start Learning Now!</a>
                 </div>
             </div>
             <div class="bg-linear"></div>
@@ -31,7 +31,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $course->title }}</h5>
                                 <p class="card-text">{{ $course->intro }}</p>
-                                <a href="{{ route('courses.show', [$course->id]) }}" class="btn btn-primary">Take This Course</a>
+                                <a href="{{ route('courses.show', [$course]) }}" class="btn btn-primary">Take This Course</a>
                             </div>
                         </div>
                     </div>
@@ -53,14 +53,14 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $course->title }}</h5>
                                 <p class="card-text">{{ $course->intro }}</p>
-                                <a href="{{ route('courses.show', [$course->id]) }}" class="btn btn-primary">Take This Course</a>
+                                <a href="{{ route('courses.show', [$course]) }}" class="btn btn-primary">Take This Course</a>
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
         </div>
-        <a href="{{ route('courses') }}" class="row m-0 extend-course justify-content-center">
+        <a href="{{ route('courses.index') }}" class="row m-0 extend-course justify-content-center">
             <span>View All Our Courses <img src="./assets/img/right_arrow.png" alt="arrow"></span>
         </a>
         <!-- Why HapoLearn? -->
@@ -127,7 +127,7 @@
         <!-- Become a memmber -->
         <div class="d-flex flex-column justify-content-center align-items-center banner-encourage">
             <div class="banner-encourage-text">Become a member of our growing community!</div>
-            <a href="{{ route('courses') }}" class="btn btn-primary">Start Learning Now!</a>
+            <a href="{{ route('courses.index') }}" class="btn btn-primary">Start Learning Now!</a>
         </div>
         <!-- Statistic -->
         <div class="container d-flex flex-column justify-content-center statistic">
