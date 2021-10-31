@@ -97,7 +97,6 @@ class User extends Authenticatable
 
     public function scopeLessonTeachers($query, $lessonId)
     {
-        // dd($lessonId);
         $query = $query->whereHas('lessons', function ($subquery) use ($lessonId) {
             $subquery->where('lesson_id', $lessonId);
         })->where('role', User::ROLE_TEACHER);
@@ -119,9 +118,9 @@ class User extends Authenticatable
     public function uploadImg($request, $user)
     {
         $image = $request->file('image');
-        $image->move(storage_path('app/public/user'), $image->getClientOriginalName());
+        $image->move(storage_path('app/public/user'), $user->id.'.'.$image->getClientOriginalName());
         
-        $user->avatar = 'storage/user/'. $image->getClientOriginalName();
+        $user->avatar = 'storage/user/'. $user->id.'.'.$image->getClientOriginalName();
         $user->save();
     }
 

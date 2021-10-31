@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="d-flex flex-column">
                                     <label class="mt-4 user-label">Phone:</label>
-                                    <input class="p-2 profile-input " value="0{{ $user->phone }}" name="phone" type="text" placeholder="Your phone...">
+                                    <input class="p-2 profile-input " value="0{{ $user->phone }}" name="phone" type="text" maxlength="10" placeholder="Your phone...">
                                 </div>
                                 @error('phone')
                                     <span class="invalid-feedback d-block" role="alert">

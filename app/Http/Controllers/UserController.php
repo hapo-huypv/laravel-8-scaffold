@@ -21,7 +21,7 @@ class UserController extends Controller
         $user = $profile;
 
         if (Auth::user()->id == $user->id) {
-            $courses = Course::byUser($user->id)->get();
+            $courses = $user->courses()->get();
 
             return view('profile.show', compact('user', 'courses'));
         } else {
@@ -29,20 +29,18 @@ class UserController extends Controller
         }
     }
 
-    public function edit(ProfileRequest $request, User $user)
+    public function edit(UserRequest $request, User $profile)
     {
-        $user->edit($request, $user);
+        $user = $profile;
+        $user->editInfoUser($request, $user);
 
         return back()->with('success', 'Edit successfully!');
     }
 
-    public function store(Request $request, User $user)
+    public function store(Request $request)
     {
-        $image = $request->file('image');
-        $image->move('assets/img', $image->getClientOriginalName());
-        
-        $user->avatar = 'assets/img/'. $image->getClientOriginalName();
-        $user->save();
+        $user = Auth::user();
+        $user->uploadImg($request, $user);
         
         return back();
     }
