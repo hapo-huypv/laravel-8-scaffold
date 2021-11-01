@@ -7,7 +7,7 @@
 @section('content')
     <div class="show-detail">
         <div class="container">
-           @include('courses.partials.breadcrumb')
+           @include('components.breadcrumb')
             <div class="d-flex">
                 <div class="col-8 pl-0">
                     <div class="d-flex justify-content-center align-items-center  show-detail-img-background">
@@ -91,10 +91,10 @@
                                 @endif
                             </div>
                             <div class="tab-pane fade" id="pills-teacher" role="tabpanel" aria-labelledby="pills-teacher-tab">
-                                @include('courses.partials.teacher')
+                                @include('components.teacher')
                             </div>
                             <div class="tab-pane fade {{ substr(url()->full(), 31, 7) == 'reviews' ? 'show active' : ''}} @if (Session::has('post_review')) show active @endif" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
-                                @include('courses.reviews.index_review')
+                                @include('components.reviews.index_review')
                             </div>
                         </div>
                     </div>
