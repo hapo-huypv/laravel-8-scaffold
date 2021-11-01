@@ -17,17 +17,4 @@ class ProgramController extends Controller
 
         return view('pages.programs.show', compact('program', 'course', 'lesson'));
     }
-
-    public function join(Lesson $lesson, Program $program)
-    {
-        $program->users()->attach([Auth::user()->id ?? false]);
-
-        return back();
-    }
-
-    public function leave(Lesson $lesson, Program $program)
-    {
-        $program->users()->detach([Auth::user()->id ?? false]);
-        return back();
-    }
 }

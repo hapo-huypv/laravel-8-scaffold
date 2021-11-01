@@ -7,23 +7,17 @@ use App\Models\Course;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Lesson;
-use App\Models\CourseUser;
 use App\Models\Program;
-use Illuminate\Support\Facades\DB;
 use Auth;
 
 class LessonController extends Controller
 {
     public function show(Course $course, Lesson $lesson)
     {
-        $tags = Tag::tags($course->id)->get();
+        $courses = $course->suggestions()->get();
 
-        $courses = Course::suggestions()->get();
+        $teachers = $lesson->teachers;
 
-        $courseTeachers = User::lessonTeachers($lesson->id)->get();
-
-        $programs = Program::programs($lesson->id)->get();
-
-        return view('pages.lessons.show', compact('course', 'lesson', 'tags', 'courses', 'courseTeachers', 'programs'));
+        return view('pages.lessons.show', compact('course', 'lesson', 'courses', 'teachers'));
     }
 }

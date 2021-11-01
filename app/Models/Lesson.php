@@ -33,6 +33,11 @@ class Lesson extends Model
         return $this->belongsToMany(User::class, 'lesson_users', 'lesson_id', 'user_id');
     }
 
+    public function teachers()
+    {
+        return $this->users()->where('role', User::ROLE_TEACHER);
+    }
+
     public function programs()
     {
         return $this->hasMany(Program::class);
@@ -41,17 +46,6 @@ class Lesson extends Model
     public function getNumberUserAttribute()
     {
         return $this->users()->where('role', User::ROLE_STUDENT)->count();
-    }
-
-    public function getJoinAttribute()
-    {
-        if (isset(Auth::user()->id)) {
-            $userId = Auth::user()->id;
-        } else {
-            $userId = null;
-        }
-
-        return $this->users()->where('user_id', $userId)->count();
     }
 
     public function scopeLessonsInCourse($query, $array)

@@ -47,6 +47,11 @@ class Course extends Model
         return $this->belongsToMany(Tag::class, 'course_tags');
     }
 
+    public function teachers()
+    {
+        return $this->users()->where('role', User::ROLE_TEACHER);
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'course_users', 'course_id', 'user_id');

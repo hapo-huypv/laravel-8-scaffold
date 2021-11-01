@@ -1,10 +1,10 @@
 <div class="show-detail-course">
     <div class="tab-title">Main Teacher</div>
-    @foreach ($courseTeachers as $courseTeacher)
+    @foreach ($teachers as $teacher)
         <div class="d-flex align-items-center">
             <img src="{{ asset('assets/img/avatar_nghialt.png') }}" alt="teacher">
             <div class="ml-3">
-                <div class="teacher-name">{{ $courseTeacher->name }}</div>
+                <div class="teacher-name">{{ $teacher->name }}</div>
                 <div class="teacher-role">Second Year Teacher</div>
                 <div class="d-flex">
                     <i class="d-flex justify-content-center align-items-center mr-1 fab fa-google-plus-g"></i>

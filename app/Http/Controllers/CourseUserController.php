@@ -11,8 +11,21 @@ class CourseUserController extends Controller
     public function store(Request $request)
     {
         $course = Course::findOrFail($request['course_id']);
-        $course->users()->attach([Auth::user()->id ?? false]);
+        if ($course->join == config('course.joinin')) {
+            $course->users()->sync([Auth::id() ?? null]);
 
-        return back();
+            return back()->with('success', 'Join the course successfully');
+        } else {
+            return back()->with('error', 'Joined failed');
+        }
+    }
+
+    public function destroy(Request $request, Course $courseUser)
+    {
+        if ($courseUser->join <> config('course.joinin')) {
+            $courseUser->users()->detach([Auth::id() ?? null]);
+
+            return redirect()->route('courses.show', [$courseUser])->with('success', 'Leave the course successfully');
+        }
     }
 }

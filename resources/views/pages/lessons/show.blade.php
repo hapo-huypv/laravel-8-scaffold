@@ -38,7 +38,7 @@
                             </div>
                             <div class="tab-pane fade" id="pills-program" role="tabpanel" aria-labelledby="pills-program-tab">
                             @if($course->join == config('lesson.joinedin'))    
-                                @include('courses.lessons.programs')
+                                @include('pages.programs.index')
                             @endif
                             </div>
                             <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
@@ -89,8 +89,8 @@
                             <div class="col-6 d-flex align-items-center">
                                 <div class="">:</div>
                                 <div class="d-flex course-info-number">
-                                <!-- {{ $toEnd = count($tags) }} -->
-                                @foreach ($tags as $key => $tag)
+                                <!-- {{ $toEnd = count($course->tags) }} -->
+                                @foreach ($course->tags as $key => $tag)
                                     <a href="#" class="color-tags">{{ $tag->name }}</a>
                                     @if ($key+1 < $toEnd )
                                         <div class="mr-2 color-tags">,</div>
@@ -118,7 +118,15 @@
                         </div>
                         <hr>
                         @if ($course->join == config('course.joinedin'))
-                            <div class="d-flex justify-content-center"><a href="{{ route('courses.leave', ['course' => $course]) }}" id="btnLeaveLesson" class="m-0 btn btn-success btn-course-join" type="submit">Leave the course</a></div>
+                            <div class="d-flex align-items-center justify-content-center course-info-line">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <form method="POST" action="{{ route('course-users.destroy', [$course]) }}">
+                                        @csrf <!-- csrf_token -->
+                                        @method('DELETE')
+                                        <button id="btnLeaveCourse" class="ml-0 btn btn-success btn-course-join" type="submit">Leave the course</button>                     
+                                    </form>
+                                </div>
+                            </div>
                         @endif                      
                     </div>
                     <div class="course-othercourse">

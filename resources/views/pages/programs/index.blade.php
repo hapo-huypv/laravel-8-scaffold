@@ -7,7 +7,7 @@
         </div>
     </div>
     <hr>
-    @foreach ($programs as $program)
+    @foreach ($lesson->programs as $program)
     <div class="d-flex align-items-center program">
         @if ($program->type == 0)
         <div class="icon-word mr-3"></div>
