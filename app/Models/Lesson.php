@@ -54,11 +54,10 @@ class Lesson extends Model
         return $this->users()->where('user_id', $userId)->count();
     }
 
-    public function scopeLessons($query, $array)
+    public function scopeLessonsInCourse($query, $array)
     {
-        // dd($array);
-        $keyword = $array[0];
-        $courseId = $array[1];
+        $keyword = $array[config('lesson.first')];
+        $courseId = $array[config('lesson.second')];
         if (isset($keyword)) {
             $query = $query->where('course_id', $courseId)->where('title', 'like', "%$keyword%");
         } else {

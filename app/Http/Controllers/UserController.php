@@ -23,21 +23,24 @@ class UserController extends Controller
         if (Auth::user()->id == $user->id) {
             $courses = Course::byUser($user->id)->get();
 
-            return view('profile.show', compact('user', 'courses'));
+            return view('pages.profile.show', compact('user', 'courses'));
         } else {
             return "404";
         }
     }
 
-    public function edit(ProfileRequest $request, User $user)
+    public function edit(UserRequest $request, User $profile)
     {
-        $user->edit($request, $user);
+        $user = $profile;
 
+        $user->edit($request, $user);
         return back()->with('success', 'Edit successfully!');
     }
 
-    public function store(Request $request, User $user)
+    public function store(Request $request, User $profile)
     {
+        $user = $profile;
+        
         $image = $request->file('image');
         $image->move('assets/img', $image->getClientOriginalName());
         

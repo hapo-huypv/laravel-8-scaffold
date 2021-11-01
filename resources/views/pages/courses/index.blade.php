@@ -75,7 +75,7 @@
         <div class="course-list">  
             <div class="row">
                 @foreach($courses as $course)
-                    @include('courses.partials.card_course')
+                    @include('pages.courses.card_course')
                 @endforeach
             </div>
         </div>

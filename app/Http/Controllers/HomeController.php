@@ -33,6 +33,6 @@ class HomeController extends Controller
         $numberLeaners = new CourseUser();
         $numberLeaners = $numberLeaners->learners;
 
-        return view('home', compact('courses', 'otherCourses', 'reviews', 'countCourses', 'countLessons', 'numberLeaners'));
+        return view('pages.home', compact('courses', 'otherCourses', 'reviews', 'countCourses', 'countLessons', 'numberLeaners'));
     }
 }
