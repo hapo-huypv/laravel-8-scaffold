@@ -12,8 +12,9 @@
                     <div class="d-flex flex-column align-items-center text-center">
                         <img class="rounded-circle mt-5  user-avatar" src="{{ asset($user->avatar) }}" alt="avatar">
                         <i id="imgCamera" class="fas fa-camera"></i>
-                        <form id="formUploadImg" class="form-horizontal d-none" action="{{ route('profile.store', ['profile' => $user->id]) }}" method="POST" enctype="multipart/form-data">
+                        <form id="formUploadImg" class="form-horizontal d-none" action="{{ route('profile.update', ['profile' => $user->id]) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PATCH')
                             <input class=" d-flex justify-content-center" type="file" name="image">
                             <input type="submit" value="Submit">
                         </form>
@@ -49,7 +50,7 @@
                     </div>
                     <hr class="profile-underline m-0">
                     <div class="mt-4 d-flex justify-content-center">
-                        @foreach($courses as $course)
+                        @foreach($user->courses as $course)
                         <div class="d-flex flex-column align-items-center mr-2">
                             <img class="img-course" src="{{ asset($course->image) }}" alt="course">
                             <div class="course-text">{{ $course->title }}</div>
@@ -66,7 +67,9 @@
                         Edit profile      
                     </div>
                     <hr class="profile-underline m-0">
-                    <form method="get" action="{{ route('profile.edit', ['profile' => Auth::id()]) }}">
+                    <form method="POST" action="{{ route('profile.update', ['profile' => Auth::id()]) }}">
+                        @csrf
+                        @method('PATCH')
                         <div class="edit-user d-flex">
                             <div class="col-6">
                                 <div class="d-flex flex-column">

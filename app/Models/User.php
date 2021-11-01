@@ -119,7 +119,7 @@ class User extends Authenticatable
     {
         $image = $request->file('image');
         $image->move(storage_path('app/public/user'), $user->id.'.'.$image->getClientOriginalName());
-        
+
         $user->avatar = 'storage/user/'. $user->id.'.'.$image->getClientOriginalName();
         $user->save();
     }

@@ -46,13 +46,6 @@ class CourseController extends Controller
         return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'reviews', 'courseTeachers'));
     }
 
-    public function join(Course $course)
-    {
-        $course->users()->attach([Auth::user()->id ?? false]);
-
-        return back();
-    }
-
     public function leave(Course $course)
     {
         $course->users()->detach([Auth::user()->id ?? false]);

@@ -37,7 +37,7 @@
                                 @include('courses.partials.teacher')
                             </div>
                             <div class="tab-pane fade" id="pills-program" role="tabpanel" aria-labelledby="pills-program-tab">
-                            @if($lesson->join == config('lesson.joinedin'))    
+                            @if($course->join == config('lesson.joinedin'))    
                                 @include('courses.lessons.programs')
                             @endif
                             </div>
@@ -108,8 +108,8 @@
                             <div class="col-6 d-flex align-items-center">
                                 <div class="">:</div>
                                 <div class="course-info-number">
-                                    @if($lesson->price != 0)
-                                        {{ $lesson->price }}
+                                    @if($course->price != 0)
+                                        {{ $course->price }}
                                     @else
                                         Free
                                     @endif
@@ -117,10 +117,8 @@
                             </div>
                         </div>
                         <hr>
-                        @if ($lesson->join == config('lesson.joinedin'))
-                            <div class="d-flex justify-content-center"><a href="{{ route('courses.lessons.leave', ['course' => $course, 'lesson' => $lesson]) }}" id="btnLeaveLesson" class="m-0 btn btn-success btn-course-join" type="submit">Leave the lesson</a></div>
-                        @else
-                            <div class="d-flex justify-content-center"><a href="{{ route('courses.lessons.join', ['course' => $course, 'lesson' => $lesson]) }}" id="btnJoinLesson" class="m-0 btn btn-success btn-course-join" type="submit">Learn the lesson</a></div>
+                        @if ($course->join == config('course.joinedin'))
+                            <div class="d-flex justify-content-center"><a href="{{ route('courses.leave', ['course' => $course]) }}" id="btnLeaveLesson" class="m-0 btn btn-success btn-course-join" type="submit">Leave the course</a></div>
                         @endif                      
                     </div>
                     <div class="course-othercourse">

@@ -43,7 +43,11 @@
                                     </div>
                                     <div class="">
                                         @if ($course->join == config('course.joinin') && isset(Auth::user()->id))
-                                            <a href="{{ route('courses.join', [$course]) }}" id="btnJoinCourse" class="btn btn-success btn-course-join" type="submit">Join in the course</a>
+                                            <form method="POST" action="{{ route('course-user.store') }}">
+                                                @csrf <!-- csrf_token -->
+                                                <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                                <button id="btnJoinCourse" class="btn btn-success btn-course-join" type="submit">Join in the course</a>
+                                            </form>
                                         @elseif ($course->join == config('course.joinedin') && isset(Auth::user()->id))
                                             <div id="btnJoinedCourse" class="btn-course-join w-50 btn-color-nonactive">Joined</div>
                                         @endif
