@@ -169,6 +169,4 @@ class Course extends Model
 
         return $numberCountRate;
     }
-
-    // public function scopeByUser()
 }
