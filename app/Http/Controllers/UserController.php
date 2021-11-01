@@ -21,7 +21,7 @@ class UserController extends Controller
         $user = $profile;
 
         if (Auth::user()->id == $user->id) {
-            $courses = $user->courses()->get();
+            $courses = $user->courses;
 
             return view('profile.show', compact('user', 'courses'));
         } else {

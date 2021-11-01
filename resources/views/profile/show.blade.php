@@ -71,16 +71,31 @@
                             <div class="col-6">
                                 <div class="d-flex flex-column">
                                     <label class="mt-4 user-label">Name:</label>
-                                    <input class="p-2 profile-input " name="name" type="text" value="{{ $user->name != null ? $user->name : '' }}" placeholder="Your name">
+                                    <input class="p-2 profile-input " name="profile_name" type="text" required value="{{ $user->name != null ? $user->name : '' }}" placeholder="Your name">
                                 </div>
+                                @error('profile_name')
+                                    <span class="invalid-feedback d-block" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 <div class="d-flex flex-column">
                                     <label class="mt-4 user-label">Date of birthday:</label>
-                                    <input class="p-2 profile-input " name="birthday" type="date" value="{{ $user->birthday != null ? $user->birthday : '' }}" placeholder="dd/mm/yyyy">
+                                    <input class="p-2 profile-input " name="birthday" type="date" required value="{{ $user->birthday != null ? $user->birthday : '' }}" placeholder="dd/mm/yyyy">
                                 </div>
+                                @error('birthday')
+                                    <span class="invalid-feedback d-block" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 <div class="d-flex flex-column">
                                     <label class="mt-4 user-label">Address:</label>
-                                    <input class="p-2 profile-input " name="address" type="text" value="{{ $user->address != null ? $user->address : '' }}" placeholder="Your address...">
+                                    <input class="p-2 profile-input " name="address" type="text" required value="{{ $user->address != null ? $user->address : '' }}" placeholder="Your address...">
                                 </div>
+                                @error('address')
+                                    <span class="invalid-feedback d-block" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-6">
                                 <div class="d-flex flex-column"> 
@@ -89,7 +104,7 @@
                                 </div>
                                 <div class="d-flex flex-column">
                                     <label class="mt-4 user-label">Phone:</label>
-                                    <input class="p-2 profile-input " value="0{{ $user->phone }}" name="phone" type="text" maxlength="10" placeholder="Your phone...">
+                                    <input class="p-2 profile-input " value="0{{ $user->phone }}" name="phone" required pattern="(\+84|0)\d{9,10}"  type="tel" maxlength="10" placeholder="Your phone...">
                                 </div>
                                 @error('phone')
                                     <span class="invalid-feedback d-block" role="alert">
@@ -98,9 +113,9 @@
                                 @enderror
                                 <div class="d-flex flex-column">
                                     <label class="mt-4 user-label">About me:</label>
-                                    <input class="p-2 profile-input " name="about_me" type="text" placeholder="About you...">
+                                    <input class="p-2 profile-input" value="{{ $user->intro }}" name="about_me" required type="text" placeholder="About you...">
                                 </div>
-                                @error('address')
+                                @error('about_me')
                                     <span class="invalid-feedback d-block" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

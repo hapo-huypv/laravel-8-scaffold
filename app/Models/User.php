@@ -107,7 +107,7 @@ class User extends Authenticatable
     public function editInfoUser($request, $user)
     {
         $user->update([
-            'name' => $request['name'],
+            'name' => $request['profile_name'],
             'birthday' => $request['birthday'],
             'address' => $request['address'],
             'phone' => $request['phone'],
