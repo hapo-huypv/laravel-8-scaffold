@@ -67,7 +67,7 @@
                         Edit profile      
                     </div>
                     <hr class="profile-underline m-0">
-                    <form method="POST" action="{{ route('profile.update', ['profile' => Auth::id()]) }}">
+                    <form method="POST" action="{{ route('profile.update', ['profile' => Auth::user()]) }}">
                         @csrf
                         @method('PATCH')
                         <div class="edit-user d-flex">

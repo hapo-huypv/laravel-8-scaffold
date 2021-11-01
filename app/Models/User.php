@@ -104,7 +104,7 @@ class User extends Authenticatable
         return $query;
     }
 
-    public function editInfoUser($request, $user)
+    public function updateInfo($request, $user)
     {
         $user->update([
             'name' => $request['profile_name'],
@@ -115,7 +115,7 @@ class User extends Authenticatable
         ]);
     }
 
-    public function uploadImg($request, $user)
+    public function updateImg($request, $user)
     {
         $image = $request->file('image');
         $image->move(storage_path('app/public/user'), $user->id.'.'.$image->getClientOriginalName());
