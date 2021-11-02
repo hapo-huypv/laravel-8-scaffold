@@ -31,6 +31,5 @@ class HomeController extends Controller
         $totalLearners = User::where('role', User::ROLE_STUDENT)->count();
         
         return view('pages.home', compact('courses', 'otherCourses', 'reviews', 'totalCourses', 'totalLessons', 'totalLearners'));
-
     }
 }
