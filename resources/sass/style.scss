@@ -1,2 +1,21 @@
-@import 'variable', 'color', 'button';
-@import 'header', 'banner', 'course', 'why_hapolearn', 'feedback', 'banner_encourage', 'statistic', 'footer', 'login_register', 'chat_box', 'all_course', 'pagination', 'show_detail', 'profile', 'password';
+@import 'abstracts/variable';
+@import 'abstracts/color.scss';
+
+@import 'components/button';
+
+@import 'layouts/chat_box';
+@import 'layouts/footer';
+@import 'layouts/header';
+@import 'layouts/login_register';
+@import 'layouts/pagination';
+@import 'layouts/password';
+
+@import 'pages/all_courses';
+@import 'pages/course';
+@import 'pages/profile';
+@import 'pages/show_detail';
+@import 'pages/home/banner';
+@import 'pages/home/banner_encourage';
+@import 'pages/home/feedback';
+@import 'pages/home/statistic';
+@import 'pages/home/why_hapolearn';

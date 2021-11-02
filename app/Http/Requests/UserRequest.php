@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProfileRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,12 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'edit_email' => ['required', 'unique:users,email'],
         ];
     }
 
     public function messages()
     {
         return [
-            'edit_email.unique:users' => 'this username does not match',
         ];
     }
 }

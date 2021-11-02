@@ -7,11 +7,10 @@ use App\Models\Review;
 
 class ReviewController extends Controller
 {
-    //
-    public function store(Request $request, $courseId)
+    public function create(Request $request, $targetId)
     {
         $newReview = new Review();
-        $newReview = $newReview->createReviewCourse($request, $courseId);
+        $newReview = $newReview->createReviewCourse($request, $targetId);
 
         return back()->with('post_review', 'check');
     }

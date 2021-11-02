@@ -12,12 +12,6 @@ use App\Models\CourseUser;
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-
-    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
@@ -36,6 +30,7 @@ class HomeController extends Controller
 
         $totalLearners = User::where('role', User::ROLE_STUDENT)->count();
         
-        return view('home', compact('courses', 'otherCourses', 'reviews', 'totalCourses', 'totalLessons', 'totalLearners'));
+        return view('pages.home', compact('courses', 'otherCourses', 'reviews', 'totalCourses', 'totalLessons', 'totalLearners'));
+
     }
 }

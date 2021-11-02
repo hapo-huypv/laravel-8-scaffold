@@ -7,7 +7,7 @@
 @section('content')
 <div class="all-course">
     <div class="container">
-        <form method="get" action="{{ route('courses') }}">
+        <form method="get" action="{{ route('courses.index') }}">
             <div class="d-flex mb-3 nav-filter">
                 <div id="btnFilter" class="course-filter">
                     <p class="course-filter-text">Filter</p>
@@ -75,7 +75,7 @@
         <div class="course-list">  
             <div class="row">
                 @foreach($courses as $course)
-                    @include('courses.partials.card_course')
+                    @include('pages.courses.card_course')
                 @endforeach
             </div>
         </div>

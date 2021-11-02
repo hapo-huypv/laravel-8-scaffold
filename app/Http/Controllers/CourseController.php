@@ -19,12 +19,12 @@ class CourseController extends Controller
     {
         $tags = Tag::all();
 
-        $teachers = User::teachers()->get();
+        $teachers = User::teachers()->get(['name', 'id']);
 
         $dataRequest = $request->input();
         $courses = Course::filter($dataRequest)->paginate(config('course.number_paginations'));
         
-        return view('courses.index', compact('courses', 'tags', 'teachers'));
+        return view('pages.courses.index', compact('courses', 'tags', 'teachers'));
     }
 
     public function show(Request $request, Course $course)
@@ -36,14 +36,13 @@ class CourseController extends Controller
         $courses = $course->suggestions()->get()->take(config('course.five'));
 
         $array = array($request['keyword'], $id);
-        
-        $lessons = Lesson::lessons($array)->paginate(config('lesson.number_paginations'), ['*'], 'lessons');
+        $lessons = $course->lessons()->lessonsInCourse($array)->paginate(config('lesson.number_paginations'), ['*'], 'lessons');
 
         $courseTeachers = $course->users()->courseTeachers($id)->get();
 
-        $reviews = Review::reviewByCourse($id)->paginate(config('course.paginate_review'), ['*'], 'reviews');
+        $reviews = $course->reviews()->reviewByCourse($id)->paginate(config('course.paginate_review'), ['*'], 'reviews');
 
-        return view('courses.show', compact('course', 'lessons', 'tags', 'courses', 'reviews', 'courseTeachers'));
+        return view('pages.courses.show', compact('course', 'lessons', 'tags', 'courses', 'reviews', 'courseTeachers'));
     }
 
     public function join(Course $course)
@@ -63,13 +62,5 @@ class CourseController extends Controller
         }
 
         return back();
-    }
-
-    public function review(Request $request, $courseId)
-    {
-        $newReview = new Review();
-        $newReview = $newReview->createReviewCourse($request, $courseId);
-
-        return back()->with('post_review', 'check');
     }
 }

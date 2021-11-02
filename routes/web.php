@@ -6,50 +6,41 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProgramController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ReviewController;
 use App\Models\User;
 use App\Models\Course;
 use Carbon\Carbon;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get('home', [HomeController::class, 'index'])->name('home.index');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('/courses/{course}')->group(function () {
+        Route::get('/join', [CourseController::class, 'join'])->name('courses.join');
+        Route::get('/leave', [CourseController::class, 'leave'])->name('courses.leave');
+        Route::get('/lessons/{lesson}/join', [LessonController::class, 'join'])->name('courses.lessons.join');
+        Route::get('/lessons/{lesson}/leave', [LessonController::class, 'leave'])->name('courses.lessons.leave');
+        Route::get('/reviews', [ReviewController::class, 'create'])->name('courses.reviews.create');
+    });
+    
+    Route::prefix('/lessons/{lesson}/programs/{program}')->group(function () {
+        Route::get('/join', [ProgramController::class, 'join'])->name('lessons.programs.join');
+        Route::get('/leave', [ProgramController::class, 'leave'])->name('lessons.programs.leave');
+    });
 
-Route::get('/', [HomeController::class, 'index']);
+    Route::resource('courses.lessons', LessonController::class)->only(['show']);
 
-Route::prefix('courses')->group(function () {
-    Route::get('/', [CourseController::class, 'index'])->name('courses');
-    Route::get('/{course}', [CourseController::class, 'show'])->name('detail_course');
-    Route::get('/lessons/{lesson}', [LessonController::class, 'show'])->name('detail_lesson');
-    Route::get('/lessons/{lesson}/join', [LessonController::class, 'join'])->name('join_lesson');
-    Route::get('/lessons/{lesson}/leave', [LessonController::class, 'leave'])->name('leave_lesson');
-    Route::get('/lessons/programs/{program}', [ProgramController::class, 'show'])->name('program');
-    Route::get('/lessons/programs/{program}/learned', [ProgramController::class, 'join'])->name('learned_program');
-    Route::get('/lessons/programs/{program}/leave', [ProgramController::class, 'leave'])->name('leave_program');
-    Route::get('/{course}/join', [CourseController::class, 'join'])->name('join_course');
-    Route::get('/{course}/leave', [CourseController::class, 'leave'])->name('leave_course');
-    Route::POST('/reviews/{courseId}', [ReviewController::class, 'store'])->name('review');
+    Route::resource('lessons.programs', ProgramController::class)->only(['show']);
+
+    Route::resource('profile', UserController::class)->only(['show', 'edit', 'store']);
 });
 
-Route::prefix('/profile')->group(function () {
-    Route::get('/{user}', [ProfileController::class, 'show'])->name('profile');
-    Route::get('/{user}/edit', [ProfileController::class, 'edit'])->name('edit_profile');
-    Route::post('/{user}/upload', [ProfileController::class, 'upload'])->name('uploadimg_profile');
-});
+Route::resource('courses', CourseController::class)->only(['index', 'show']);
 
 Auth::routes();
 
-Route::get('/google', [GoogleController::class, 'redirectToGoogle'])->name('google');
-
-Route::get('/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+Route::prefix('/google')->group(function () {
+    Route::get('/', [GoogleController::class, 'redirectToGoogle'])->name('google');
+    Route::get('/callback', [GoogleController::class, 'handleGoogleCallback']);
+});
