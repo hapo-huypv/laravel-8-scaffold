@@ -55,7 +55,7 @@ class Course extends Model
         return $this->belongsToMany(User::class, 'course_users', 'course_id', 'user_id');
     }
 
-    public function getJoinAttribute()
+    public function getIsJoinAttribute()
     {
         if (isset(Auth::user()->id)) {
             $userId = Auth::user()->id;
@@ -68,12 +68,17 @@ class Course extends Model
 
     public function getNumberUserAttribute()
     {
-        return $this->users()->where('role', User::ROLE_STUDENT)->count();
+        return $this->users->where('role', User::ROLE_STUDENT)->count();
     }
 
     public function reviews()
     {
         return $this->hasMany(Review::class, 'target_id')->where('type', Review::TYPE_COURSE);
+    }
+
+    public function orderByReview()
+    {
+        return $this->reviews()->where('target_id', $this->id)->orderBy('created_at', 'DESC');
     }
 
     public function scopeFilter($query, $dataRequest)
@@ -152,31 +157,26 @@ class Course extends Model
         return $query;
     }
 
-    public function getCourseCountAttribute()
-    {
-        return $this->count();
-    }
-
     public function getAvgRateAttribute()
     {
         return $this->reviews->where('type', Review::TYPE_COURSE)->avg('rate');
     }
 
-    public function getCountRateAttribute()
+    public function getTotalReviewsAttribute()
     {
         return $this->reviews->where('type', Review::TYPE_COURSE)->count();
     }
 
-    public function getNumberCountRateAttribute()
+    public function getNumberRateAttribute()
     {
-        $numberCountRate = array(config('app.none'), config('app.none'), config('app.none'), config('app.none'), config('app.none'));
+        $arrayNumber = array(config('app.none'), config('app.none'), config('app.none'), config('app.none'), config('app.none'));
         
-        $numberCount = $this->reviews()->where('type', Review::TYPE_COURSE)->selectRaw('rate, count(*) as total')->groupBy('rate')->orderBy('rate', config('course.descending'))->get();
+        $arrayNumberRate = $this->reviews()->where('type', Review::TYPE_COURSE)->selectRaw('rate, count(*) as total')->groupBy('rate')->orderBy('rate', config('course.descending'))->get();
         
-        foreach ($numberCount as $rating) {
-            $numberCountRate[config('app.max_rate') - $rating->rate] = $rating->total;
+        foreach ($arrayNumberRate as $rating) {
+            $arrayNumber[config('app.max_rate') - $rating->rate] = $rating->total;
         }
 
-        return $numberCountRate;
+        return $arrayNumber;
     }
 }

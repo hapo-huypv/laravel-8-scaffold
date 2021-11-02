@@ -42,7 +42,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="pills-program" role="tabpanel" aria-labelledby="pills-program-tab">
-                            @if($course->join == config('lesson.joinedin'))    
+                            @if($course->is_join == config('lesson.joinedin'))    
                                 @include('pages.programs.index')
                             @endif
                             </div>
@@ -122,7 +122,7 @@
                             </div>
                         </div>
                         <hr>
-                        @if ($course->join == config('course.joinedin'))
+                        @if ($course->is_join == config('course.joinedin'))
                             <div class="d-flex align-items-center justify-content-center course-info-line">
                                 <div class="d-flex align-items-center justify-content-center">
                                     <form method="POST" action="{{ route('course-users.destroy', [$course]) }}">

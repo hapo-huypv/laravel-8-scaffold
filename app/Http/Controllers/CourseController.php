@@ -27,7 +27,7 @@ class CourseController extends Controller
     {
         $lessons = $course->lessons()->where('course_id', $course->id)->where('title', 'like', '%' .$request['keyword'].'%')->paginate(config('lesson.number_paginations'), ['*'], 'lessons');
 
-        $reviews = $course->reviews()->reviewByCourse($course->id)->paginate(config('app.paginate_review'), ['*'], 'reviews');
+        $reviews = $course->orderByReview()->paginate(config('app.paginate_review'), ['*'], 'reviews');
 
         return view('pages.courses.show', compact('course', 'lessons', 'reviews'));
     }

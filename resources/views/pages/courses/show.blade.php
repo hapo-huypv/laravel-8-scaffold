@@ -42,13 +42,13 @@
                                         </form>
                                     </div>
                                     <div class="">
-                                        @if ($course->join == config('course.joinin') && isset(Auth::user()->id))
+                                        @if ($course->is_join == config('course.joinin') && isset(Auth::user()->id))
                                             <form method="POST" action="{{ route('course-users.store') }}">
                                                 @csrf <!-- csrf_token -->
                                                 <input type="hidden" name="course_id" value="{{ $course->id }}">
                                                 <button id="btnJoinCourse" class="btn btn-success btn-course-join" type="submit">Join in the course</a>
                                             </form>
-                                        @elseif ($course->join == config('course.joinedin') && isset(Auth::user()->id))
+                                        @elseif ($course->is_join == config('course.joinedin') && isset(Auth::user()->id))
                                             <div id="btnJoinedCourse" class="btn-course-join w-50 btn-color-nonactive">Joined</div>
                                         @endif
                                     </div>
@@ -63,7 +63,7 @@
                                             <span class="mr-3 lesson-index">{{ $key + 1 + (request('page')-1)*config('lesson.number_paginations') }}.</span> 
                                         @endif
                                             <a href="{{ route('courses.lessons.show', ['course' => $course, 'lesson' => $lesson]) }}" class="col-9 lesson-title">{{ $lesson->title }}</a>
-                                        @if ($course->join == config('course.joinedin'))
+                                        @if ($course->is_join == config('course.joinedin'))
                                             <div class="processing-border d-flex lesson-processing justify-content-center align-items-center">
                                                 <span class="processing" style="width:{{round($lesson->number_process, 2)}}%"></span>
                                                 <span class="processing-number">{{ round($lesson->number_process, 2) }}%</span>
@@ -173,7 +173,7 @@
                         </div>
                         <hr>
                         <div class="d-flex align-items-center justify-content-center course-info-line">
-                            @if ($course->join == config('course.joinedin'))
+                            @if ($course->is_join == config('course.joinedin'))
                                 <div class="d-flex align-items-center justify-content-end">
                                     <form method="POST" action="{{ route('course-users.destroy', [$course]) }}">
                                         @csrf <!-- csrf_token -->
