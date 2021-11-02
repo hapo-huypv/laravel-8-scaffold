@@ -80,7 +80,12 @@
                                 <hr>
                             </div>
                             <div class="tab-pane fade" id="pills-teacher" role="tabpanel" aria-labelledby="pills-teacher-tab">
-                                @include('components.teacher')
+                                <div class="show-detail-course">
+                                    <div class="tab-title">Main Teacher</div>
+                                    @foreach ($course->teachers as $teacher)
+                                        @include('components.teacher')
+                                    @endforeach
+                                </div>
                             </div>
                             <div class="tab-pane fade {{ substr(url()->full(), 31, 7) == 'reviews' ? 'show active' : ''}} @if (Session::has('post_review')) show active @endif" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
                                 @include('components.reviews.index_review')
@@ -182,7 +187,7 @@
                     <div class="course-othercourse">
                         <div class="d-flex align-items-center justify-content-center course-othercourse-title">Other Courses</div>
                         <div class="course-othercourse-list">
-                            @foreach ($courses as $key => $randomCourse)
+                            @foreach ($course->suggestions as $key => $randomCourse)
                                 <div class="d-flex">
                                     <span class="mr-3">{{ $key+1 }}.</span> 
                                     <a href="{{ route('courses.show', [$randomCourse->id])}}" class="othercourse">{{ $randomCourse->title }}</a>

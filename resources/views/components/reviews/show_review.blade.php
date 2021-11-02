@@ -4,7 +4,7 @@
             <img src="{{ asset($review->avatar) }}" alt="avatar" class="reviews-img">
             <span class="reviews-username">{{ $review->user_name }}</span>
             <span class="rating-star-icon mr-4">
-                @for ($i = 0; $i < $review->rate; $i++)
+                @for ($i = config('app.none'); $i < $review->rate; $i++)
                 <i class="fa fa-star star-size" aria-hidden="true"></i>
                 @endfor
             </span>

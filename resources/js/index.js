@@ -130,8 +130,9 @@ $('#btnAddReview').click(function () {
   });
 })
 
-$('#paginationReview').click(function () {
-  $('#pills-reviews').addClass('show active');
+$('#paginationReview').on('click', function () {
+  alert('huy');
+  $('#pills-reviews').addClass('active show');
 });
 
 if ($('.pop-up').hasClass('pop-up')) {

@@ -25,17 +25,10 @@ class CourseController extends Controller
 
     public function show(Request $request, Course $course)
     {
-        $id = $course->id;
+        $lessons = $course->lessons()->where('course_id', $course->id)->where('title', 'like', '%' .$request['keyword'].'%')->paginate(config('lesson.number_paginations'), ['*'], 'lessons');
 
-        $courses = $course->suggestions()->get()->take(config('course.max_rate'));
+        $reviews = $course->reviews()->reviewByCourse($course->id)->paginate(config('app.paginate_review'), ['*'], 'reviews');
 
-        $array = array($request['keyword'], $id);
-        $lessons = $course->lessons()->lessonsInCourse($array)->paginate(config('lesson.number_paginations'), ['*'], 'lessons');
-
-        $teachers = $course->teachers;
-
-        $reviews = $course->reviews()->reviewByCourse($id)->paginate(config('course.paginate_review'), ['*'], 'reviews');
-
-        return view('pages.courses.show', compact('course', 'lessons', 'courses', 'reviews', 'teachers'));
+        return view('pages.courses.show', compact('course', 'lessons', 'reviews'));
     }
 }

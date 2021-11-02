@@ -14,10 +14,6 @@ class LessonController extends Controller
 {
     public function show(Course $course, Lesson $lesson)
     {
-        $courses = $course->suggestions()->get();
-
-        $teachers = $lesson->teachers;
-
-        return view('pages.lessons.show', compact('course', 'lesson', 'courses', 'teachers'));
+        return view('pages.lessons.show', compact('course', 'lesson'));
     }
 }

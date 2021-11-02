@@ -5,8 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
-use App\Models\CourseUser;
 use App\Models\User;
 use App\Models\Review;
 use Auth;
@@ -140,11 +138,9 @@ class Course extends Model
         return $query;
     }
 
-    public function scopeSuggestions($query)
+    public function getSuggestionsAttribute($query)
     {
-        $query = $query->sortByRating();
-
-        return $query;
+        return $this->sortByRating()->get()->take(config('app.max_rate'));
     }
 
     public function scopeSortByRating($query)
@@ -173,12 +169,12 @@ class Course extends Model
 
     public function getNumberCountRateAttribute()
     {
-        $numberCountRate = array(config('course.none'), config('course.none'), config('course.none'), config('course.none'), config('course.none'));
+        $numberCountRate = array(config('app.none'), config('app.none'), config('app.none'), config('app.none'), config('app.none'));
         
         $numberCount = $this->reviews()->where('type', Review::TYPE_COURSE)->selectRaw('rate, count(*) as total')->groupBy('rate')->orderBy('rate', config('course.descending'))->get();
-    
+        
         foreach ($numberCount as $rating) {
-            $numberCountRate[config('course.max_rate') - $rating->rate] = $rating->total;
+            $numberCountRate[config('app.max_rate') - $rating->rate] = $rating->total;
         }
 
         return $numberCountRate;

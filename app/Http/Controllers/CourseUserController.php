@@ -22,7 +22,7 @@ class CourseUserController extends Controller
 
     public function destroy(Request $request, Course $courseUser)
     {
-        if ($courseUser->join <> config('course.joinin')) {
+        if ($courseUser->join != config('course.joinin')) {
             $courseUser->users()->detach([Auth::id() ?? null]);
 
             return redirect()->route('courses.show', [$courseUser])->with('success', 'Leave the course successfully');

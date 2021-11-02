@@ -48,18 +48,6 @@ class Lesson extends Model
         return $this->users()->where('role', User::ROLE_STUDENT)->count();
     }
 
-    public function scopeLessonsInCourse($query, $array)
-    {
-        $keyword = $array[config('lesson.first')];
-        $courseId = $array[config('lesson.second')];
-        if (isset($keyword)) {
-            $query = $query->where('course_id', $courseId)->where('title', 'like', "%$keyword%");
-        } else {
-            $query = $query->where('course_id', $courseId);
-        }
-        return $query;
-    }
-
     public function getNumberProgramAttribute()
     {
         return $this->programs()->count();
@@ -70,12 +58,12 @@ class Lesson extends Model
         $learnedLesson = Program::learnedPrograms($this->id)->get();
         $numberLearnedLesson = count($learnedLesson);
      
-        if ($this->getNumberProgramAttribute() != 0) {
+        if ($this->getNumberProgramAttribute() != config('app.none')) {
             $process = $numberLearnedLesson / $this->getNumberProgramAttribute();
             
-            return $process * 100;
+            return $process * config('app.hundred');
         } else {
-            return 0;
+            return config('app.none');
         }
     }
 
