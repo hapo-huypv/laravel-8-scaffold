@@ -142,7 +142,16 @@ class Course extends Model
 
     public function scopeSuggestions($query)
     {
-        $query = $query->inRandomOrder()->limit(5);
+        $query = $query->sortByRating();
+
+        return $query;
+    }
+
+    public function scopeSortByRating($query)
+    {
+        $query = $query->withAvg('reviews', 'rate', function ($subquery) {
+            $subquery->where('type', Review::TYPE_COURSE)->groupBy('target_id');
+        })->orderBy('reviews_avg_rate', config('course.descending'));
 
         return $query;
     }

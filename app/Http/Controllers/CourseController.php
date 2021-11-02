@@ -27,7 +27,7 @@ class CourseController extends Controller
     {
         $id = $course->id;
 
-        $courses = $course->suggestions()->get();
+        $courses = $course->suggestions()->get()->take(config('course.max_rate'));
 
         $array = array($request['keyword'], $id);
         $lessons = $course->lessons()->lessonsInCourse($array)->paginate(config('lesson.number_paginations'), ['*'], 'lessons');

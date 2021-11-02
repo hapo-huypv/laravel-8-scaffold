@@ -118,9 +118,10 @@ class User extends Authenticatable
     public function updateImg($request, $user)
     {
         $image = $request->file('image');
-        $image->move(storage_path('app/public/user'), $user->id.'.'.$image->getClientOriginalName());
+        $path = $image->hashName();
+        $image->move(storage_path('app/public/user'), $path);
 
-        $user->avatar = 'storage/user/'. $user->id.'.'.$image->getClientOriginalName();
+        $user->avatar = 'storage/user/'. $path;
         $user->save();
     }
 

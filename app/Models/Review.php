@@ -99,4 +99,11 @@ class Review extends Model
     {
         return $this->user->name;
     }
+
+    public function scopeHighRating($query)
+    {
+        $query->where('type', Review::TYPE_COURSE)->orderBy('rate', 'desc');
+
+        return $query;
+    }
 }
