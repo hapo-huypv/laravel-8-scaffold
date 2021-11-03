@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Program;
-use Illuminate\Support\Facades\DB;
 use App\Models\Lesson;
-use App\Models\Course;
 use Auth;
 
 class ProgramController extends Controller
