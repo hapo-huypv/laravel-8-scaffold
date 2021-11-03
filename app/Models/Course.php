@@ -81,6 +81,11 @@ class Course extends Model
         return $this->reviews()->where('target_id', $this->id)->orderBy('created_at', 'DESC');
     }
 
+    public function searchLessons($request)
+    {
+        return $this->lessons()->where('title', 'like', '%' .$request['keyword'].'%');
+    }
+
     public function scopeFilter($query, $dataRequest)
     {
         if (isset($dataRequest['keyword'])) {

@@ -25,7 +25,7 @@ class CourseController extends Controller
 
     public function show(Request $request, Course $course)
     {
-        $lessons = $course->lessons()->where('course_id', $course->id)->where('title', 'like', '%' .$request['keyword'].'%')->paginate(config('lesson.number_paginations'), ['*'], 'lessons');
+        $lessons = $course->searchLessons($request)->paginate(config('lesson.number_paginations'), ['*'], 'lessons');
 
         $reviews = $course->orderByReview()->paginate(config('app.paginate_review'), ['*'], 'reviews');
 
