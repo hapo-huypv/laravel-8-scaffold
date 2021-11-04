@@ -18,9 +18,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $courses = Course::all()->take(config('home.get_course'));
+        $courses = Course::suggestions()->get()->take(config('home.get_course'));
 
-        $otherCourses = Course::suggestions()->get()->take(config('home.get_course'));
+        $otherCourses = Course::inRandomOrder()->get()->take(config('home.get_course'));
 
         $reviews = Review::highRating()->take(config('home.get_review'))->get();
 
@@ -30,6 +30,6 @@ class HomeController extends Controller
 
         $totalLearners = User::where('role', User::ROLE_STUDENT)->count();
         
-        return view('home', compact('courses', 'otherCourses', 'reviews', 'totalCourses', 'totalLessons', 'totalLearners'));
+        return view('pages.home', compact('courses', 'otherCourses', 'reviews', 'totalCourses', 'totalLessons', 'totalLearners'));
     }
 }

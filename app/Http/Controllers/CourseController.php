@@ -19,7 +19,7 @@ class CourseController extends Controller
     {
         $tags = Tag::all();
 
-        $teachers = User::teachers()->get();
+        $teachers = User::teachers()->get(['name', 'id']);
 
         $dataRequest = $request->input();
         $courses = Course::filter($dataRequest)->paginate(config('course.number_paginations'));
@@ -33,17 +33,23 @@ class CourseController extends Controller
 
         $tags = $course->tags()->get();
 
-        $courses = $course->suggestions()->get();
+        $courses = $course->suggestions()->get()->take(config('course.five'));
 
         $array = array($request['keyword'], $id);
-        
-        $lessons = Lesson::lessons($array)->paginate(config('lesson.number_paginations'), ['*'], 'lessons');
+        $lessons = $course->lessons()->lessonsInCourse($array)->paginate(config('lesson.number_paginations'), ['*'], 'lessons');
 
         $courseTeachers = $course->users()->courseTeachers($id)->get();
 
-        $reviews = Review::reviewByCourse($id)->paginate(config('course.paginate_review'), ['*'], 'reviews');
+        $reviews = $course->reviews()->reviewByCourse($id)->paginate(config('course.paginate_review'), ['*'], 'reviews');
 
         return view('pages.courses.show', compact('course', 'lessons', 'tags', 'courses', 'reviews', 'courseTeachers'));
+    }
+
+    public function join(Course $course)
+    {
+        $course->users()->attach([Auth::user()->id ?? false]);
+
+        return back();
     }
 
     public function leave(Course $course)
