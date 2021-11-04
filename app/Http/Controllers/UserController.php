@@ -15,7 +15,6 @@ class UserController extends Controller
 
         if (Auth::user()->id == $user->id) {
             return view('pages.profile.show', compact('user'));
-
         } else {
             return "404";
         }
