@@ -6,65 +6,67 @@
   slidesToScroll: 1,
   prevArrow: '<button class="slide-arrow prev-arrow"><i class="fas fa-angle-left"></i></button>',
   nextArrow: '<button class="slide-arrow next-arrow"><i class="fas fa-angle-right"></i></button>',
-  responsive: [{
-          breakpoint: 1024,
-          settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1,
-              infinite: true,
-              dots: true
-          }
-      },
+  responsive: 
+  [{
+    breakpoint: 1024,
+    settings: 
+    {
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      infinite: true,
+      dots: true
+    }
+  },
+    {
+      breakpoint: 600,
+      settings: 
       {
-          breakpoint: 600,
-          settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1
-          }
+        slidesToShow: 1,
+        slidesToScroll: 1
       }
-  ]
+    }]
 });
 
-$('.footer-iconandlink').on('mouseover', function () {
+$('.footer-iconandlink').on('mouseover', function() {
   $('#imgContact', this).removeClass('txt-hidden').addClass('readmore');
 });
 
-$('.footer-iconandlink').on('mouseout', function () {
+$('.footer-iconandlink').on('mouseout', function() {
   $('#imgContact', this).removeClass('readmore').addClass('txt-hidden');
 });
 
-$('.close-button').on('click', function () {
+$('.close-button').on('click', function() {
   $('#messenger', this).removeClass('chatbox');
 });
 
-$('.close-button').on('click', function () {
+$('.close-button').on('click', function() {
   $('#messenger').slideUp();
 });
 
-$('.logo-messenger').on('click', function () {
+$('.logo-messenger').on('click', function() {
   $('#messenger').slideDown();
 });
 
-$('.header-nav').on('click', function () {
+$('.header-nav').on('click', function() {
   $('.header-nav').removeClass('nav-link-active');
   $(this).addClass('nav-link-active');
 });
 
-$('.navbar-toggler').on('click', function () {
+$('.navbar-toggler').on('click', function() {
   if ($('#navbarResponsiveClose').hasClass('navbar-toggler-icon')) {
-      $('.navbar-toggler-icon').removeClass('navbar-toggler-icon').addClass('navbar-close');
-      $('.header').addClass('header-mobile');
+    $('.navbar-toggler-icon').removeClass('navbar-toggler-icon').addClass('navbar-close');
+    $('.header').addClass('header-mobile');
   } else {
-      $('.navbar-close').removeClass('navbar-close').addClass('navbar-toggler-icon');
-      $('.header').removeClass('header-mobile');
+    $('.navbar-close').removeClass('navbar-close').addClass('navbar-toggler-icon');
+    $('.header').removeClass('header-mobile');
   }
 });
 
-$(".alert").on('click', function () {
+$(".alert").on('click', function() {
   $(".alert").removeClass('d-flex').addClass('d-none');
 });
 
-setTimeout(function () {
+setTimeout(function() {
   $(".alert").removeClass('d-flex').addClass('d-none');
 }, 2000);
 
@@ -78,39 +80,39 @@ if ($('#pillsRegister input').hasClass('is-invalid')) {
   $('#pillsRegisterTab').tab('show');
 };
 
-$('#btnFilter').on('click', function () {
+$('#btnFilter').on('click', function() {
   if ($('.course-lookup').hasClass('d-none')) {
-      $('.course-lookup').removeClass('d-none').addClass('d-flex');
+    $('.course-lookup').removeClass('d-none').addClass('d-flex');
   } else {
-      $('.course-lookup').addClass('d-none').removeClass('d-flex');
+    $('.course-lookup').addClass('d-none').removeClass('d-flex');
   }
 });
 
-$('.newest').on('click', function () {
+$('.newest').on('click', function() {
   $('.newest').removeClass('course-lookup-btn-status').addClass('course-lookup-btn-status-active');
   $('.oldest').addClass('course-lookup-btn-status');
 });
 
-$('.oldest').on('click', function () {
+$('.oldest').on('click', function() {
   $('.oldest').removeClass('course-lookup-btn-status').addClass('course-lookup-btn-status-active');
   $('.newest').addClass('course-lookup-btn-status');
 });
 
 $('.add-select2').select2({});
 
-$('.nav-item button').on('click', function (e) {
+$('.nav-item button').on('click', function(e) {
   e.preventDefault();
   $(this).tab('show');
 });
 
-$('.nav-item button').on('shown.bs.tab', function (event) {
+$('.nav-item button').on('shown.bs.tab', function(event) {
   var activeTab = $(event.target).attr('data-bs-target'); // active tab
   var previousTab = $(event.relatedTarget).attr('data-bs-target'); // previous tab
   $(activeTab).tab('show');
   $(previousTab).removeClass('show active');
 });
 
-$('#imgCamera').on('click', function (event) {
+$('#imgCamera').on('click', function(event) {
   if ($('#formUploadImg').hasClass('d-none')) {
       $('#formUploadImg').removeClass('d-none');
   } else {
@@ -118,19 +120,7 @@ $('#imgCamera').on('click', function (event) {
   }
 });
 
-$("#selectReview").change(function () {
-  $.get("/course", function (data) {
-      alert(data);
-  });
-});
-
-$('#btnAddReview').click(function () {
-  $.post("/course/review/1", function (data) {
-      $('#showReview').load('home');
-  });
-})
-
-$('#paginationReview').click(function () {
+$('#paginationReview').on('click', function() {
   $('#pills-reviews').addClass('show active');
 });
 

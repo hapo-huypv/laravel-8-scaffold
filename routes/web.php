@@ -27,7 +27,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/join', [ProgramController::class, 'join'])->name('lessons.programs.join');
         Route::get('/leave', [ProgramController::class, 'leave'])->name('lessons.programs.leave');
     });
-    Route::resource('course-user', CourseUserController::class)->only('store', 'delete');
     Route::resource('courses.lessons', LessonController::class)->only(['show']);
 
     Route::resource('lessons.programs', ProgramController::class)->only(['show']);
