@@ -12,8 +12,9 @@
                     <div class="d-flex flex-column align-items-center text-center">
                         <img class="rounded-circle mt-5  user-avatar" src="{{ asset($user->avatar) }}" alt="avatar">
                         <i id="imgCamera" class="fas fa-camera"></i>
-                        <form id="formUploadImg" class="form-horizontal d-none" action="{{ route('profile.store', ['profile' => $user->id]) }}" method="POST" enctype="multipart/form-data">
+                        <form id="formUploadImg" class="form-horizontal d-none" action="{{ route('profile.update', ['profile' => $user->id]) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PATCH')
                             <input class=" d-flex justify-content-center" type="file" name="image">
                             <input type="submit" value="Submit">
                         </form>
@@ -49,7 +50,7 @@
                     </div>
                     <hr class="profile-underline m-0">
                     <div class="mt-4 d-flex justify-content-center">
-                        @foreach($courses as $course)
+                        @foreach($user->courses as $course)
                         <div class="d-flex flex-column align-items-center mr-2">
                             <img class="img-course" src="{{ asset($course->image) }}" alt="course">
                             <div class="course-text">{{ $course->title }}</div>
@@ -66,40 +67,63 @@
                         Edit profile      
                     </div>
                     <hr class="profile-underline m-0">
-                    <form method="get" action="{{ route('profile.edit', ['profile' => Auth::id()]) }}">
+
+                    <form method="POST" action="{{ route('profile.update', ['profile' => Auth::user()]) }}">
+                        @csrf
+                        @method('PATCH')
                         <div class="edit-user d-flex">
                             <div class="col-6">
                                 <div class="d-flex flex-column">
                                     <label class="mt-4 user-label">Name:</label>
-                                    <input class="p-2 profile-input " name="name" type="text" value="{{ $user->name != null ? $user->name : '' }}" placeholder="Your name">
+                                    <input class="p-2 profile-input " name="profile_name" type="text" required value="{{ $user->name != null ? $user->name : '' }}" placeholder="Your name">
                                 </div>
+                                @error('profile_name')
+                                    <span class="invalid-feedback d-block" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 <div class="d-flex flex-column">
                                     <label class="mt-4 user-label">Date of birthday:</label>
-                                    <input class="p-2 profile-input " name="birthday" type="date" value="{{ $user->birthday != null ? $user->birthday : '' }}" placeholder="dd/mm/yyyy">
+                                    <input class="p-2 profile-input " name="birthday" type="date" required value="{{ $user->birthday != null ? $user->birthday : '' }}" placeholder="dd/mm/yyyy">
                                 </div>
+                                @error('birthday')
+                                    <span class="invalid-feedback d-block" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 <div class="d-flex flex-column">
                                     <label class="mt-4 user-label">Address:</label>
-                                    <input class="p-2 profile-input " name="address" type="text" value="{{ $user->address != null ? $user->address : '' }}" placeholder="Your address...">
+                                    <input class="p-2 profile-input " name="address" type="text" required value="{{ $user->address != null ? $user->address : '' }}" placeholder="Your address...">
                                 </div>
+                                @error('address')
+                                    <span class="invalid-feedback d-block" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-6">
                                 <div class="d-flex flex-column"> 
                                     <label class="mt-4 user-label">Email:</label>
                                     <input disabled class="p-2 profile-input" name="edit_email" type="text" value="{{ $user->email != null ? $user->email : '' }}" placeholder="Your email...">
                                 </div>
-                                @error('edit_email')
+                                <div class="d-flex flex-column">
+                                    <label class="mt-4 user-label">Phone:</label>
+                                    <input class="p-2 profile-input " value="0{{ $user->phone }}" name="phone" required pattern="(\+84|0)\d{9,10}"  type="tel" maxlength="10" placeholder="Your phone...">
+                                </div>
+                                @error('phone')
                                     <span class="invalid-feedback d-block" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                                 <div class="d-flex flex-column">
-                                    <label class="mt-4 user-label">Phone:</label>
-                                    <input class="p-2 profile-input " name="phone" type="text" placeholder="Your phone...">
-                                </div>
-                                <div class="d-flex flex-column">
                                     <label class="mt-4 user-label">About me:</label>
-                                    <input class="p-2 profile-input " name="about_me" type="text" placeholder="About you...">
+                                    <input class="p-2 profile-input" value="{{ $user->intro }}" name="about_me" required type="text" placeholder="About you...">
                                 </div>
+                                @error('about_me')
+                                    <span class="invalid-feedback d-block" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="d-flex justify-content-end m-3">

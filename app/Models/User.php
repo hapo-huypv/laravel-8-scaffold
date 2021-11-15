@@ -97,7 +97,6 @@ class User extends Authenticatable
 
     public function scopeLessonTeachers($query, $lessonId)
     {
-        // dd($lessonId);
         $query = $query->whereHas('lessons', function ($subquery) use ($lessonId) {
             $subquery->where('lesson_id', $lessonId);
         })->where('role', User::ROLE_TEACHER);
@@ -105,16 +104,24 @@ class User extends Authenticatable
         return $query;
     }
 
-    public function edit($request, $user)
+    public function updateInfo($request, $user)
     {
-        User::where('id', $user->id)
-            ->update([
-                'name' => $request['name'],
-                'birthday' => $request['birthday'],
-                'address' => $request['address'],
-                'phone' => $request['phone'],
-                'intro' => $request['about_me'],
-            ]);
+        $user->update([
+            'name' => $request['profile_name'],
+            'birthday' => $request['birthday'],
+            'address' => $request['address'],
+            'phone' => $request['phone'],
+            'intro' => $request['about_me'],
+        ]);
+    }
+
+    public function updateImg($request, $user)
+    {
+        $image = $request->file('image');
+        $image->move(storage_path('app/public/user'), $user->id.'.'.$image->getClientOriginalName());
+        
+        $user->avatar = 'storage/user/'. $user->id.'.'.$image->getClientOriginalName();
+        $user->save();
     }
 
     public function getDateOfBirthAttribute()

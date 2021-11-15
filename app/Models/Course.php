@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
-use App\Models\CourseUser;
 use App\Models\User;
 use App\Models\Review;
 use Auth;
@@ -147,15 +146,6 @@ class Course extends Model
         $query = $query->withAvg('reviews', 'rate', function ($subquery) {
             $subquery->where('type', Review::TYPE_COURSE)->groupBy('target_id');
         })->orderBy('reviews_avg_rate', config('course.descending'));
-
-        return $query;
-    }
-
-    public function scopeByUser($query, $userId)
-    {
-        $query = $query->whereHas('users', function ($subquery) use ($userId) {
-            $subquery->where('user_id', $userId);
-        });
 
         return $query;
     }
