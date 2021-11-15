@@ -11,6 +11,7 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\CourseUserController;
 use App\Http\Controllers\ProgramUserController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\AdminController;
 use App\Models\User;
 use App\Models\Course;
 use Carbon\Carbon;
@@ -39,3 +40,5 @@ Route::prefix('/google')->group(function () {
     Route::get('/', [GoogleController::class, 'redirectToGoogle'])->name('google');
     Route::get('/callback', [GoogleController::class, 'handleGoogleCallback']);
 });
+
+Route::get('/admin' , [AdminController::class, 'index'])->name('admin.index');

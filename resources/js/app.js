@@ -35,3 +35,4 @@ import 'jquery/dist/jquery.min.js';
 import 'slick-carousel/slick/slick.js';
 import 'select2/dist/js/select2.min.js';
 require('./index.js');
+require('./sb-admin-2.min.js');

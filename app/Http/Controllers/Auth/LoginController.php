@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Providers\RouteServiceProvider;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -56,9 +57,11 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request)
     {
-        if ($this->attemptLogin($request)) {
+        if ($this->attemptLogin($request) && Auth::user()->role != User::ROLE_ADMIN) {
             return back()->with('success', 'Logged in successfully!');
-        } else {
+        } elseif ($this->attemptLogin($request) && Auth::user()->role == User::ROLE_ADMIN) {
+            return redirect()->route('admin.index')->with('success', 'Logged in successfully!');
+        } elseif (!$this->attemptLogin($request)) {
             return back()->with('error', 'Incorrect username or password')->with('popup', 'true');
         }
     }

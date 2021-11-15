@@ -177,7 +177,7 @@ class Course extends Model
         $arrayNumber = array(config('app.none'), config('app.none'), config('app.none'), config('app.none'), config('app.none'));
         
         $arrayNumberRate = $this->reviews()->where('type', Review::TYPE_COURSE)->selectRaw('rate, count(*) as total')->groupBy('rate')->orderBy('rate', config('course.descending'))->get();
-        
+        dd($arrayNumberRate);
         foreach ($arrayNumberRate as $rating) {
             $arrayNumber[config('app.max_rate') - $rating->rate] = $rating->total;
         }

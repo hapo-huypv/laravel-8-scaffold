@@ -18,11 +18,17 @@ class GoogleController extends Controller
     {
         $userGG = Socialite::driver('google')->user();
         
+        if ($user = User::where(['email' => $userGG->email])->first()) {
+            $user->update(['google' => $userGG->id]);
+            Auth::login($user);
+
+            return redirect('home');
+        }
         $user = User::where('google', $userGG->id)->first();
 
         if (!empty($user)) {
             Auth::login($user);
-
+            
             return redirect('home');
         } else {
             $user = User::create([
@@ -31,6 +37,7 @@ class GoogleController extends Controller
                 'password' => bcrypt('12345678'),
                 'role' => '0',
                 'google' => $userGG->id,
+                'avatar' => $userGG->avatar,
             ]);
 
             Auth::login($user);
