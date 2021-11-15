@@ -8,6 +8,8 @@ use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\CourseUserController;
+use App\Http\Controllers\ProgramUserController;
 use App\Http\Controllers\ReviewController;
 use App\Models\User;
 use App\Models\Course;
@@ -16,19 +18,12 @@ use Carbon\Carbon;
 Route::get('home', [HomeController::class, 'index'])->name('home.index');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::prefix('/courses/{course}')->group(function () {
-        Route::get('/join', [CourseController::class, 'join'])->name('courses.join');
-        Route::get('/leave', [CourseController::class, 'leave'])->name('courses.leave');
-        Route::get('/lessons/{lesson}/join', [LessonController::class, 'join'])->name('courses.lessons.join');
-        Route::get('/lessons/{lesson}/leave', [LessonController::class, 'leave'])->name('courses.lessons.leave');
-        Route::get('/reviews', [ReviewController::class, 'create'])->name('courses.reviews.create');
-    });
+    Route::get('/courses/{course}/reviews', [ReviewController::class, 'create'])->name('courses.reviews.create');
     
-    Route::prefix('/lessons/{lesson}/programs/{program}')->group(function () {
-        Route::get('/join', [ProgramController::class, 'join'])->name('lessons.programs.join');
-        Route::get('/leave', [ProgramController::class, 'leave'])->name('lessons.programs.leave');
-    });
+    Route::resource('course-users', CourseUserController::class)->only('store', 'destroy');
 
+    Route::resource('program-users', ProgramUserController::class)->only('store');
+    
     Route::resource('courses.lessons', LessonController::class)->only(['show']);
 
     Route::resource('lessons.programs', ProgramController::class)->only(['show']);

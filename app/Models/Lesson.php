@@ -33,6 +33,11 @@ class Lesson extends Model
         return $this->belongsToMany(User::class, 'lesson_users', 'lesson_id', 'user_id');
     }
 
+    public function teachers()
+    {
+        return $this->users()->where('role', User::ROLE_TEACHER);
+    }
+
     public function programs()
     {
         return $this->hasMany(Program::class);
@@ -41,29 +46,6 @@ class Lesson extends Model
     public function getNumberUserAttribute()
     {
         return $this->users()->where('role', User::ROLE_STUDENT)->count();
-    }
-
-    public function getJoinAttribute()
-    {
-        if (isset(Auth::user()->id)) {
-            $userId = Auth::user()->id;
-        } else {
-            $userId = null;
-        }
-
-        return $this->users()->where('user_id', $userId)->count();
-    }
-
-    public function scopeLessonsInCourse($query, $array)
-    {
-        $keyword = $array[config('lesson.first')];
-        $courseId = $array[config('lesson.second')];
-        if (isset($keyword)) {
-            $query = $query->where('course_id', $courseId)->where('title', 'like', "%$keyword%");
-        } else {
-            $query = $query->where('course_id', $courseId);
-        }
-        return $query;
     }
 
     public function getNumberProgramAttribute()
@@ -76,12 +58,12 @@ class Lesson extends Model
         $learnedLesson = Program::learnedPrograms($this->id)->get();
         $numberLearnedLesson = count($learnedLesson);
      
-        if ($this->getNumberProgramAttribute() != 0) {
+        if ($this->getNumberProgramAttribute() != config('app.none')) {
             $process = $numberLearnedLesson / $this->getNumberProgramAttribute();
             
-            return $process * 100;
+            return $process * config('app.hundred');
         } else {
-            return 0;
+            return config('app.none');
         }
     }
 

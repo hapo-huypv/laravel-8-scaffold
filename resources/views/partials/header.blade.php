@@ -9,8 +9,8 @@
             </a>
             <div class="collapse navbar-collapse align-items-center justify-content-end" id="navbarResponsive">
                 <ul class="navbar-nav align-items-center">
-                    <li class="nav-item"><a class="nav-link header-nav {{ Route::currentRouteName() == 'home' ? 'nav-link-active' : ''}}" href="{{ route('home.index') }}">HOME</a></li>
-                    <li class="nav-item"><a class="nav-link header-nav {{ Route::currentRouteName() == 'courses' ? 'nav-link-active' : ''}}" href="{{ route('courses.index') }}">ALL COURSES</a></li>
+                    <li class="nav-item"><a class="nav-link header-nav {{ Route::is('home*') ? 'nav-link-active' : ''}}" href="{{ route('home.index') }}">HOME</a></li>
+                    <li class="nav-item"><a class="nav-link header-nav {{ Route::is('courses*') ? 'nav-link-active' : ''}}" href="{{ route('courses.index') }}">ALL COURSES</a></li>
                    
                     @guest
                         @if (Route::has('login') || Route::has('register'))
@@ -18,7 +18,7 @@
                         @endif
                     @else
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle {{ Route::is('profile*') ? 'nav-link-active' : ''}}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
                             </a>
 

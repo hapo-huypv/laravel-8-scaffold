@@ -18,7 +18,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $courses = Course::suggestions()->get()->take(config('home.get_course'));
+        $courses = new Course();
+        $courses = $courses->suggestions->take(config('home.get_course'));
 
         $otherCourses = Course::inRandomOrder()->get()->take(config('home.get_course'));
 

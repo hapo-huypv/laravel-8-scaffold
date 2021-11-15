@@ -235,4 +235,11 @@ return [
 
     ],
 
+    'paginate_review' => '5',
+
+    'max_rate' => '5',
+    'none' => '0',
+
+    'hundred' => '100',
+
 ];

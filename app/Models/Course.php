@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Review;
 use Auth;
@@ -46,12 +45,17 @@ class Course extends Model
         return $this->belongsToMany(Tag::class, 'course_tags');
     }
 
+    public function teachers()
+    {
+        return $this->users()->where('role', User::ROLE_TEACHER);
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'course_users', 'course_id', 'user_id');
     }
 
-    public function getJoinAttribute()
+    public function getIsJoinAttribute()
     {
         if (isset(Auth::user()->id)) {
             $userId = Auth::user()->id;
@@ -64,12 +68,22 @@ class Course extends Model
 
     public function getNumberUserAttribute()
     {
-        return $this->users()->where('role', User::ROLE_STUDENT)->count();
+        return $this->users->where('role', User::ROLE_STUDENT)->count();
     }
 
     public function reviews()
     {
         return $this->hasMany(Review::class, 'target_id')->where('type', Review::TYPE_COURSE);
+    }
+
+    public function orderByReview()
+    {
+        return $this->reviews()->where('target_id', $this->id)->orderBy('created_at', 'DESC');
+    }
+
+    public function searchLessons($request)
+    {
+        return $this->lessons()->where('title', 'like', '%' .$request['keyword'].'%');
     }
 
     public function scopeFilter($query, $dataRequest)
@@ -134,11 +148,9 @@ class Course extends Model
         return $query;
     }
 
-    public function scopeSuggestions($query)
+    public function getSuggestionsAttribute($query)
     {
-        $query = $query->sortByRating();
-
-        return $query;
+        return $this->sortByRating()->get()->take(config('app.max_rate'));
     }
 
     public function scopeSortByRating($query)
@@ -155,21 +167,21 @@ class Course extends Model
         return $this->reviews->where('type', Review::TYPE_COURSE)->avg('rate');
     }
 
-    public function getCountRateAttribute()
+    public function getTotalReviewsAttribute()
     {
         return $this->reviews->where('type', Review::TYPE_COURSE)->count();
     }
 
-    public function getNumberCountRateAttribute()
+    public function getNumberRateAttribute()
     {
-        $numberCountRate = array(config('course.none'), config('course.none'), config('course.none'), config('course.none'), config('course.none'));
+        $arrayNumber = array(config('app.none'), config('app.none'), config('app.none'), config('app.none'), config('app.none'));
         
-        $numberCount = $this->reviews()->where('type', Review::TYPE_COURSE)->selectRaw('rate, count(*) as total')->groupBy('rate')->orderBy('rate', config('course.descending'))->get();
-    
-        foreach ($numberCount as $rating) {
-            $numberCountRate[config('course.max_rate') - $rating->rate] = $rating->total;
+        $arrayNumberRate = $this->reviews()->where('type', Review::TYPE_COURSE)->selectRaw('rate, count(*) as total')->groupBy('rate')->orderBy('rate', config('course.descending'))->get();
+        
+        foreach ($arrayNumberRate as $rating) {
+            $arrayNumber[config('app.max_rate') - $rating->rate] = $rating->total;
         }
 
-        return $numberCountRate;
+        return $arrayNumber;
     }
 }

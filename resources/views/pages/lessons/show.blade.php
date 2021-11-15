@@ -34,10 +34,15 @@
                                 @include('pages.lessons.descriptions')
                             </div>
                             <div class="tab-pane fade" id="pills-teacher" role="tabpanel" aria-labelledby="pills-teacher-tab">
-                                @include('components.teacher')
+                                <div class="show-detail-course">
+                                    <div class="tab-title">Main Teacher</div>
+                                    @foreach ($lesson->teachers as $teacher)
+                                        @include('components.teacher')
+                                    @endforeach
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="pills-program" role="tabpanel" aria-labelledby="pills-program-tab">
-                            @if($lesson->join == config('lesson.joinedin'))    
+                            @if($course->is_join == config('lesson.joinedin'))    
                                 @include('pages.programs.index')
                             @endif
                             </div>
@@ -89,8 +94,8 @@
                             <div class="col-6 d-flex align-items-center">
                                 <div class="">:</div>
                                 <div class="d-flex course-info-number">
-                                <!-- {{ $toEnd = count($tags) }} -->
-                                @foreach ($tags as $key => $tag)
+                                <!-- {{ $toEnd = count($course->tags) }} -->
+                                @foreach ($course->tags as $key => $tag)
                                     <a href="#" class="color-tags">{{ $tag->name }}</a>
                                     @if ($key+1 < $toEnd )
                                         <div class="mr-2 color-tags">,</div>
@@ -108,8 +113,8 @@
                             <div class="col-6 d-flex align-items-center">
                                 <div class="">:</div>
                                 <div class="course-info-number">
-                                    @if($lesson->price != 0)
-                                        {{ $lesson->price }}
+                                    @if($course->price != 0)
+                                        {{ $course->price }}
                                     @else
                                         Free
                                     @endif
@@ -117,16 +122,22 @@
                             </div>
                         </div>
                         <hr>
-                        @if ($lesson->join == config('lesson.joinedin'))
-                            <div class="d-flex justify-content-center"><a href="{{ route('courses.lessons.leave', ['course' => $course, 'lesson' => $lesson]) }}" id="btnLeaveLesson" class="m-0 btn btn-success btn-course-join" type="submit">Leave the lesson</a></div>
-                        @else
-                            <div class="d-flex justify-content-center"><a href="{{ route('courses.lessons.join', ['course' => $course, 'lesson' => $lesson]) }}" id="btnJoinLesson" class="m-0 btn btn-success btn-course-join" type="submit">Learn the lesson</a></div>
+                        @if ($course->is_join == config('course.joinedin'))
+                            <div class="d-flex align-items-center justify-content-center course-info-line">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <form method="POST" action="{{ route('course-users.destroy', [$course]) }}">
+                                        @csrf <!-- csrf_token -->
+                                        @method('DELETE')
+                                        <button id="btnLeaveCourse" class="ml-0 btn btn-success btn-course-join" type="submit">Leave the course</button>                     
+                                    </form>
+                                </div>
+                            </div>
                         @endif                      
                     </div>
                     <div class="course-othercourse">
                         <div class="d-flex align-items-center justify-content-center course-othercourse-title">Other Courses</div>
                         <div class="course-othercourse-list">
-                            @foreach ($courses as $key => $randomCourse)
+                            @foreach ($course->suggestions as $key => $randomCourse)
                                 <div class="d-flex">
                                     <span class="mr-3">{{ $key+1 }}.</span> 
                                     <span class="">{{ $randomCourse->title }}</span>

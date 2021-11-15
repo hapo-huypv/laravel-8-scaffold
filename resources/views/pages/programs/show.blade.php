@@ -7,11 +7,14 @@
 @section('content')
     <div class="show-detail">
         @include('components.breadcrumb')
-        @if ($program->join == config('course.joinin'))
-        <a href="{{ route('lessons.programs.join', ['lesson' => $lesson, 'program' => $program]) }}" id="btnLearnedProgram" class="col-2 flex-end btn btn-success btn-course-join-lesson p-0" type="submit">Learned</a>
-        @else
-        <a href="{{ route('lessons.programs.leave', ['lesson' => $lesson, 'program' => $program]) }}" id="btnLeaveProgram" class="col-2 flex-end btn btn-success btn-course-join-lesson p-0" type="submit">Leave</a>
-        @endif
+            <div class="">
+            @if ($program->join == config('course.joinin'))
+                <form method="POST" action="{{ route('program-users.store', ['program_id' => $program->id]) }}">
+                    @csrf <!-- csrf_token -->
+                    <button id="btnLearnedProgram" class="btn btn-success btn-course-join" type="submit">Learned</a>
+                </form>
+            @endif
+        </div>
         <video controls>
             <source src="{{ asset('assets/video/TinhKhucVang.mp4') }}">
         </video>

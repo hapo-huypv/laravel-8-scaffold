@@ -12,11 +12,4 @@ return [
 
     'joinin' => '0',
     'joinedin' => '1',
-
-    'paginate_review' => '5',
-
-    'max_rate' => '5',
-    'none' => '0',
-
-    'hundred_percent' => '100',
 ];

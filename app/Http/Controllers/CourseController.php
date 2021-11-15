@@ -6,12 +6,8 @@ use App\Models\Course;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Lesson;
-use App\Models\Review;
-use App\Models\CourseUser;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Auth;
-use Carbon\Carbon;
 
 class CourseController extends Controller
 {
@@ -29,38 +25,10 @@ class CourseController extends Controller
 
     public function show(Request $request, Course $course)
     {
-        $id = $course->id;
+        $lessons = $course->searchLessons($request)->paginate(config('lesson.number_paginations'), ['*'], 'lessons');
 
-        $tags = $course->tags()->get();
+        $reviews = $course->orderByReview()->paginate(config('app.paginate_review'), ['*'], 'reviews');
 
-        $courses = $course->suggestions()->get()->take(config('course.five'));
-
-        $array = array($request['keyword'], $id);
-        $lessons = $course->lessons()->lessonsInCourse($array)->paginate(config('lesson.number_paginations'), ['*'], 'lessons');
-
-        $courseTeachers = $course->users()->courseTeachers($id)->get();
-
-        $reviews = $course->reviews()->reviewByCourse($id)->paginate(config('course.paginate_review'), ['*'], 'reviews');
-
-        return view('pages.courses.show', compact('course', 'lessons', 'tags', 'courses', 'reviews', 'courseTeachers'));
-    }
-
-    public function join(Course $course)
-    {
-        $course->users()->attach([Auth::user()->id ?? false]);
-
-        return back();
-    }
-
-    public function leave(Course $course)
-    {
-        $course->users()->detach([Auth::user()->id ?? false]);
-        
-        $lessons = $course->lessons()->get();
-        foreach ($lessons as $lesson) {
-            $lesson->users()->detach([Auth::user()->id ?? false]);
-        }
-
-        return back();
+        return view('pages.courses.show', compact('course', 'lessons', 'reviews'));
     }
 }
