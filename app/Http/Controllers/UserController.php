@@ -29,6 +29,7 @@ class UserController extends Controller
             $user->updateInfo($request, $user);
         }
 
+        $user->edit($request, $user);
         return back()->with('success', 'Edit successfully!');
     }
 }
