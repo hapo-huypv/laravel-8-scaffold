@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('lessons.programs', ProgramController::class)->only(['show']);
 
-    Route::resource('profile', UserController::class)->only(['show', 'update', 'store']);
+    Route::resource('profile', UserController::class)->only(['show', 'update']);
 });
 
 Route::resource('courses', CourseController::class)->only(['index', 'show']);
